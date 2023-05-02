@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_29_052450) do
+ActiveRecord::Schema.define(version: 2023_05_01_041017) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,6 +24,42 @@ ActiveRecord::Schema.define(version: 2023_04_29_052450) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "attendances", force: :cascade do |t|
+    t.integer "workers_id", null: false
+    t.integer "working_hour_id", null: false
+    t.time "start_worktime", null: false
+    t.time "finish_worktime", null: false
+    t.time "start_breaktime", null: false
+    t.time "finish_breaktime", null: false
+    t.string "comment", null: false
+    t.integer "year_status", default: 0, null: false
+    t.integer "month_status", default: 0, null: false
+    t.integer "reason_status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "department_code", null: false
+    t.string "department_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "directors", force: :cascade do |t|
+    t.string "director_code", null: false
+    t.string "director_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "location_code", null: false
+    t.string "location_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "workers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -35,11 +71,14 @@ ActiveRecord::Schema.define(version: 2023_04_29_052450) do
     t.integer "department_id", null: false
     t.integer "location_id", null: false
     t.integer "director_id", null: false
+    t.integer "working_hour_id", null: false
     t.string "employee_number", null: false
     t.string "last_name", null: false
     t.string "first_name", null: false
     t.string "last_name_kana", null: false
     t.string "first_name_kana", null: false
+    t.integer "sex", default: 0, null: false
+    t.date "birthday", null: false
     t.date "hire_date", null: false
     t.date "retirement_date", null: false
     t.date "start_career_break", null: false
@@ -47,6 +86,14 @@ ActiveRecord::Schema.define(version: 2023_04_29_052450) do
     t.integer "employment_status", default: 0, null: false
     t.index ["email"], name: "index_workers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true
+  end
+
+  create_table "working_hours", force: :cascade do |t|
+    t.string "working_hour_code", null: false
+    t.time "start_working_hour", null: false
+    t.time "finish_working_hour", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

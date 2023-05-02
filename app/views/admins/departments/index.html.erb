@@ -1,0 +1,43 @@
+<main>
+<div class="container">
+
+  <h1>所属一覧・追加</h1>
+
+    <div class="department_new_field">
+      <%= form_with model: @department, url: admins_departments_path do |f| %>
+        <strong>所属コード</strong>
+        <%= f.text_field :department_code, :size=>"30" %><br>
+
+        <strong>所属名</strong>
+        <%= f.text_field :department_name, :size=>"30" %>
+
+      <u class="new_botton ml-5">
+        <%= f.submit '追加', class:"btn btn-sm btn-success" %>
+      </u>
+       <% end %>
+    </div>
+
+    <div class="department_list">
+      <table class="table mt-5">
+          <thead>
+            <tr>
+              <th>所属コード</th>
+              <th>所属名</th>
+              <th></th>
+            </tr>
+          </thead>
+
+         <% @departments.each do |department| %>
+          <tboby>
+            <tr>
+             <td><%= department.department_code %></td>
+             <td><%= department.department_name %></td>
+             <td><%= link_to "編集する", edit_admins_department_path(department.id), class:"btn btn-sm btn-success" %></td>
+            </tr>
+          </tbody>
+         <% end %>
+      </table>
+    </div>
+
+</div>
+</main>

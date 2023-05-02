@@ -1,0 +1,14 @@
+ja:
+  enums:
+    worker:
+      employment_status:
+        tenure: "在職"
+        retirement: "退職"
+        leave_from_work: "休職"
+
+ja:
+  enums:
+    worker:
+      sex:
+        male: "男"
+        female: "女"

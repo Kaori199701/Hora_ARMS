@@ -1,0 +1,22 @@
+<main>
+<div class="container">
+
+  <h1>所属編集</h1>
+
+  <div class="row">
+      <div class="department_edit_field">
+        <%= form_with model: @department, url: admins_department_path(@department), method: :patch do |f| %>
+          <strong>所属コード</strong>
+          <%= f.text_field :department_code, :size=>"30" %><br>
+
+          <strong>所属名</strong>
+          <%= f.text_field :department_name, :size=>"30" %>
+
+        <u class="new_botton ml-5">
+          <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+        </u>
+　      <% end %>
+  </div>
+
+</div>
+</main>

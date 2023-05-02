@@ -1,0 +1,25 @@
+<main>
+<div class="container">
+
+  <h1>勤務区分編集</h1>
+
+  <div class="row">
+      <div class="location_edit_field">
+        <%= form_with model: @working_hour, url: admins_working_hour_path(@working_hour), method: :patch do |f| %>
+          <strong>勤務区分コード</strong>
+          <%= f.text_field :working_hour_code, :size=>"30" %><br>
+
+          <strong>勤務開始時間</strong>
+          <%= f.text_field :start_working_hour, :size=>"30" %><br>
+
+          <strong>勤務終了時間</strong>
+          <%= f.text_field :finish_working_hour, :size=>"30" %>
+
+        <u class="new_botton ml-5">
+          <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+        </u>
+　      <% end %>
+  </div>
+
+</div>
+</main>

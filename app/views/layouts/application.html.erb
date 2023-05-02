@@ -6,11 +6,78 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+      <div class="container">
+          <a class="navbar-brand" href="/">
+            <span>Hora</span>
+          </a>
+
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" style>
+        <ul class="navbar-nav ml-auto">
+    <% if admin_signed_in? %>
+      <div class="text-light">
+      管理者専用ページ
+      </div>
+
+      <%= link_to destroy_admin_session_path, method: :delete , class:"nav-link text-light" do %>
+        ログアウト
+      <% end %>
+
+      <%= form_with local: true, method: :get do |form| %>
+        <%= form.text_field :keyword %>
+        <%= form.submit '検索' %>
+      <% end %>
+
+    <% elsif worker_signed_in? %>
+      <div class="text-light">
+      ようこそ、<%= current_worker.last_name %>さん！
+      </div>
+
+      <%= form_with local: true, method: :get do |form| %>
+        <%= form.text_field :keyword %>
+        <%= form.submit '検索' %>
+      <% end %>
+
+    <% else %>
+      <%= link_to '/', class:"nav-link text-light" do %>
+        Home
+      <% end %>
+
+      <%= link_to '/homes/about', class:"nav-link text-light" do %>
+        About
+      <% end %>
+
+      <%= link_to new_worker_session_path, class:"nav-link text-light" do %>
+        ログイン
+      <% end %>
+
+      <%= form_with local: true, method: :get do |form| %>
+        <%= form.text_field :keyword %>
+        <%= form.submit '検索' %>
+      <% end %>
+
+    <% end %>
+      </nl>
+    </div>
+    </div>
+
+    </header>
     <%= yield %>
+
+
+    <footer class="footer">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+       <div class="container mt-5">
+       </div>
+
+      </footer>
   </body>
 </html>

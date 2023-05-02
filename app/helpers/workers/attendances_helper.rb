@@ -1,0 +1,2 @@
+module Workers::AttendancesHelper
+end

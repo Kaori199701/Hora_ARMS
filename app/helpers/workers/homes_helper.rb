@@ -1,0 +1,2 @@
+module Workers::HomesHelper
+end

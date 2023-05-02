@@ -1,0 +1,43 @@
+<main>
+<div class="container">
+
+  <h1>役職一覧・追加</h1>
+
+    <div class="director_new_field">
+      <%= form_with model: @director, url: admins_directors_path do |f| %>
+        <strong>役職コード</strong>
+        <%= f.text_field :director_code, :size=>"30" %><br>
+
+        <strong>役職名</strong>
+        <%= f.text_field :director_name, :size=>"30" %>
+
+      <u class="new_botton ml-5">
+        <%= f.submit '追加', class:"btn btn-sm btn-success" %>
+      </u>
+       <% end %>
+    </div>
+
+    <div class="director_list">
+      <table class="table mt-5">
+          <thead>
+            <tr>
+              <th>役職コード</th>
+              <th>役職名</th>
+              <th></th>
+            </tr>
+          </thead>
+
+         <% @directors.each do |director| %>
+          <tboby>
+            <tr>
+             <td><%= director.director_code %></td>
+             <td><%= director.director_name %></td>
+             <td><%= link_to "編集する", edit_admins_director_path(director.id), class:"btn btn-sm btn-success" %></td>
+            </tr>
+          </tbody>
+         <% end %>
+      </table>
+    </div>
+
+</div>
+</main>
