@@ -6,6 +6,7 @@ class Admins::WorkersController < ApplicationController
   def create
     @worker = Worker.new(worker_params)
     @worker.save
+    redirect_to admins_homes_top_path
   end
 
   def index

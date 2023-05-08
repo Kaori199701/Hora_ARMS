@@ -38,21 +38,20 @@ class DeviseCreateWorkers < ActiveRecord::Migration[6.1]
       t.integer :department_id, null: false
       t.integer :location_id, null: false
       t.integer :director_id, null: false
-      t.integer :working_hour_id, null: false
+      t.integer :working_hour_id
       t.string :employee_number, null: false
       t.string :last_name, null: false
       t.string :first_name, null: false
       t.string :last_name_kana, null: false
       t.string :first_name_kana, null: false
       t.integer :sex,  default: 0, null: false
-      t.date :birthday, null: false
-      t.date :hire_date, null: false
-      t.date :retirement_date, null: false
-      t.date :start_career_break, null: false
-      t.date :finish_career_break, null: false
+      t.date :birthday
+      t.date :hire_date
+      t.date :retirement_date
+      t.date :start_career_break
+      t.date :finish_career_break
       t.integer :employment_status, default: 0, null: false
-      t.string :password_digest, limit: 191, null: false
-      t.string :remember_token, limit: 191
+
 
     end
 
