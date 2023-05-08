@@ -51,6 +51,8 @@ class DeviseCreateWorkers < ActiveRecord::Migration[6.1]
       t.date :start_career_break, null: false
       t.date :finish_career_break, null: false
       t.integer :employment_status, default: 0, null: false
+      t.string :password_digest, limit: 191, null: false
+      t.string :remember_token, limit: 191
 
     end
 

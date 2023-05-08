@@ -1,2 +1,84 @@
-<h1>Admins::Workers#edit</h1>
-<p>Find me in app/views/admins/workers/edit.html.erb</p>
+<main>
+
+<h1>〇山〇〇情報詳細</h1>
+
+<div class="worker_edit">
+    <%= form_with model: @worker, url: admins_worker_path(@worker.id), method: :patch do |f| %>
+
+    <table class="order-table table mb-5">
+      <tbody>
+        <tr>
+          <th>氏名</th>
+          <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %>
+        </tr>
+        <tr>
+          <th>カナ</th>
+          <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %>
+        </tr>
+        <tr>
+          <th>社員番号</th>
+          <td><%= f.text_field :employee_number %>
+        </tr>
+        <tr>
+          <th>所属</th>
+          <td><%= f.collection_select :department_id, Department.all, :id, :department_name %></td>
+        </tr>
+        <tr>
+          <th>役職</th>
+          <td><%= f.collection_select :director_id, Director.all, :id, :director_name %></td>
+        </tr>
+        <tr>
+          <th>勤務地</th>
+          <td><%= f.collection_select :location_id, Location.all, :id, :location_name %></td>
+        </tr>
+        <tr>
+          <th>勤務区分</th>
+          <td>
+            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :start_working_hour %>
+            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :finish_working_hour %>
+          </td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td>
+            <%= f.radio_button :sex, "male" %>
+            <%= f.label :sex, "男" %>
+
+            <%= f.radio_button :sex, "female" %>
+            <%= f.label :sex, "女" %>
+          </td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td>
+            <%= f.text_field :birthday %>
+          </td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= f.email_field :email, :size=>"40" %></td>
+        </tr>
+        <tr>
+          <th>勤務状況</th>※まだ
+          <td>
+            <%= form.select :prefecture, Address.prefectures.keys, {prompt: "選択してください"}, class: "prefecture-select" %>
+          </td>
+        </tr>
+        <tr>
+          <th>初期パスワード</th>
+          <td><%= f.password_field :password, :size=>"40" %></td>
+        </tr>
+        <tr>
+          <th>初期パスワード(確認)</th>
+          <td><%= f.password_field :password_confirmation, :size=>"40" %></td>
+        </tr>
+      </tbody>
+    </table>
+
+      <div class="actions">
+        <%= f.submit '編集内容を保存', class:"btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+
+</main>

@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 2023_05_01_041017) do
     t.date "start_career_break", null: false
     t.date "finish_career_break", null: false
     t.integer "employment_status", default: 0, null: false
+    t.string "password_digest", limit: 191, null: false
+    t.string "remember_token", limit: 191
     t.index ["email"], name: "index_workers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true
   end

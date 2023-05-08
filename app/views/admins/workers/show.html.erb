@@ -1,2 +1,84 @@
-<h1>Admins::Workers#show</h1>
-<p>Find me in app/views/admins/workers/show.html.erb</p>
+<main>
+
+<h1>〇山〇〇情報詳細</h1>
+
+<div class="worker_edit">
+    <%= link_to "編集する", edit_admins_worker_path(@worker.id), class:"btn btn-sm btn-success" %>
+
+    <table class="order-table table mb-5">
+      <tbody>
+        <tr>
+          <th>氏名</th>
+          <td><%= @worker.last_name %>　<%= @worker.first_name %></td>
+        </tr>
+        <tr>
+          <th>カナ</th>
+          <td><%= @worker.last_name_kana %>　<%= @worker.first_name_kana %></td>
+        </tr>
+        <tr>
+          <th>社員番号</th>
+          <td><%= @worker.employee_number %></td>
+        </tr>
+        <tr>
+          <th>所属</th>
+          <td><%= @worker.department_name %></td>
+        </tr>
+        <tr>
+          <th>役職</th>
+          <td><%= @worker.director_name %></td>
+        </tr>
+        <tr>
+          <th>勤務地</th>
+          <td><%= @worker.location_name %></td>
+        </tr>
+        <tr>
+          <th>勤務区分</th>
+          <td><%= @worker.start_working_hour %>　<%= @worker.finish_working_hour %></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td>
+            <%= @worker.sex %>
+          </td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td>
+            <%= @worker.birthday %>
+          </td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @worker.email %></td>
+        </tr>
+        <tr>
+          <th>勤務状況</th>
+          <td>
+            <%= @worker.employment_status %>
+          </td>
+        </tr>
+        <tr>
+          <th>入社日</th>
+          <td>
+            <%= @worker.hire_date %>
+          </td>
+        </tr>
+        <tr>
+          <th>退社日</th>
+          <td>
+            <%= @worker.retirement_date %>
+          </td>
+        </tr>
+        <tr>
+          <th>休職期間</th>
+          <td>
+            <%= @worker.start_career_break %>～<%= @worker.finish_career_break %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% end %>
+  </div>
+
+</main>
