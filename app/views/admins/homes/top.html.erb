@@ -27,11 +27,14 @@
         </tr>
       </thead>
 
+      <% @workers.each do |worker| %>
       <tboby>
-
         <tr>
          <td>
-
+            <%= worker.department.department_name %>
+         </td>
+         <td>
+            <%= worker.last_name %><%= worker.first_name %>
          </td>
          <td>
 
@@ -40,7 +43,7 @@
 
          </td>
         </tr>
-
       </tbody>
+      <% end %>
     </table>
 </main>

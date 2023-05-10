@@ -1,2 +1,44 @@
-<h1>Attendances#edit</h1>
-<p>Find me in app/views/attendances/edit.html.erb</p>
+<main>
+
+<h1><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h1>
+
+<%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
+
+<u class="new_botton ml-5">
+  <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+</u>
+
+
+<p>月選択</p>
+
+    <div class="department_list">
+      <table class="table mt-5">
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>勤務区分</th>
+              <th>事由</th>
+              <th>出勤</th>
+              <th>退勤</th>
+              <th>コメント</th>
+            </tr>
+          </thead>
+
+         departments.each do |department|
+          <tboby>
+            <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+            </tr>
+          </tbody>
+          end
+      </table>
+    </div>
+
+
+<% end %>
+</main>

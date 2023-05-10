@@ -50,7 +50,7 @@
         <tr>
           <th>生年月日</th>
           <td>
-            <%= f.text_field :birthday %>
+            <%= f.date_field :birthday %>
           </td>
         </tr>
         <tr>
@@ -66,19 +66,19 @@
         <tr>
           <th>入社日</th>
           <td>
-            <%= f.text_field :hire_date %>
+            <%= f.date_field :hire_date %>
           </td>
         </tr>
         <tr>
           <th>退社日</th>
           <td>
-            <%= f.text_field :retirement_date %>
+            <%= f.date_field :retirement_date %>
           </td>
         </tr>
         <tr>
           <th>休職期間</th>
           <td>
-            <%= f.text_field :start_career_break %>～<%= f.text_field :finish_career_break %>
+            <%= f.date_field :start_career_break %>～<%= f.date_field :finish_career_break %>
           </td>
         </tr>
       </tbody>

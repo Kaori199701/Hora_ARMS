@@ -19,8 +19,30 @@
           <td><%= @worker.location.location_name %></td>
         </tr>
         <tr>
+          <th>勤務区分</th>
+          <td><%= @worker.working_hour.working_hour_code %> <%= @worker.working_hour.start_working_hour.strftime("%H:%M") %>～<%= @worker.working_hour.finish_working_hour.strftime("%H:%M") %></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td>
+            <%= @worker.sex %>
+          </td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td>
+            <%= @worker.birthday %>
+          </td>
+        </tr>
+        <tr>
           <th>メールアドレス</th>
           <td><%= @worker.email %></td>
+        </tr>
+        <tr>
+          <th>入社日</th>
+          <td>
+            <%= @worker.hire_date %>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -1,2 +1,36 @@
-<h1>Attendances#show</h1>
-<p>Find me in app/views/attendances/show.html.erb</p>
+<main>
+
+<h1><%= @worker.last_name %><%= @worker.first_name %>　タイムカード</h1>
+
+<%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
+
+<p>月選択</p>
+
+    <div class="department_list">
+      <table class="table mt-5">
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>勤務区分</th>
+              <th>事由</th>
+              <th>出勤</th>
+              <th>退勤</th>
+              <th>コメント</th>
+            </tr>
+          </thead>
+
+         departments.each do |department|
+          <tboby>
+            <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+            </tr>
+          </tbody>
+          end
+      </table>
+    </div>
+</main>
