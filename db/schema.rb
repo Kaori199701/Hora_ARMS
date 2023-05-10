@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 2023_05_01_041017) do
   create_table "attendances", force: :cascade do |t|
     t.integer "workers_id", null: false
     t.integer "working_hour_id", null: false
-    t.time "start_worktime", null: false
-    t.time "finish_worktime", null: false
-    t.time "start_breaktime", null: false
-    t.time "finish_breaktime", null: false
+    t.datetime "start_worktime", null: false
+    t.datetime "finish_worktime", null: false
+    t.datetime "start_breaktime", null: false
+    t.datetime "finish_breaktime", null: false
     t.string "comment", null: false
     t.integer "year_status", default: 0, null: false
     t.integer "month_status", default: 0, null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2023_05_01_041017) do
     t.integer "department_id", null: false
     t.integer "location_id", null: false
     t.integer "director_id", null: false
-    t.integer "working_hour_id"
+    t.integer "working_hour_id", null: false
     t.string "employee_number", null: false
     t.string "last_name", null: false
     t.string "first_name", null: false
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2023_05_01_041017) do
 
   create_table "working_hours", force: :cascade do |t|
     t.string "working_hour_code", null: false
-    t.time "start_working_hour", null: false
-    t.time "finish_working_hour", null: false
+    t.datetime "start_working_hour", null: false
+    t.datetime "finish_working_hour", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

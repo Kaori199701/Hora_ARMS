@@ -3,7 +3,8 @@
 
 <p>管理者は<%= link_to "こちら", new_admin_session_path %>からログイン</p>
 
-<%= link_to "トップページ", admins_homes_top_path %>
+管理者<br>
+      <%= link_to "トップページ", admins_homes_top_path %>
       <%= link_to "在席一覧", admins_homes_top_path %>
       <%= link_to "従業員一覧", admins_workers_path %><br>
       データ登録
@@ -14,4 +15,8 @@
       <%= link_to "勤務区分登録", admins_working_hours_path %><br>
       データ出力
       <%= link_to "Excel出力", admins_excels_path %>
-      <%= link_to "PDF出力", admins_pdfs_path %>
+      <%= link_to "PDF出力", admins_pdfs_path %><br>
+
+従業員<br>
+      <%= link_to "トップページ", workers_homes_top_path %>
+      <%= link_to "在席一覧", workers_attendances_path %>

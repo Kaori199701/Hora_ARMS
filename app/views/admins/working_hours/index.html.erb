@@ -35,8 +35,8 @@
           <tboby>
             <tr>
              <td><%= working_hour.working_hour_code %></td>
-             <td><%= working_hour.start_working_hour %></td>
-             <td><%= working_hour.finish_working_hour %></td>
+             <td><%= working_hour.start_working_hour.strftime("%H:%M") %></td>
+             <td><%= working_hour.finish_working_hour.strftime("%H:%M") %></td>
              <td><%= link_to "編集する", edit_admins_working_hour_path(working_hour.id), class:"btn btn-sm btn-success" %></td>
             </tr>
           </tbody>

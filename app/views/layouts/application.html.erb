@@ -37,8 +37,17 @@
 
     <% elsif worker_signed_in? %>
       <div class="text-light">
-      ようこそ、<%= current_worker.last_name %>さん！
+        <!--従業員ヘッダー-->
+        <%= current_worker.department.department_name %>　<%= current_worker.last_name %> <%= current_worker.first_name %>
       </div>
+
+      <%= link_to workers_worker_path(current_worker.id), class:"nav-link text-light" do %>
+        個人設定
+      <% end %>
+
+      <%= link_to destroy_worker_session_path, method: :delete , class:"nav-link text-light" do %>
+        ログアウト
+      <% end %>
 
       <%= form_with local: true, method: :get do |form| %>
         <%= form.text_field :keyword %>

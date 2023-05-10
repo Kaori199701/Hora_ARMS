@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   namespace :admins do
     get 'homes/top'
     resources :workers, only: [:new, :create, :index, :show, :edit, :update]
+    resources :workers do
+      member do
+        get 'password'
+      end
+    end
     resources :departments, only: [:index, :create, :edit, :update]
     resources :directors, only: [:index, :create, :edit, :update]
     resources :locations, only: [:index, :create, :edit, :update]
@@ -18,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :workers do
     get 'homes/top'
-    resources :workers, only: [:show, :edit, :update]
+    resources :workers, only: [:show]
     resources :attendances, only: [:index, :create, :show, :edit, :update]
   end
 

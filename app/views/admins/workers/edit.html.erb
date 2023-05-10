@@ -1,6 +1,6 @@
 <main>
 
-<h1>〇山〇〇情報詳細</h1>
+<h1><%= @worker.last_name %> <%= @worker.first_name %>　従業員情報変更</h1>
 
 <div class="worker_edit">
     <%= form_with model: @worker, url: admins_worker_path(@worker.id), method: :patch do |f| %>
@@ -34,8 +34,7 @@
         <tr>
           <th>勤務区分</th>
           <td>
-            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :start_working_hour %>
-            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :finish_working_hour %>
+            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :working_hour_code %>
           </td>
         </tr>
         <tr>
@@ -61,7 +60,7 @@
         <tr>
           <th>勤務状況</th>※まだ
           <td>
-            <%= form.select :prefecture, Address.prefectures.keys, {prompt: "選択してください"}, class: "prefecture-select" %>
+
           </td>
         </tr>
         <tr>
@@ -81,14 +80,6 @@
           <td>
             <%= f.text_field :start_career_break %>～<%= f.text_field :finish_career_break %>
           </td>
-        </tr>
-        <tr>
-          <th>初期パスワード</th>
-          <td><%= f.password_field :password, :size=>"40" %></td>
-        </tr>
-        <tr>
-          <th>初期パスワード(確認)</th>
-          <td><%= f.password_field :password_confirmation, :size=>"40" %></td>
         </tr>
       </tbody>
     </table>

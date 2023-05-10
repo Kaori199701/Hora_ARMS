@@ -14,27 +14,18 @@
           <% @workers.each do |worker| %>
         <tr>
           <td>
-            所属
-            <%= worker.department_name %>
+            <%= worker.department.department_name %>
           </td>
           <td>
-            氏名
             <%= worker.last_name %> <%= worker.first_name %>
           </td>
           <td>
-            タイムカード
-            <%= link_to 'タイムカード', admins_attendance_path %>
+            <%= link_to 'タイムカード', admins_attendance_path(worker.id) %>
           </td>
           <td>
-            プロフィール
-            <%= link_to 'タイムカード', admins_worker_path %>
+            <%= link_to 'プロフィール', admins_worker_path(worker.id) %>
           </td>
         </tr>
       <% end %>
       </tbody>
     </table>
-
-     <tr>
-      <td><%= image_tag user.get_profile_image(100,100) %></td>
-      <td><%= user.name %></td>
-      <td><%= link_to 'Show', user %></td>

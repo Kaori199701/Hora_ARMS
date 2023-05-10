@@ -33,6 +33,12 @@
           <td><%= f.collection_select :location_id, Location.all, :id, :location_name %></td>
         </tr>
         <tr>
+          <th>勤務区分</th>
+          <td>
+            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, ->(working_hour) { "#{working_hour.working_hour_code} #{working_hour.start_working_hour.strftime("%H:%M")}~#{working_hour.finish_working_hour.strftime("%H:%M")}"} %>
+          </td>
+        </tr>
+        <tr>
           <th>性別</th>
           <td>
             <%= f.radio_button :sex, "male" %>

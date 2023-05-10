@@ -1,9 +1,10 @@
-<main>
-
-<h1>〇山〇〇情報詳細</h1>
+<h1><%= @worker.last_name %> <%= @worker.first_name %>　従業員情報詳細</h1>
 
 <div class="worker_edit">
     <%= link_to "編集する", edit_admins_worker_path(@worker.id), class:"btn btn-sm btn-success" %>
+    <%= link_to "パスワード初期化", password_admins_worker_path(@worker.id), class:"btn btn-sm btn-success" %>
+
+
 
     <table class="order-table table mb-5">
       <tbody>
@@ -21,19 +22,19 @@
         </tr>
         <tr>
           <th>所属</th>
-          <td><%= @worker.department_name %></td>
+          <td><%= @worker.department.department_name %></td>
         </tr>
         <tr>
           <th>役職</th>
-          <td><%= @worker.director_name %></td>
+          <td><%= @worker.director.director_name %></td>
         </tr>
         <tr>
           <th>勤務地</th>
-          <td><%= @worker.location_name %></td>
+          <td><%= @worker.location.location_name %></td>
         </tr>
         <tr>
           <th>勤務区分</th>
-          <td><%= @worker.start_working_hour %>　<%= @worker.finish_working_hour %></td>
+          <td><%= @worker.working_hour_id %></td>
         </tr>
         <tr>
           <th>性別</th>
@@ -78,7 +79,4 @@
       </tbody>
     </table>
 
-    <% end %>
   </div>
-
-</main>

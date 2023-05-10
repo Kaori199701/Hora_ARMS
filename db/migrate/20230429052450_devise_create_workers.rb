@@ -38,7 +38,7 @@ class DeviseCreateWorkers < ActiveRecord::Migration[6.1]
       t.integer :department_id, null: false
       t.integer :location_id, null: false
       t.integer :director_id, null: false
-      t.integer :working_hour_id
+      t.integer :working_hour_id, null: false
       t.string :employee_number, null: false
       t.string :last_name, null: false
       t.string :first_name, null: false

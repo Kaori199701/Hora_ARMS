@@ -10,7 +10,7 @@ class Admins::WorkersController < ApplicationController
   end
 
   def index
-    @worker = Worker.all
+    @workers = Worker.all
   end
 
   def show
@@ -21,9 +21,13 @@ class Admins::WorkersController < ApplicationController
     @worker = Worker.find(params[:id])
   end
 
+  def password
+    @worker = Worker.find(params[:id])
+  end
+
   def update
     @worker = Worker.find(params[:id])
-    if @worker.update(worker_params)
+    if @worker.update!(worker_params)
        flash[:notice] = "You have updateed worker successfully."
        redirect_to admins_worker_path(@worker.id)
     else

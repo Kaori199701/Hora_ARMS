@@ -1,7 +1,6 @@
 class Workers::WorkersController < ApplicationController
   def show
+    @worker = Worker.find(params[:id])
   end
 
-  def edit
-  end
 end
