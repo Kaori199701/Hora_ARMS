@@ -5,6 +5,9 @@ class Workers::AttendancesController < ApplicationController
 
   def show
     @worker = Worker.find(params[:id])
+    @attendances = Attendance.all
+    @start_working_hour = current_worker.working_hour.start_working_hour
+    @finish_working_hour = current_worker.working_hour.finish_working_hour
   end
 
   def edit

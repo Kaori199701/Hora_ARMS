@@ -2,7 +2,7 @@
 
 <h1>タイムカード編集中</h1>
 
-<%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
+<%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch do |f| %>
 
 <u class="new_botton ml-5">
   <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
@@ -24,7 +24,7 @@
             </tr>
           </thead>
 
-         departments.each do |department|
+         attendances.each do |attendance|
           <tboby>
             <tr>
              <td></td>
