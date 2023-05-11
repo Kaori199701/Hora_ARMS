@@ -25,15 +25,12 @@ ActiveRecord::Schema.define(version: 2023_05_01_041017) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.integer "workers_id", null: false
-    t.integer "working_hour_id", null: false
+    t.integer "worker_id", null: false
     t.datetime "start_worktime"
     t.datetime "finish_worktime"
     t.datetime "start_breaktime"
     t.datetime "finish_breaktime"
     t.string "comment"
-    t.integer "year_status", default: 0, null: false
-    t.integer "month_status", default: 0, null: false
     t.integer "reason_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

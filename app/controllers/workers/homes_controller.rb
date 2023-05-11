@@ -1,6 +1,7 @@
 class Workers::HomesController < ApplicationController
   def top
     @attendance = Attendance.new
+    @worker = current_worker
   end
 
   def create

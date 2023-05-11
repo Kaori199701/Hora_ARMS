@@ -2,11 +2,11 @@
 
 <h1>出退勤</h1>
 <p>出勤</p>
-button_to "出勤", { パス or コントローラー名とアクション名 }, { オプション }
+<%= link_to "出勤", start_workers_attendances_path, method: :post %>
 <p>退勤</p>
+<%= link_to "退勤", finish_workers_attendances_path, method: :post %>
 
-
-<%= link_to ">>その他事由記入", workers_homes_top_path %>
+<%= link_to ">>その他事由記入", edit_workers_attendance_path(@worker.id) %>
 
 
 <p>お知らせ</p>

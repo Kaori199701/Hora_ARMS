@@ -8,6 +8,8 @@ class Worker < ApplicationRecord
   belongs_to :director
   belongs_to :location
   belongs_to :working_hour, optional: true
+  has_many :attendances
+
 
   enum employment_status: { tenure: 0, retirement: 1, leave_from_work: 2 }
   enum sex: { male: 0, female: 1}

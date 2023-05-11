@@ -24,7 +24,12 @@ Rails.application.routes.draw do
   namespace :workers do
     get 'homes/top'
     resources :workers, only: [:show]
-    resources :attendances, only: [:index, :create, :show, :edit, :update]
+    resources :attendances, only: [:index, :create, :show, :edit, :update] do
+      collection do
+        post 'start'
+        post 'finish'
+      end
+    end
   end
 
   devise_for :workers, controllers:{
