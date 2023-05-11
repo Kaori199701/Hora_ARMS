@@ -1,22 +1,30 @@
 <main>
-<div class="container">
+  <div class="container">
+    <div class="row">
 
-  <h1>役職編集</h1>
+    <div class="col-lg-2">
+    <%= render 'admins/adminside', admin: @admin %>
+    </div>
 
-  <div class="row">
-      <div class="director_edit_field">
-        <%= form_with model: @director, url: admins_director_path(@director), method: :patch do |f| %>
-          <strong>所属コード</strong>
-          <%= f.text_field :director_code, :size=>"30" %><br>
+    <div class="col-lg-10">
+      <h1>役職編集</h1>
 
-          <strong>所属名</strong>
-          <%= f.text_field :director_name, :size=>"30" %>
+      <div class="row">
+        <div class="director_edit_field">
+          <%= form_with model: @director, url: admins_director_path(@director), method: :patch do |f| %>
+            <strong>所属コード</strong>
+            <%= f.text_field :director_code, :size=>"30" %><br>
 
-        <u class="new_botton ml-5">
-          <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-        </u>
-　      <% end %>
+            <strong>所属名</strong>
+            <%= f.text_field :director_name, :size=>"30" %>
+
+          <u class="new_botton ml-5">
+            <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+          </u>
+  　      <% end %>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-</div>
 </main>

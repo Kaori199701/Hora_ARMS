@@ -1,43 +1,51 @@
 <main>
-<div class="container">
+  <div class="container">
+    <div class="row">
 
-  <h1>勤務地一覧・追加</h1>
-
-    <div class="location_new_field">
-      <%= form_with model: @location, url: admins_locations_path do |f| %>
-        <strong>勤務地コード</strong>
-        <%= f.text_field :location_code, :size=>"30" %><br>
-
-        <strong>勤務地名</strong>
-        <%= f.text_field :location_name, :size=>"30" %>
-
-      <u class="new_botton ml-5">
-        <%= f.submit '追加', class:"btn btn-sm btn-success" %>
-      </u>
-       <% end %>
+    <div class="col-lg-2">
+      <%= render 'admins/adminside', admin: @admin %>
     </div>
 
-    <div class="director_list">
-      <table class="table mt-5">
-          <thead>
-            <tr>
-              <th>勤務地コード</th>
-              <th>勤務地名</th>
-              <th></th>
-            </tr>
-          </thead>
+    <div class="col-lg-10">
+      <h1>勤務地一覧・追加</h1>
 
-         <% @locations.each do |location| %>
-          <tboby>
-            <tr>
-             <td><%= location.location_code %></td>
-             <td><%= location.location_name %></td>
-             <td><%= link_to "編集する", edit_admins_location_path(location.id), class:"btn btn-sm btn-success" %></td>
-            </tr>
-          </tbody>
+      <div class="location_new_field">
+        <%= form_with model: @location, url: admins_locations_path do |f| %>
+          <strong>勤務地コード</strong>
+          <%= f.text_field :location_code, :size=>"30" %><br>
+
+          <strong>勤務地名</strong>
+          <%= f.text_field :location_name, :size=>"30" %>
+
+        <u class="new_botton ml-5">
+          <%= f.submit '追加', class:"btn btn-sm btn-success" %>
+        </u>
          <% end %>
-      </table>
+      </div>
+
+      <div class="director_list">
+        <table class="table mt-5">
+            <thead>
+              <tr>
+                <th>勤務地コード</th>
+                <th>勤務地名</th>
+                <th></th>
+              </tr>
+            </thead>
+
+           <% @locations.each do |location| %>
+            <tboby>
+              <tr>
+               <td><%= location.location_code %></td>
+               <td><%= location.location_name %></td>
+               <td><%= link_to "編集する", edit_admins_location_path(location.id), class:"btn btn-sm btn-success" %></td>
+              </tr>
+            </tbody>
+           <% end %>
+        </table>
+      </div>
     </div>
 
-</div>
+    </div>
+  </div>
 </main>

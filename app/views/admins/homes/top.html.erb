@@ -1,20 +1,12 @@
 <main>
-  <div>
-    <h4>サイドバー</h4>
-      <%= link_to "トップページ", admins_homes_top_path %>
-      <%= link_to "在席一覧", admins_homes_top_path %>
-      <%= link_to "従業員一覧", admins_workers_path %><br>
-      データ登録
-      <%= link_to "従業員登録", new_admins_worker_path %>
-      <%= link_to "所属登録", admins_departments_path %>
-      <%= link_to "役職登録", admins_directors_path %>
-      <%= link_to "勤務地登録", admins_locations_path %>
-      <%= link_to "勤務区分登録", admins_working_hours_path %><br>
-      データ出力
-      <%= link_to "Excel出力", admins_excels_path %>
-      <%= link_to "PDF出力", admins_pdfs_path %>
-  </div>
+  <div class="container">
+    <div class="row">
 
+<div class="col-lg-2">
+<%= render 'admins/adminside', admin: @admin %>
+</div>
+
+<div class="col-lg-10">
   <h1>在席一覧</h1>
 
     <table class="table table-hover table-inverse">
@@ -46,4 +38,7 @@
       </tbody>
       <% end %>
     </table>
+</div>
+    </div>
+  </div>
 </main>

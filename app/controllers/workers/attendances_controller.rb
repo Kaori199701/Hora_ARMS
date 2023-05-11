@@ -1,6 +1,7 @@
 class Workers::AttendancesController < ApplicationController
   def index
     @workers = Worker.all
+    @worker = current_worker
   end
 
   def show

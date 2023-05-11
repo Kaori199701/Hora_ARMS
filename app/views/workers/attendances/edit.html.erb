@@ -1,5 +1,7 @@
 <main>
 
+  <%= render 'workers/workerside', worker: @worker %>
+
 <h1>タイムカード編集中</h1>
 
 <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch do |f| %>
