@@ -1,17 +1,29 @@
 <main>
+  <div class="container">
+    <div class="row">
 
-  <%= render 'workers/workerside', worker: @worker %>
+      <div class="col-lg-2">
+        <%= render 'workers/workerside', worker: @worker %>
+      </div>
 
-    <h1>出退勤</h1>
-    <p>出勤</p>
-    <%= link_to "出勤", start_workers_attendances_path, method: :post %>
-    <p>退勤</p>
-    <%= link_to "退勤", finish_workers_attendances_path, method: :post %>
+      <div class="col-lg-10">
+        <h2>出退勤</h2>
 
-    <%= link_to ">>その他事由記入", workers_attendance_path(@worker.id) %>
+        <div class="engraving_field">
+          <%= link_to "出勤", start_workers_attendances_path, class: "btn btn-lg btn-danger w-180px", method: :post %>
+          <%= link_to "退勤", finish_workers_attendances_path, class: "btn btn-lg btn-danger w-180px",  method: :post %>
+          <%= link_to "休憩開始", start_breaktime_workers_attendances_path, class: "btn btn-lg btn-danger w-180px",  method: :post %>
+          <%= link_to "休憩終了", finish_breaktime_workers_attendances_path, class: "btn btn-lg btn-danger w-180px",  method: :post %>
+        </div>
 
+        <p class="text-right"><%= link_to ">>その他事由記入", workers_attendance_path(@worker.id) %></p>
 
-    <p>お知らせ</p>
-    <p>・6/1(〇)の出退勤情報に誤りがあります。</p>
+        <div class="information_box">
+          <h5>お知らせ</h5>
+          <p>・6/1(〇)の出退勤情報に誤りがあります。</p>
+        </div>
+      </div>
 
+    </div>
+  </div>
 </main>

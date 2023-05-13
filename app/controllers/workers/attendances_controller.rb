@@ -6,13 +6,16 @@ class Workers::AttendancesController < ApplicationController
 
   def show
     @worker = Worker.find(params[:id])
-    @attendances = Attendance.all
+    @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
   end
 
   def edit
     @worker = Worker.find(params[:id])
+    @attendances = Attendance.where(worker: @worker)
+    @start_working_hour = current_worker.working_hour.start_working_hour
+    @finish_working_hour = current_worker.working_hour.finish_working_hour
   end
 
   def update
@@ -39,6 +42,27 @@ class Workers::AttendancesController < ApplicationController
     @attendance = current_worker.attendances.where.not(start_worktime: nil).where(finish_worktime: nil).first
     if @attendance.present?
       @attendance.finish_worktime = Time.zone.now
+      @attendance.save
+      redirect_to workers_homes_top_path
+    else
+      redirect_to workers_homes_top_path
+    end
+  end
+
+  def start_breaktime
+    @attendance = current_worker.attendances.new
+    @attendance.start_breaktime = Time.zone.now
+    if @attendance.save
+      redirect_to workers_homes_top_path
+    else
+      redirect_to workers_homes_top_path
+    end
+  end
+
+  def finish_breaktime
+    @attendance = current_worker.attendances.where.not(start_breaktime: nil).where(finish_breaktime: nil).first
+    if @attendance.present?
+      @attendance.finish_breaktime = Time.zone.now
       @attendance.save
       redirect_to workers_homes_top_path
     else

@@ -1,18 +1,24 @@
 <main>
+  <div class="container">
+    <div class="row">
 
-<h1><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h1>
+    <div class="col-lg-2">
+      <%= render 'admins/adminside', admin: @admin %>
+    </div>
 
-<%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
+    <div class="col-lg-10">
+      <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h2>
 
-<u class="new_botton ml-5">
-  <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-</u>
+      <%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
 
+      <u class="new_botton ml-5">
+        <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+      </u>
 
-<p>月選択</p>
+        <p>月選択</p>
 
-    <div class="department_list">
-      <table class="table mt-5">
+      <div class="department_list">
+        <table class="table mt-5">
           <thead>
             <tr>
               <th>日付</th>
@@ -27,18 +33,20 @@
          attendances.each do |attendance|
           <tboby>
             <tr>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
-          end
-      </table>
+         end
+        </table>
+      </div>
+      <% end %>
     </div>
 
-
-<% end %>
+    </div>
+  </div>
 </main>

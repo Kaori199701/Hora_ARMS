@@ -7,29 +7,32 @@
     </div>
 
     <div class="col-lg-10">
-      <h1>所属一覧・追加</h1>
+      <h2>所属一覧・追加</h2>
 
-      <div class="department_new_field">
+      <div class="element_new_field">
         <%= form_with model: @department, url: admins_departments_path do |f| %>
-          <strong>所属コード</strong>
-          <%= f.text_field :department_code, :size=>"30" %><br>
-
-          <strong>所属名</strong>
-          <%= f.text_field :department_name, :size=>"30" %>
-
-        <u class="new_botton ml-5">
-          <%= f.submit '追加', class:"btn btn-sm btn-success" %>
-        </u>
-         <% end %>
+          <table>
+            <tr>
+              <th width="30%"><strong>所属コード</strong></th>
+              <td width="60%"><%= f.text_field :department_code, :size=>"30" %></td>
+              <td width="10%"></td>
+            </tr>
+            <tr>
+              <th><strong>所属名</strong></th>
+              <td><%= f.text_field :department_name, :size=>"30" %></td>
+              <td><%= f.submit '追加', class:"btn btn-sm btn-success" %></td>
+            </tr>
+          </table>
+        <% end %>
       </div>
 
       <div class="department_list">
         <table class="table mt-5">
             <thead>
               <tr>
-                <th>所属コード</th>
-                <th>所属名</th>
-                <th></th>
+                <th width="20%">所属コード</th>
+                <th width="40%">所属名</th>
+                <th width="40%"></th>
               </tr>
             </thead>
 

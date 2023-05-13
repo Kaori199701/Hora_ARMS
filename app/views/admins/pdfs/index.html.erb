@@ -1,6 +1,14 @@
-<h1>PDFs</h1>
+<main>
+  <div class="container">
+    <div class="row">
 
-<%= render 'admins/adminside', admin: @admin %>
+    <div class="col-lg-2">
+      <%= render 'admins/adminside', admin: @admin %>
+    </div>
+
+    <div class="col-lg-10">
+
+<h1>PDFs</h1>
 
  以下の1行を追記
 %= link_to "PDF出力", admins_pdfs_path(@pdfs, format: :xlsx) %>
@@ -26,3 +34,9 @@
     % end %>
   </tbody>
 </table>
+
+      </div>
+
+    </div>
+  </div>
+</main>

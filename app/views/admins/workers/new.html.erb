@@ -7,9 +7,9 @@
     </div>
 
     <div class="col-lg-10">
-      <h1>従業員データ新規登録</h1>
+      <h2>従業員データ新規登録</h2>
 
-      <div class="worker_edit">
+      <div class="worker_field">
         <%= form_with model: @worker, url: admins_workers_path do |f| %>
 
         <table class="order-table table mb-5">
@@ -66,12 +66,13 @@
               <th>初期パスワード(確認)</th>
               <td><%= f.password_field :password_confirmation, :size=>"40" %></td>
             </tr>
+            <tr>
+              <th></th>
+              <td style="padding-left: 10%;"><%= f.submit "新規登録", class:"btn btn-sm btn-success" %></td>
+            </tr>
           </tbody>
         </table>
 
-          <div class="actions">
-            <%= f.submit "新規登録" %>
-          </div>
         <% end %>
       </div>
     </div>

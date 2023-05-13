@@ -7,23 +7,24 @@
     </div>
 
     <div class="col-lg-10">
-      <h1>所属編集</h1>
+      <h2>所属編集</h2>
 
-      <div class="row">
-        <div class="department_edit_field">
+        <div class="element_edit_field">
           <%= form_with model: @department, url: admins_department_path(@department), method: :patch do |f| %>
-            <strong>所属コード</strong>
-            <%= f.text_field :department_code, :size=>"30" %><br>
-
-            <strong>所属名</strong>
-            <%= f.text_field :department_name, :size=>"30" %>
-
-          <u class="new_botton ml-5">
-            <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-          </u>
-  　      <% end %>
-      </div>
-    </div>
+          <table>
+            <tr>
+              <th width="15%"><strong>所属コード</strong></th>
+              <td width="30%"><%= f.text_field :department_code, :size=>"30" %></td>
+              <td width="40%"></td>
+            </tr>
+            <tr>
+              <th><strong>所属名　　</strong></th>
+              <td><%= f.text_field :department_name, :size=>"30" %></td>
+              <td><input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre"></td>
+            </tr>
+          </table>
+  　       <% end %>
+        </div>
 
     </div>
   </div>

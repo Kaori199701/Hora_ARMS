@@ -1,24 +1,32 @@
 <main>
-<div class="container">
+  <div class="container">
+    <div class="row">
 
-  <%= render 'admins/adminside', admin: @admin %>
+    <div class="col-lg-2">
+      <%= render 'admins/adminside', admin: @admin %>
+    </div>
 
-  <h1>勤務地編集</h1>
+    <div class="col-lg-10">
+      <h2>勤務地編集</h2>
 
-  <div class="row">
-      <div class="location_edit_field">
+      <div class="element_edit_field">
         <%= form_with model: @location, url: admins_location_path(@location), method: :patch do |f| %>
-          <strong>勤務地コード</strong>
-          <%= f.text_field :location_code, :size=>"30" %><br>
+          <table>
+            <tr>
+              <th width="15%"><strong>勤務地コード</strong></th>
+              <td width="30%"><%= f.text_field :location_code, :size=>"30" %></td>
+              <td width="40%"></td>
+            </tr>
+            <tr>
+              <th><strong>勤務地名</strong></th>
+              <td><%= f.text_field :location_name, :size=>"30" %></td>
+              <td><input type="submit" name="commit" value="変更を保存" class="btn btn-success"></td>
+            </tr>
+          </table>
 
-          <strong>勤務地名</strong>
-          <%= f.text_field :location_name, :size=>"30" %>
+  　     <% end %>
+      </div>
 
-        <u class="new_botton ml-5">
-          <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-        </u>
-　      <% end %>
+    </div>
   </div>
-
-</div>
 </main>

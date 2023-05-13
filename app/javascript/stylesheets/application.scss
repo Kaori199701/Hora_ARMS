@@ -3,7 +3,7 @@
 
 main {
   width: auto;
-  margin-top: 20px;
+  margin: 40px;
 }
 
 header{
@@ -15,9 +15,55 @@ header{
 footer{
   width: 100%;
   height: 50px;
-  position: absolute;/* ←絶対位置 */
+  // position: absolute;/* ←絶対位置 */
   bottom: 0;
   background: #595757;
   color: #fff;
   text-align: center;
+}
+
+.login-box{
+  margin-left: 20%;
+}
+
+.engraving_field{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 60px 0;
+}
+
+.w-180px {
+  width: 180px !important;
+  height: 80px !important;
+}
+
+.information_box{
+  width: 90%;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #ffefd5;
+  border: 2px solid;
+  border-color: #595757;
+  border-radius: 8px;
+}
+
+.element_new_field{
+  margin: 30px 20px;
+}
+
+.element_edit_field{
+  margin: 30px 20px;
+}
+
+.worker_field{
+  margin: 30px 20px;
+}
+
+.worker_show_field{
+  margin: 0 30px 20px;
+}
+
+.worker_edit_link{
+  padding-left: 60%;
+  margin-bottom: 10px;
 }

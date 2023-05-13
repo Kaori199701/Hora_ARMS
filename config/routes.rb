@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       collection do
         post 'start'
         post 'finish'
+        post 'start_breaktime'
+        post 'finish_breaktime'
       end
     end
   end

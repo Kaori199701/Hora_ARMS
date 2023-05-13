@@ -7,20 +7,21 @@
     </div>
 
     <div class="col-lg-10">
-      <h1>従業員一覧</h1>
+      <h2>従業員一覧</h2>
 
+      <div class="worker_field">
         <table class="table table-hover table-inverse">
           <thead>
             <tr>
-             <th>所属</th>
-             <th>氏名</th>
-             <th></th>
-             <th></th>
+             <th width="15%">所属</th>
+             <th width="30%">氏名</th>
+             <th width="20%"></th>
+             <th width="20%"></th>
             </tr>
           </thead>
 
+          <% @workers.each do |worker| %>
           <tboby>
-              <% @workers.each do |worker| %>
             <tr>
               <td>
                 <%= worker.department.department_name %>
@@ -35,9 +36,10 @@
                 <%= link_to 'プロフィール', admins_worker_path(worker.id) %>
               </td>
             </tr>
-          <% end %>
           </tbody>
+          <% end %>
         </table>
+      </div>
     </div>
 
     </div>

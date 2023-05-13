@@ -1,95 +1,104 @@
 <main>
+  <div class="container">
+    <div class="row">
 
-  <%= render 'admins/adminside', admin: @admin %>
+    <div class="col-lg-2">
+      <%= render 'admins/adminside', admin: @admin %>
+    </div>
 
-<h1><%= @worker.last_name %> <%= @worker.first_name %>　従業員情報変更</h1>
+    <div class="col-lg-10">
+      <h2><%= @worker.last_name %> <%= @worker.first_name %>　従業員情報変更</h2>
 
-<div class="worker_edit">
-    <%= form_with model: @worker, url: admins_worker_path(@worker.id), method: :patch do |f| %>
+      <div class="worker_field">
+        <%= form_with model: @worker, url: admins_worker_path(@worker.id), method: :patch do |f| %>
 
-    <table class="order-table table mb-5">
-      <tbody>
-        <tr>
-          <th>氏名</th>
-          <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %>
-        </tr>
-        <tr>
-          <th>カナ</th>
-          <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %>
-        </tr>
-        <tr>
-          <th>社員番号</th>
-          <td><%= f.text_field :employee_number %>
-        </tr>
-        <tr>
-          <th>所属</th>
-          <td><%= f.collection_select :department_id, Department.all, :id, :department_name %></td>
-        </tr>
-        <tr>
-          <th>役職</th>
-          <td><%= f.collection_select :director_id, Director.all, :id, :director_name %></td>
-        </tr>
-        <tr>
-          <th>勤務地</th>
-          <td><%= f.collection_select :location_id, Location.all, :id, :location_name %></td>
-        </tr>
-        <tr>
-          <th>勤務区分</th>
-          <td>
-            <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :working_hour_code %>
-          </td>
-        </tr>
-        <tr>
-          <th>性別</th>
-          <td>
-            <%= f.radio_button :sex, "male" %>
-            <%= f.label :sex, "男" %>
+        <div class="actions">
+          <%= f.submit '編集内容を保存', class:"btn btn-success" %>
+        </div>
 
-            <%= f.radio_button :sex, "female" %>
-            <%= f.label :sex, "女" %>
-          </td>
-        </tr>
-        <tr>
-          <th>生年月日</th>
-          <td>
-            <%= f.date_field :birthday %>
-          </td>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <td><%= f.email_field :email, :size=>"40" %></td>
-        </tr>
-        <tr>
-          <th>勤務状況</th>※まだ
-          <td>
+        <table class="order-table table mb-5">
+          <tbody>
+            <tr>
+              <th>氏名</th>
+              <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %>
+            </tr>
+            <tr>
+              <th>カナ</th>
+              <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %>
+            </tr>
+            <tr>
+              <th>社員番号</th>
+              <td><%= f.text_field :employee_number %>
+            </tr>
+            <tr>
+              <th>所属</th>
+              <td><%= f.collection_select :department_id, Department.all, :id, :department_name %></td>
+            </tr>
+            <tr>
+              <th>役職</th>
+              <td><%= f.collection_select :director_id, Director.all, :id, :director_name %></td>
+            </tr>
+            <tr>
+              <th>勤務地</th>
+              <td><%= f.collection_select :location_id, Location.all, :id, :location_name %></td>
+            </tr>
+            <tr>
+              <th>勤務区分</th>
+              <td>
+                <%= f.collection_select :working_hour_id, WorkingHour.all, :id, :working_hour_code %>
+              </td>
+            </tr>
+            <tr>
+              <th>性別</th>
+              <td>
+                <%= f.radio_button :sex, "male" %>
+                <%= f.label :sex, "男" %>
 
-          </td>
-        </tr>
-        <tr>
-          <th>入社日</th>
-          <td>
-            <%= f.date_field :hire_date %>
-          </td>
-        </tr>
-        <tr>
-          <th>退社日</th>
-          <td>
-            <%= f.date_field :retirement_date %>
-          </td>
-        </tr>
-        <tr>
-          <th>休職期間</th>
-          <td>
-            <%= f.date_field :start_career_break %>～<%= f.date_field :finish_career_break %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <%= f.radio_button :sex, "female" %>
+                <%= f.label :sex, "女" %>
+              </td>
+            </tr>
+            <tr>
+              <th>生年月日</th>
+              <td>
+                <%= f.date_field :birthday %>
+              </td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td><%= f.email_field :email, :size=>"40" %></td>
+            </tr>
+            <tr>
+              <th>勤務状況</th>
+              <td>
+                 未
+              </td>
+            </tr>
+            <tr>
+              <th>入社日</th>
+              <td>
+                <%= f.date_field :hire_date %>
+              </td>
+            </tr>
+            <tr>
+              <th>退社日</th>
+              <td>
+                <%= f.date_field :retirement_date %>
+              </td>
+            </tr>
+            <tr>
+              <th>休職期間</th>
+              <td>
+                <%= f.date_field :start_career_break %>～<%= f.date_field :finish_career_break %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <div class="actions">
-        <%= f.submit '編集内容を保存', class:"btn btn-success" %>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
 
+    </div>
+  </div>
 </main>
