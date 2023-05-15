@@ -10,6 +10,10 @@
         <h2>タイムカード</h2>
 
       <div class="month_select">
+        <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
+          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+        <% end %>
         月選択
         <%= link_to "編集する", edit_workers_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
@@ -31,14 +35,14 @@
 
             <tboby>
               <% i = 1 %>
-              <% 31.times do %>
-                  <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+              <% @current_month.count.times do %>
+                  <% start_at = @attendances.find_by(start_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
                 <tr>
-                  <td>5月<%= i %>日</td>
+                  <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <td>
 

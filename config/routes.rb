@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         post 'finish'
         post 'start_breaktime'
         post 'finish_breaktime'
+        post '/:id', to: 'attendances#show', as: 'timecard'
       end
     end
   end

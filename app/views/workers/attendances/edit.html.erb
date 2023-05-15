@@ -46,7 +46,7 @@
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
 
                   <td>
-                      <%= f.select :areason_status, Attendance.reason_statuses, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+                      <%= f.select :areason_status, Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false}, class:"form-control form-control-sm col-6"  %>
                   </td>
 
                   <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
