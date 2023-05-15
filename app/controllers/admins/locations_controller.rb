@@ -29,7 +29,7 @@ class Admins::LocationsController < ApplicationController
 private
 
   def location_params
-    params.require(:location).permit(:start_worktime, :location_name)
+    params.require(:location).permit(:location_code, :location_name)
   end
 
 end

@@ -12,11 +12,11 @@
       <div class="worker_field">
         <%= form_with model: @worker, url: admins_worker_path(@worker.id), method: :patch do |f| %>
 
-        <div class="actions">
-          <%= f.submit '編集内容を保存', class:"btn btn-success" %>
+        <div class="action">
+          <%= f.submit '編集内容を保存', class:"btn btn-sm btn-success" %>
         </div>
 
-        <table class="order-table table mb-5">
+        <table class="table mt-3">
           <tbody>
             <tr>
               <th>氏名</th>

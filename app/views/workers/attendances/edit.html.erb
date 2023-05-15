@@ -1,30 +1,35 @@
 <main>
   <div class="container">
+    <div class="row">
 
-  <%= render 'workers/workerside', worker: @worker %>
+      <div class="col-lg-2">
+        <%= render 'workers/workerside', worker: @worker %>
+      </div>
 
-  <h2>タイムカード編集中</h2>
+      <div class="col-lg-10">
+        <h2>タイムカード編集中</h2>
 
-  <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch do |f| %>
+      <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch do |f| %>
 
-  <u class="new_botton ml-5">
-    <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-  </u>
-
-    <p>月選択</p>
+      <div class="month_select">
+        月選択
+        <u class="new_botton ml-5">
+          <input type="submit" name="commit" value="変更を保存" class="btn btn-sm btn-success" data-disable-with="Update Genre">
+        </u>
+      </div>
 
       <div class="department_list">
-        <table class="table mt-5">
+        <table class="table mt-3">
             <thead>
               <tr>
                 <th width="10%">日付</th>
                 <th width="15%">勤務区分</th>
-                <th width="15%">事由</th>
-                <th width="10%">出勤</th>
-                <th width="10%">退勤</th>
+                <th width="20%">事由</th>
+                <th width="8%">出勤</th>
+                <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th width="20%">コメント</th>
+                <th width="19%">コメント</th>
               </tr>
             </thead>
 
@@ -54,9 +59,10 @@
               <% end %>
             </tbody>
         </table>
-
       </div>
-  <% end %>
+      <% end %>
+      </div>
 
+    </div>
   </div>
 </main>

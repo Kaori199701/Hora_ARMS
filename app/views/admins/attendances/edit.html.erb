@@ -11,37 +11,53 @@
 
       <%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
 
-      <u class="new_botton ml-5">
-        <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
-      </u>
-
-        <p>月選択</p>
+      <div class="month_select">
+        月選択
+        <u class="new_botton ml-5">
+          <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
+        </u>
+      </div>
 
       <div class="department_list">
-        <table class="table mt-5">
+        <table class="table mt-3">
           <thead>
             <tr>
-              <th>日付</th>
-              <th>勤務区分</th>
-              <th>事由</th>
-              <th>出勤</th>
-              <th>退勤</th>
-              <th>コメント</th>
+              <th width="10%">日付</th>
+              <th width="15%">勤務区分</th>
+              <th width="20%">事由</th>
+              <th width="8%">出勤</th>
+              <th width="8%">退勤</th>
+              <th width="10%">休憩開始</th>
+              <th width="10%">休憩終了</th>
+              <th width="19%">コメント</th>
             </tr>
           </thead>
 
-         attendances.each do |attendance|
           <tboby>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <% i = 1 %>
+            <% 31.times do %>
+                <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+
+              <tr>
+                <td>5月<%= i %>日</td>
+                <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
+
+                <td>
+                    <%= f.select :areason_status, Attendance.reason_statuses, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+                </td>
+
+                <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
+                <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
+                <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
+                <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
+                <td></td>
+              </tr>
+              <% i += 1 %>
+            <% end %>
           </tbody>
-         end
         </table>
       </div>
       <% end %>

@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <th>勤務区分</th>
-              <td><%= @worker.working_hour.working_hour_code %> <%= @worker.working_hour.start_working_hour.strftime("%H:%M") %>～<%= @worker.working_hour.finish_working_hour.strftime("%H:%M") %></td>
+              <td><%= @worker.working_hour.working_hour_code %> <%= @worker.working_hour.start_working_hour&.strftime("%H:%M") %>～<%= @worker.working_hour.finish_working_hour&.strftime("%H:%M") %></td>
             </tr>
             <tr>
               <th>性別</th>
@@ -70,7 +70,7 @@
             <tr>
               <th>入社日</th>
               <td>
-                <%= @worker.hire_date.strftime("%Y/%m/%d") %>
+                <%= @worker.hire_date&.strftime("%Y/%m/%d") %>
               </td>
             </tr>
             <tr>

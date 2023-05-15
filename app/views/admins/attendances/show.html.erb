@@ -9,35 +9,49 @@
     <div class="col-lg-10">
       <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード</h2>
 
-      <%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
-
-        <p>月選択</p>
+      <div class="month_select">
+        月選択
+        <%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
+      </div>
 
       <div class="department_list">
-        <table class="table mt-5">
+        <table class="table mt-3">
             <thead>
               <tr>
-                <th>日付</th>
-                <th>勤務区分</th>
-                <th>事由</th>
-                <th>出勤</th>
-                <th>退勤</th>
-                <th>コメント</th>
+                <th width="10%">日付</th>
+                <th width="15%">勤務区分</th>
+                <th width="15%">事由</th>
+                <th width="10%">出勤</th>
+                <th width="10%">退勤</th>
+                <th width="10%">休憩開始</th>
+                <th width="10%">休憩終了</th>
+                <th width="20%">コメント</th>
               </tr>
             </thead>
 
-           departments.each do |department|
             <tboby>
-              <tr>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-              </tr>
+              <% i = 1 %>
+              <% 31.times do %>
+                  <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                  <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+
+                <tr>
+                  <td>5月<%= i %>日</td>
+                  <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
+                  <td>
+
+                  </td>
+                  <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
+                  <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
+                  <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
+                  <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
+                  <td></td>
+                </tr>
+                <% i += 1 %>
+              <% end %>
             </tbody>
-            end
         </table>
       </div>
 
