@@ -12,3 +12,15 @@ ja:
       sex:
         male: "男"
         female: "女"
+
+ja:
+    enums:
+      attendance:
+        reason_status:
+          nothing: ""
+          paid_holiday: "有休"
+          absenteeism: "欠勤"
+          business_trip: "出張"
+          special_holiday: "特休"
+          maternity_leave: "産休"
+          childcare_leave: "育休"

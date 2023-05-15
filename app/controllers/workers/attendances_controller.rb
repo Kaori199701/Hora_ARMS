@@ -19,10 +19,10 @@ class Workers::AttendancesController < ApplicationController
   end
 
   def update
-    @worker = Worker.find(params[:id])
-    if @worker.update!(worker_params)
-       flash[:notice] = "You have updateed worker successfully."
-       redirect_to admins_worker_path(@worker.id)
+    @attendance = Attendance.find(params[:id])
+    if @attendance.update!(attendance_params)
+       flash[:notice] = "You have updated attendance successfully."
+       redirect_to workers_attendance_path(@attendance.id)
     else
       render 'edit'
     end
@@ -68,6 +68,13 @@ class Workers::AttendancesController < ApplicationController
     else
       redirect_to workers_homes_top_path
     end
+  end
+
+
+private
+
+  def attendance_params
+    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status)
   end
 
 end

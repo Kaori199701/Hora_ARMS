@@ -1,38 +1,47 @@
 <main>
+  <div class="container">
+    <div class="row">
 
-  <%= render 'workers/workerside', worker: @worker %>
+    <div class="col-lg-2">
+      <%= render 'workers/workerside', worker: @worker %>
+    </div>
 
-<h1>在席一覧</h1>
+    <div class="col-lg-10">
+      <h2>在席一覧</h2>
 
-    <table class="table table-hover table-inverse">
-      <thead>
-        <tr>
-          <th>所属</th>
-          <th>氏名</th>
-          <th>出退勤</th>
-          <th>事由</th>
-        </tr>
-      </thead>
+      <div class="worker_field">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>所属</th>
+              <th>氏名</th>
+              <th>出退勤</th>
+              <th>事由</th>
+            </tr>
+          </thead>
 
-      <% @workers.each do |worker| %>
-      <tboby>
-        <tr>
-          <td>
-            <%= worker.department.department_name %>
-          </td>
-          <td>
-            <%= worker.last_name %><%= worker.first_name %>
-          </td>
-          <td>
+          <% @workers.each do |worker| %>
+          <tboby>
+            <tr>
+              <td>
+                <%= worker.department.department_name %>
+              </td>
+              <td>
+                <%= worker.last_name %><%= worker.first_name %>
+              </td>
+              <td>
 
-          </td>
-          <td>
+              </td>
+              <td>
 
-          </td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>
+              </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
 
-
+    </div>
+  </div>
 </main>
