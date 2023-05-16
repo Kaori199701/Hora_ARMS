@@ -4,12 +4,13 @@ class Workers::AttendancesController < ApplicationController
     @worker = current_worker
   end
 
+
   def show
     @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
-    
+
     @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
 
     #　当月の日付を取得
@@ -17,12 +18,20 @@ class Workers::AttendancesController < ApplicationController
     @current_month = current_month.filter { |day| @today.mon == day.mon }
   end
 
+
   def edit
     @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
+
+    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+
+    #　当月の日付を取得
+    current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
+    @current_month = current_month.filter { |day| @today.mon == day.mon }
   end
+
 
   def update
     @attendance = Attendance.find(params[:id])
@@ -34,6 +43,7 @@ class Workers::AttendancesController < ApplicationController
     end
   end
 
+
   def start
     @attendance = current_worker.attendances.new
     @attendance.start_worktime = Time.zone.now
@@ -43,6 +53,7 @@ class Workers::AttendancesController < ApplicationController
       redirect_to workers_homes_top_path
     end
   end
+
 
   def finish
     @attendance = current_worker.attendances.where.not(start_worktime: nil).where(finish_worktime: nil).first
@@ -55,6 +66,7 @@ class Workers::AttendancesController < ApplicationController
     end
   end
 
+
   def start_breaktime
     @attendance = current_worker.attendances.new
     @attendance.start_breaktime = Time.zone.now
@@ -64,6 +76,7 @@ class Workers::AttendancesController < ApplicationController
       redirect_to workers_homes_top_path
     end
   end
+
 
   def finish_breaktime
     @attendance = current_worker.attendances.where.not(start_breaktime: nil).where(finish_breaktime: nil).first
@@ -75,6 +88,7 @@ class Workers::AttendancesController < ApplicationController
       redirect_to workers_homes_top_path
     end
   end
+
 
 
 private

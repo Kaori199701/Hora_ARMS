@@ -12,7 +12,13 @@
       <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch do |f| %>
 
       <div class="month_select">
-        月選択
+        <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+        <div class="action">
+          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
+          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+        </div>
+        <% end %>
+
         <u class="new_botton ml-5">
           <input type="submit" name="commit" value="変更を保存" class="btn btn-sm btn-success" data-disable-with="Update Genre">
         </u>
@@ -35,25 +41,23 @@
 
             <tboby>
               <% i = 1 %>
-              <% 31.times do %>
-                  <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+              <% @current_month.count.times do %>
+                  <% start_at = @attendances.find_by(start_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
                 <tr>
-                  <td>5月<%= i %>日</td>
+                  <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
-
                   <td>
                       <%= f.select :areason_status, Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false}, class:"form-control form-control-sm col-6"  %>
                   </td>
-
-                  <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
-                  <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
-                  <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
-                  <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
-                  <td></td>
+                  <td><%= f.time_field :start_worktime %></td>
+                  <td><%= f.time_field :finish_worktime %></td>
+                  <td><%= f.time_field :start_breaktime %></td>
+                  <td><%= f.time_field :finish_breaktime %></td>
+                  <td><%= f.text_field :comment %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

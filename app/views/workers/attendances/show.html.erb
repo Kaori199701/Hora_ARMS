@@ -11,10 +11,12 @@
 
       <div class="month_select">
         <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+        <div class="action">
           <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
           <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+        </div>
         <% end %>
-        月選択
+
         <%= link_to "編集する", edit_workers_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
 
@@ -24,12 +26,12 @@
               <tr>
                 <th width="10%">日付</th>
                 <th width="15%">勤務区分</th>
-                <th width="15%">事由</th>
-                <th width="10%">出勤</th>
-                <th width="10%">退勤</th>
+                <th width="20%">事由</th>
+                <th width="8%">出勤</th>
+                <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th width="20%">コメント</th>
+                <th width="19%">コメント</th>
               </tr>
             </thead>
 

@@ -10,8 +10,8 @@ ja:
   enums:
     worker:
       sex:
-        male: "男"
-        female: "女"
+        male: "男性"
+        female: "女性"
 
 ja:
   enums:
