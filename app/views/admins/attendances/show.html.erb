@@ -10,7 +10,13 @@
       <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード</h2>
 
       <div class="month_select">
-        月選択
+        <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+        <div class="action">
+          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
+          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+        </div>
+        <% end %>
+
         <%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
 
@@ -20,25 +26,25 @@
               <tr>
                 <th width="10%">日付</th>
                 <th width="15%">勤務区分</th>
-                <th width="15%">事由</th>
-                <th width="10%">出勤</th>
-                <th width="10%">退勤</th>
+                <th width="20%">事由</th>
+                <th width="8%">出勤</th>
+                <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th width="20%">コメント</th>
+                <th width="19%">コメント</th>
               </tr>
             </thead>
 
             <tboby>
               <% i = 1 %>
-              <% 31.times do %>
-                  <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+              <% @current_month.count.times do %>
+                  <% start_at = @attendances.find_by(start_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
                 <tr>
-                  <td>5月<%= i %>日</td>
+                  <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <td>
 

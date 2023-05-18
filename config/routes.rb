@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     resources :directors, only: [:index, :create, :edit, :update]
     resources :locations, only: [:index, :create, :edit, :update]
     resources :working_hours, only: [:index, :create, :edit, :update]
-    resources :attendances, only: [:show, :edit, :update]
+    resources :attendances, only: [:show, :edit, :update] do
+      collection do
+        post '/:id', to: 'attendances#show', as: 'timecard'
+      end
+    end
     resources :excels, only: [:index]
     resources :pdfs, only: [:index]
   end
@@ -31,6 +35,7 @@ Rails.application.routes.draw do
         post 'start_breaktime'
         post 'finish_breaktime'
         post '/:id', to: 'attendances#show', as: 'timecard'
+        post '/:id/edit', to: 'attendances#edit', as: 'timecard/edit'
       end
     end
   end

@@ -12,7 +12,13 @@
       <%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
 
       <div class="month_select">
-        月選択
+        <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+        <div class="action">
+          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
+          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+        </div>
+        <% end %>
+
         <u class="new_botton ml-5">
           <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
         </u>
@@ -46,14 +52,14 @@
                 <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
 
                 <td>
-                    <%= f.select :areason_status, Attendance.reason_statuses, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+                    <%= f.select :areason_status, Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false}, class:"form-control form-control-sm col-6"  %>
                 </td>
 
-                <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
-                <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
-                <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
-                <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
-                <td></td>
+                <td><%= f.time_field :start_worktime %></td>
+                <td><%= f.time_field :finish_worktime %></td>
+                <td><%= f.time_field :start_breaktime %></td>
+                <td><%= f.time_field :finish_breaktime %></td>
+                <td><%= f.text_field :comment %></td>
               </tr>
               <% i += 1 %>
             <% end %>

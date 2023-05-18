@@ -4,6 +4,13 @@ class Admins::AttendancesController < ApplicationController
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = @worker.working_hour.start_working_hour
     @finish_working_hour = @worker.working_hour.finish_working_hour
+
+    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+
+    #　当月の日付を取得
+    current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
+    @current_month = current_month.filter { |day| @today.mon == day.mon }
+
   end
 
   def edit
@@ -11,6 +18,12 @@ class Admins::AttendancesController < ApplicationController
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = @worker.working_hour.start_working_hour
     @finish_working_hour = @worker.working_hour.finish_working_hour
+
+    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+
+    #　当月の日付を取得
+    current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
+    @current_month = current_month.filter { |day| @today.mon == day.mon }
   end
 
   def update
