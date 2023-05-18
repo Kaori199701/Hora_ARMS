@@ -41,7 +41,7 @@
             <tboby>
               <% @current_month.count.times do |i| %>
                   <% i += 1 %>
-                  <% time_record = @attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <% time_record = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
 
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日<%= f.hidden_field "id[#{i}]", value: time_record&.id %></td>
