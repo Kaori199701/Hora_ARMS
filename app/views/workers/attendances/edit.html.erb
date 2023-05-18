@@ -9,8 +9,6 @@
       <div class="col-lg-10">
         <h2>タイムカード編集中</h2>
 
-
-
       <div class="month_select">
         <%= form_with(model: @attendance, url: timecard_edit_workers_attendances_path(@worker), method: :post) do |f| %>
         <div class="action">
@@ -24,6 +22,7 @@
       <div class="new_botton ml-5">
         <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
       </div>
+
       <div class="department_list">
         <table class="table mt-3">
             <thead>
@@ -60,7 +59,6 @@
               <% end %>
             </tbody>
         </table>
-
       </div>
       <% end %>
       </div>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :attendances, only: [:show, :edit, :update] do
       collection do
         post '/:id', to: 'attendances#show', as: 'timecard'
+        post '/:id/edit', to: 'attendances#edit', as: 'timecard/edit'
       end
     end
     resources :excels, only: [:index]

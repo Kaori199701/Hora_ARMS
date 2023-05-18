@@ -9,16 +9,15 @@
     <div class="col-lg-10">
       <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h2>
 
-      <%= form_with model: @worker, url: admins_department_path(@worker), method: :patch do |f| %>
-
       <div class="month_select">
-        <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
+        <%= form_with(model: @attendance, url: timecard_edit_admins_attendances_path(@worker), method: :post) do |f| %>
         <div class="action">
           <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>
           <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
         </div>
         <% end %>
 
+      <%= form_with model: @worker, url: admins_attendance_path(@worker), method: :patch, id: "attendances" do |f| %>
         <u class="new_botton ml-5">
           <input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre">
         </u>
@@ -40,28 +39,23 @@
           </thead>
 
           <tboby>
-            <% i = 1 %>
-            <% 31.times do %>
-                <% start_at = @attendances.find_by(start_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                <% end_at = @attendances.find_by(finish_worktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                <% start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
-                <% end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(2023, 5, i).beginning_of_day..Time.new(2023, 5, i).end_of_day) %>
+            <% @current_month.count.times do |i| %>
+                <% i += 1 %>
+                <% time_record = @attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
               <tr>
-                <td>5月<%= i %>日</td>
+                <td><%= @today.mon %>月<%= i %>日<%= f.hidden_field "id[#{i}]", value: time_record&.id %></td>
                 <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
-
                 <td>
-                    <%= f.select :areason_status, Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+                    <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
                 </td>
-
-                <td><%= f.time_field :start_worktime %></td>
-                <td><%= f.time_field :finish_worktime %></td>
-                <td><%= f.time_field :start_breaktime %></td>
-                <td><%= f.time_field :finish_breaktime %></td>
-                <td><%= f.text_field :comment %></td>
+                <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
+                <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
+                <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
+                <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+                <td><%= f.text_field "comment[#{i}]", value: time_record&.comment %></td>
               </tr>
-              <% i += 1 %>
+
             <% end %>
           </tbody>
         </table>

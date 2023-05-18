@@ -49,10 +49,34 @@
                   <td>
 
                   </td>
-                  <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
-                  <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
-                  <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
-                  <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
+                  <!--出勤-->
+                  <% if start_at&.start_worktime&.strftime('%H:%M') != "00:00" %>
+                    <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+
+                  <!--退勤-->
+                  <% if end_at&.finish_worktime&.strftime('%H:%M') != "00:00" %>
+                    <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+
+                  <!--休憩開始-->
+                  <% if start_breaktime_at&.start_breaktime&.strftime('%H:%M') != "00:00" %>
+                    <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+
+                  <!--休憩終了-->
+                  <% if end_breaktime_at&.finish_breaktime&.strftime('%H:%M') != "00:00" %>
+                    <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+
                   <td></td>
                 </tr>
                 <% i += 1 %>
