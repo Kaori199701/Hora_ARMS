@@ -19,12 +19,12 @@
             </tr>
             <tr>
               <th><strong>勤務開始時間</strong></th>
-              <td><%= f.text_field :start_working_hour, :size=>"30" %></td>
+              <td><%= f.time_field :start_working_hour, :size=>"30" %></td>
               <td></td>
             </tr>
             <tr>
               <th><strong>勤務終了時間</strong></th>
-              <td><%= f.text_field :finish_working_hour, :size=>"30" %></td>
+              <td><%= f.time_field :finish_working_hour, :size=>"30" %></td>
               <td><input type="submit" name="commit" value="変更を保存" class="btn btn-success" data-disable-with="Update Genre"></td>
             </tr>
           </table>
