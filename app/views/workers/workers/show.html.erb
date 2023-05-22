@@ -1,48 +1,63 @@
-<h1><%= current_worker.last_name %><%= current_worker.first_name %>　従業員情報</h1>
+<main>
+  <div class="container">
+    <div class="row">
 
-    <table class="order-table table mb-5">
-      <tbody>
-        <tr>
-          <th>社員番号</th>
-          <td><%= @worker.employee_number %></td>
-        </tr>
-        <tr>
-          <th>所属</th>
-          <td><%= @worker.department.department_name %></td>
-        </tr>
-        <tr>
-          <th>役職</th>
-          <td><%= @worker.director.director_name %></td>
-        </tr>
-        <tr>
-          <th>勤務地</th>
-          <td><%= @worker.location.location_name %></td>
-        </tr>
-        <tr>
-          <th>勤務区分</th>
-          <td><%= @worker.working_hour.working_hour_code %> <%= @worker.working_hour.start_working_hour.strftime("%H:%M") %>～<%= @worker.working_hour.finish_working_hour.strftime("%H:%M") %></td>
-        </tr>
-        <tr>
-          <th>性別</th>
-          <td>
-            <%= @worker.sex %>
-          </td>
-        </tr>
-        <tr>
-          <th>生年月日</th>
-          <td>
-            <%= @worker.birthday&.strftime('%Y/%m/%d') %>
-          </td>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <td><%= @worker.email %></td>
-        </tr>
-        <tr>
-          <th>入社日</th>
-          <td>
-            <%= @worker.hire_date&.strftime('%Y/%m/%d') %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="col-lg-2">
+        <%= render 'workers/workerside', worker: @worker %>
+      </div>
+
+      <div class="col-lg-10">
+        <h2><%= current_worker.last_name %><%= current_worker.first_name %>　従業員情報</h2>
+
+        <table class="order-table table mb-5">
+          <tbody>
+            <tr>
+              <th>社員番号</th>
+              <td><%= @worker.employee_number %></td>
+            </tr>
+            <tr>
+              <th>所属</th>
+              <td><%= @worker.department.department_name %></td>
+            </tr>
+            <tr>
+              <th>役職</th>
+              <td><%= @worker.director.director_name %></td>
+            </tr>
+            <tr>
+              <th>勤務地</th>
+              <td><%= @worker.location.location_name %></td>
+            </tr>
+            <tr>
+              <th>勤務区分</th>
+              <td><%= @worker.working_hour.working_hour_code %> <%= @worker.working_hour.start_working_hour.strftime("%H:%M") %>～<%= @worker.working_hour.finish_working_hour.strftime("%H:%M") %></td>
+            </tr>
+            <tr>
+              <th>性別</th>
+              <td>
+                <%= @worker.sex %>
+              </td>
+            </tr>
+            <tr>
+              <th>生年月日</th>
+              <td>
+                <%= @worker.birthday&.strftime('%Y/%m/%d') %>
+              </td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td><%= @worker.email %></td>
+            </tr>
+            <tr>
+              <th>入社日</th>
+              <td>
+                <%= @worker.hire_date&.strftime('%Y/%m/%d') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</main>

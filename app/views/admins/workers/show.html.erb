@@ -54,7 +54,7 @@
             <tr>
               <th>生年月日</th>
               <td>
-                <%= @worker.birthday %>
+                <%= @worker.birthday&.strftime("%Y/%m/%d") %>
               </td>
             </tr>
             <tr>
@@ -76,13 +76,13 @@
             <tr>
               <th>退社日</th>
               <td>
-                <%= @worker.retirement_date %>
+                <%= @worker.retirement_date&.strftime("%Y/%m/%d") %>
               </td>
             </tr>
             <tr>
               <th>休職期間</th>
               <td>
-                <%= @worker.start_career_break %>～<%= @worker.finish_career_break %>
+                <%= @worker.start_career_break&.strftime("%Y/%m/%d") %>～<%= @worker.finish_career_break&.strftime("%Y/%m/%d") %>
               </td>
             </tr>
           </tbody>

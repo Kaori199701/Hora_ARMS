@@ -72,53 +72,61 @@ class Workers::AttendancesController < ApplicationController
 
       end
     end
-      flash[:notice] = "You have updated attendance successfully."
       redirect_to workers_attendance_path(params[:id])
   end
 
 
   def start
-    @attendance = current_worker.attendances.new
-    @attendance.stamp_date = Date.current
-    @attendance.start_worktime = Time.zone.now
-    if @attendance.save
+    attendance = current_worker.attendances.new
+    attendance.stamp_date = Date.current
+    attendance.start_worktime = Time.zone.now
+    if Attendance.where(stamp_date:Date.current).empty? && attendance.save
+      flash[:notice] = "出勤の打刻に成功しました。"
       redirect_to workers_homes_top_path
     else
+      flash[:notice] = "今日は出勤済みです。"
       redirect_to workers_homes_top_path
     end
   end
 
 
   def finish
-    @attendance = current_worker.attendances.where.not(start_worktime: nil).where(finish_worktime: nil).first
-    if @attendance.present?
-      @attendance.finish_worktime = Time.zone.now
-      @attendance.save
+    attendance = current_worker.attendances.where(finish_worktime:nil).last
+    if attendance.present?
+      attendance.finish_worktime = Time.zone.now
+      attendance.save
+      flash[:notice] = "退勤の打刻に成功しました。"
       redirect_to workers_homes_top_path
     else
+      flash[:notice] = "今日は退勤済みです。"
       redirect_to workers_homes_top_path
     end
   end
 
 
   def start_breaktime
-    @attendance = current_worker.attendances.new
-    @attendance.start_breaktime = Time.zone.now
-    if @attendance.save
+    attendance = current_worker.attendances.where(start_breaktime:nil).last
+    if attendance.present?
+      attendance.start_breaktime = Time.zone.now
+      attendance.save
+      flash[:notice] = "休憩開始の打刻に成功しました。"
       redirect_to workers_homes_top_path
     else
+      flash[:notice] = "今日は休憩開始済みです。"
       redirect_to workers_homes_top_path
     end
   end
 
 
   def finish_breaktime
-    @attendance = current_worker.attendances.where.not(start_breaktime: nil).where(finish_breaktime: nil).first
-    if @attendance.present?
-      @attendance.finish_breaktime = Time.zone.now
-      @attendance.save
+    attendance = current_worker.attendances.where(finish_breaktime:nil).last
+    if attendance.present?
+      attendance.finish_breaktime = Time.zone.now
+      attendance.save
+      flash[:notice] = "休憩終了の打刻に成功しました。"
       redirect_to workers_homes_top_path
     else
+      flash[:notice] = "今日は休憩終了済みです。"
       redirect_to workers_homes_top_path
     end
   end

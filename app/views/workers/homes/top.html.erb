@@ -8,6 +8,9 @@
 
       <div class="col-lg-10">
         <h2>出退勤</h2>
+        <div>
+          <%= flash[:notice] %>
+        </div>
 
         <div class="engraving_field">
           <%= link_to "出勤", start_workers_attendances_path, class: "btn btn-lg btn-danger w-180px", method: :post %>
