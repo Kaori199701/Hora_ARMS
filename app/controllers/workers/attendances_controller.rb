@@ -44,7 +44,6 @@ class Workers::AttendancesController < ApplicationController
       i += 1
       day = i
 
-
       if t["id"][i.to_s].present?
         attendance = Attendance.find(t["id"][i.to_s])
         start_time = t["start_worktime"][i.to_s] || nil
@@ -69,9 +68,9 @@ class Workers::AttendancesController < ApplicationController
           stamp_date: params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, i) : Date.new(Date.current.year, Date.current.month, i),
           reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i]
         )
-
       end
     end
+      flash[:notice] = "タイムカード編集に成功しました"
       redirect_to workers_attendance_path(params[:id])
   end
 

@@ -1,0 +1,2 @@
+module Workers::SearchsHelper
+end
