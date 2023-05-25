@@ -11,13 +11,13 @@ class Admins::SearchesController < ApplicationController
   def search_for(model, content, method)
     if model == 'worker'
       if method == 'perfect'
-        Worker.where(name: content)
+        Worker.where(last_name: content)
       else
         Worker.where('name LIKE ?', '%'+content+'%')
       end
     elsif department == 'post'
       if method == 'perfect'
-        Department.where(title: content)
+        Department.where(department: content)
       else
         Department.where('title LIKE ?', '%'+content+'%')
       end

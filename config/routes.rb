@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   namespace :admins do
     get 'homes/top'
     resources :workers, only: [:new, :create, :index, :show, :edit, :update]
-    get '/search', to: 'searchs#search'
+    get '/search', to: 'searches#search'
     resources :workers do
       member do
         get 'password'

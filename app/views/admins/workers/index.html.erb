@@ -9,15 +9,30 @@
     <div class="col-lg-10">
       <h2>従業員一覧</h2>
 
+      <%= render 'admins/search' %>
 
-        <%= form_tag(admins_search_path, method: :get) do %>
-          <%= text_field_tag 'content' %>
-          <%= select_tag 'model', options_for_select({ "Worker" => "worker", "Department" => "department" }) %>
-          <%= select_tag 'method', options_for_select({ "完全一致" => "perfect", "部分一致" => "partial" }) %>
-          <%= submit_tag '検索' %>
-        <% end %>
+        <table>
+            <thead>
+                <tr>
+                    <th>所属</th>
+                    <th>氏名</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="worker">
+            <% @workers.each do |worker| %>
+              <tr>
+                <td><%= worker.department.department_name %></td>
+                <td><%= worker.last_name %> <%= worker.first_name %></td>
+                <td><%= link_to 'タイムカード', admins_attendance_path(worker.id) %></td>
+                <td><%= link_to 'プロフィール', admins_worker_path(worker.id) %></td>
+              </tr>
+            <% end %>
+            </tbody>
+        </table>
 
-
+--------------------------------------------------------------------------------------------------------------------
       <div class="worker_field">
         <table class="table table-inverse">
           <thead>
