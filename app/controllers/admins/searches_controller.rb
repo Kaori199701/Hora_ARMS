@@ -13,13 +13,13 @@ class Admins::SearchesController < ApplicationController
       if method == 'perfect'
         Worker.where(last_name: content)
       else
-        Worker.where('name LIKE ?', '%'+content+'%')
+        Worker.where('last_name LIKE ?', '%'+content+'%')
       end
     elsif department == 'post'
       if method == 'perfect'
         Department.where(department: content)
       else
-        Department.where('title LIKE ?', '%'+content+'%')
+        Department.where('department_name LIKE ?', '%'+content+'%')
       end
     end
   end

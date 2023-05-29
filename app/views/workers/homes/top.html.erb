@@ -24,6 +24,9 @@
         <div class="information_box">
           <h5>お知らせ</h5>
           <p>・6/1(〇)の出退勤情報に誤りがあります。</p>
+          <% @informations.each do |information| %>
+            <% information.start_worktime %>
+          <% end %>
         </div>
       </div>
 

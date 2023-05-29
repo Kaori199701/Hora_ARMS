@@ -10,7 +10,18 @@ class Admins::WorkersController < ApplicationController
   end
 
   def index
-    @workers = Worker.all
+    if params[:department_id].present?
+      @workers = Worker.where(department_id: params[:department_id])
+    else
+      @workers = Worker.all
+    end
+
+    @departments = Department.all
+
+    #もしWorkerの名前を検索していたら名前が合致した人だけ表示
+
+    #もしdepartmentの名称を選択したら所属が合致した人だけ表示
+    #もし何も選択していなかったら全員表示
   end
 
   def show
