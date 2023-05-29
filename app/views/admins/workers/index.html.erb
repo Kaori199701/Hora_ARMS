@@ -36,7 +36,7 @@
       <div>
       <p>所属で検索</p>
         <%= form_with url: admins_workers_path, method: :get do |f|  %>
-          <%= f.collection_select :department_id, @departments, :id, :department_name, include_blank: "選択して下さい" %>
+          <%= f.collection_select :department_id, @departments, :id, :department_name, include_blank: "全部署" %>
           <%= f.submit '検索', class:"btn btn-sm btn-success" %>
         <% end %>
       </div>
