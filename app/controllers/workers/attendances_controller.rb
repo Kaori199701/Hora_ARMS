@@ -1,7 +1,15 @@
 class Workers::AttendancesController < ApplicationController
   def index
-    @workers = Worker.all
     @worker = current_worker
+
+    if params[:department_id].present?
+      @workers = Worker.where(department_id: params[:department_id])
+    else
+      @workers = Worker.all
+    end
+
+    @departments = Department.all
+
   end
 
 

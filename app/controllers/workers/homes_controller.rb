@@ -4,9 +4,9 @@ class Workers::HomesController < ApplicationController
     @worker = current_worker
     @informations = Attendance.all
 
-    if @infomations.start_worktime
+    #if @infomations.start_worktime
 
-    end
+    #end
 
 
 

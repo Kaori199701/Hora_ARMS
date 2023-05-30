@@ -9,7 +9,7 @@
       <div class="col-lg-10">
         <h2>在席一覧</h2>
 
-        <div>
+      <div>
       <p>所属で検索</p>
         <%= form_with url: admins_homes_top_path, method: :get do |f|  %>
           <%= f.collection_select :department_id, @departments, :id, :department_name, include_blank: "全部署" %>
