@@ -9,29 +9,13 @@
     <div class="col-lg-10">
       <h2>従業員一覧</h2>
 
-      <!--<%#= render 'admins/search' %>-->
-
-      <!--  <table>-->
-      <!--      <thead>-->
-      <!--          <tr>-->
-      <!--              <th>所属</th>-->
-      <!--              <th>氏名</th>-->
-      <!--              <th></th>-->
-      <!--              <th></th>-->
-      <!--          </tr>-->
-      <!--      </thead>-->
-      <!--      <tbody id="worker">-->
-      <!--      <%# @workers.each do |worker| %>-->
-      <!--        <tr>-->
-      <!--          <td><%#= worker.department.department_name %></td>-->
-      <!--          <td><%#= worker.last_name %> <%#= worker.first_name %></td>-->
-      <!--          <td><%#= link_to 'タイムカード', admins_attendance_path(worker.id) %></td>-->
-      <!--          <td><%#= link_to 'プロフィール', admins_worker_path(worker.id) %></td>-->
-      <!--        </tr>-->
-      <!--      <%# end %>-->
-      <!--      </tbody>-->
-      <!--  </table>-->
---------------------------------------------------------------------------------------------------------------------
+      <div>
+      <p>名前で検索</p>
+        <%= form_with url: admins_workers_path, method: :get do |f| %>
+          <%= text_field_tag :name %>
+          <%= f.submit '検索', class:"btn btn-sm btn-success" %>
+        <% end %>
+      </div>
 
       <div>
       <p>所属で検索</p>

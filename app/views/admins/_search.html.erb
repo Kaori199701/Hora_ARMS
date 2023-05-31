@@ -1,6 +1,0 @@
-        <%= form_tag(admins_search_path, method: :get) do %>
-          <%= text_field_tag 'content' %>
-          <%= select_tag 'model', options_for_select({ "Worker" => "worker", "Department" => "department" }) %>
-          <%= select_tag 'method', options_for_select({ "完全一致" => "perfect", "部分一致" => "partial" }) %>
-          <%= submit_tag '検索' %>
-        <% end %>

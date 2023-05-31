@@ -18,10 +18,13 @@ class Admins::WorkersController < ApplicationController
 
     @departments = Department.all
 
-    #もしWorkerの名前を検索していたら名前が合致した人だけ表示
 
-    #もしdepartmentの名称を選択したら所属が合致した人だけ表示
-    #もし何も選択していなかったら全員表示
+    if params[:name].present?
+      @workers = Worker.search(params[:name])
+    else
+      @workers = Worker.all
+    end
+
   end
 
   def show

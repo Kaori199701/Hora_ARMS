@@ -10,6 +10,12 @@ class Workers::AttendancesController < ApplicationController
 
     @departments = Department.all
 
+    if params[:name].present?
+      @workers = Worker.search(params[:name])
+    else
+      @workers = Worker.all
+    end
+
   end
 
 

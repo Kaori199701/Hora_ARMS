@@ -10,6 +10,14 @@
         <h2>在席一覧</h2>
 
       <div>
+      <p>名前で検索</p>
+        <%= form_with url: admins_homes_top_path, method: :get do |f| %>
+          <%= text_field_tag :name %>
+          <%= f.submit '検索', class:"btn btn-sm btn-success" %>
+        <% end %>
+      </div>
+
+      <div>
       <p>所属で検索</p>
         <%= form_with url: admins_homes_top_path, method: :get do |f|  %>
           <%= f.collection_select :department_id, @departments, :id, :department_name, include_blank: "全部署" %>
