@@ -4,11 +4,13 @@ class Workers::HomesController < ApplicationController
     @worker = current_worker
     @informations = Attendance.all
 
-    #if @infomations.start_worktime
 
-    #end
-
-
+    if params[:start_worktime].nil? # :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime に値がないとき
+      @infomations = Attendance.where(id: params[:start_worktime]) #打刻がない日付を探す
+      #●月●日に打刻漏れがあります。(1か月単位？)
+    else  #上4つに値がある場合
+      #何も表示しない
+    end
 
 
   end
