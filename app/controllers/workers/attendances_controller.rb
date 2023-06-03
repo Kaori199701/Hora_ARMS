@@ -29,7 +29,8 @@ class Workers::AttendancesController < ApplicationController
 
 
   def edit
-    @worker = Worker.find(params[:id])
+    @attendance = Attendance.find(params[:id])
+    @worker = @attendance.worker
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
@@ -43,6 +44,7 @@ class Workers::AttendancesController < ApplicationController
 
 
   def update
+ # byebug
     @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
     number_of_month = @today.end_of_month.day
     t = params["worker"]
@@ -53,6 +55,7 @@ class Workers::AttendancesController < ApplicationController
       i += 1
       day = i
 
+# byebug
       if t["id"][i.to_s].present?
         attendance = Attendance.find(t["id"][i.to_s])
         start_time = t["start_worktime"][i.to_s] || nil
@@ -88,7 +91,8 @@ class Workers::AttendancesController < ApplicationController
     attendance = current_worker.attendances.new
     attendance.stamp_date = Date.current
     attendance.start_worktime = Time.zone.now
-    if Attendance.where(stamp_date:Date.current).empty? && attendance.save
+    target_attendance = Attendance.where(stamp_date:Date.current)
+    if (target_attendance.empty? || target_attendance.last.start_worktime.nil?) && attendance.save
       flash[:notice] = "出勤の打刻に成功しました。"
       redirect_to workers_homes_top_path
     else

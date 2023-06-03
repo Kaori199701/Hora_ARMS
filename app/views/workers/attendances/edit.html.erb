@@ -18,12 +18,13 @@
           </div>
           <% end %>
         </div>
+      </div>
 
         <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch, id: "attendances" do |f| %>
         <div class="new_botton ml-5">
           <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
         </div>
-      </div>
+
 
       <div class="department_list">
         <table class="table mt-3">
@@ -62,6 +63,8 @@
             </tbody>
         </table>
       </div>
+
+
       <% end %>
       </div>
 
