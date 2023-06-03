@@ -3,6 +3,7 @@ class Workers::HomesController < ApplicationController
     @attendance = Attendance.new
     @worker = current_worker
     @attendances = Attendance.where(worker_id: @worker.id)
+    @stampdate = Attendance.where(stamp_date: present?)
 
     attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
     day_num = DateTime.now.at_end_of_month.day
@@ -11,7 +12,7 @@ class Workers::HomesController < ApplicationController
     start_breaktimes = attendances.pluck(:start_breaktime)
     finish_breaktimes = attendances.pluck(:finish_breaktime)
 
-    errors = []
+    @errors = []
 
     if start_worktimes.select(&:itself).size < day_num || finish_worktimes.select(&:itself).size < day_num || start_breaktimes.select(&:itself).size < day_num || finish_breaktimes.select(&:itself).size < day_num
             #打刻した日数が、月の日数より少ない場合
@@ -36,16 +37,10 @@ class Workers::HomesController < ApplicationController
         end
 
         if error_attendance
-          errors.push("●月●日に打刻漏れがあります")
+          @errors.push(@stampdate) #stamp_dateの月日を表示+"に打刻漏れがあります。(1か月単位？)"
         end
       end
 
-      # if @informations.  .nil? # :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime に値がない日
-      #   @infomations = Attendance.where(id: params[:start_worktime]) #打刻がない日付を探す
-      #       #●月●日に打刻漏れがあります。(1か月単位？)
-      # else  #上4つに値がある場合
-      #       #何も表示しない
-      # end
     else
 
     end

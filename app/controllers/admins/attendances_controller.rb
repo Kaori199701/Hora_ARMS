@@ -38,7 +38,7 @@ class Admins::AttendancesController < ApplicationController
       i += 1
       day = i
 
-      if t["id"][i.to_s].present?
+      if t["id"][i.to_s].present? #打刻時間のidがある場合
         attendance = Attendance.find(t["id"][i.to_s])
         start_time = t["start_worktime"][i.to_s]
         finish_time = t["finish_worktime"][i.to_s]

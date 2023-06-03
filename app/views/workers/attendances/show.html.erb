@@ -60,7 +60,7 @@
                   <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <td>
-
+                      <%#= %>
                   </td>
                   <!--出勤-->
                   <% if start_at&.start_worktime&.strftime('%H:%M') != "00:00" %>
