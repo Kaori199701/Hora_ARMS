@@ -44,7 +44,6 @@ class Workers::AttendancesController < ApplicationController
 
 
   def update
- # byebug
     @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
     number_of_month = @today.end_of_month.day
     t = params["worker"]

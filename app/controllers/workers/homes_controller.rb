@@ -3,7 +3,7 @@ class Workers::HomesController < ApplicationController
     @attendance = Attendance.new
     @worker = current_worker
     @attendances = Attendance.where(worker_id: @worker.id)
-    @stampdate = Attendance.where(stamp_date: present?)
+    @current_md = Date.current
 
     attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
     day_num = DateTime.now.at_end_of_month.day
@@ -37,7 +37,7 @@ class Workers::HomesController < ApplicationController
         end
 
         if error_attendance
-          @errors.push(@stampdate) #stamp_dateの月日を表示+"に打刻漏れがあります。(1か月単位？)"
+          @errors.push(@current_md.strftime("%Y年%m月%d日")+"に打刻漏れがあります。") #stamp_dateの月日を表示+"に打刻漏れがあります。(1か月単位？)"
         end
       end
 
