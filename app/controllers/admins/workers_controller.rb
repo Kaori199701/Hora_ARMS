@@ -9,9 +9,9 @@ class Admins::WorkersController < ApplicationController
     redirect_to admins_homes_top_path
   end
 
+
   def index
     if params[:department_id].present?
-
       @workers = Worker.where(department_id: params[:department_id])
     elsif params[:name].present?
       @workers = Worker.search(params[:name])
@@ -19,25 +19,24 @@ class Admins::WorkersController < ApplicationController
       @workers = Worker.all
     end
 
-
     @departments = Department.all
-
-
-
-
   end
+
 
   def show
     @worker = Worker.find(params[:id])
   end
 
+
   def edit
     @worker = Worker.find(params[:id])
   end
 
+
   def password
     @worker = Worker.find(params[:id])
   end
+
 
   def update
     @worker = Worker.find(params[:id])
