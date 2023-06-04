@@ -23,13 +23,15 @@
 
         <div class="information_box">
           <h5>お知らせ</h5>
-          <p>・6/1(〇)の出退勤情報に誤りがあります。</p>
+            <% @errors.each do |error| %>
+              <table>
+                <tr><th>・</th><td><%= error %></td></tr>
+              </table>
+            <% end %>
         </div>
       </div>
 
-      <% @errors.each do |error| %>
-        <%= error %>
-      <% end %>
+
 
     </div>
   </div>
