@@ -49,49 +49,36 @@
                   <% end_at = calendar_date %>
                   <% start_breaktime_at = calendar_date %>
                   <% end_breaktime_at = calendar_date %>
+                  <% reason_status_at = calendar_date %>
+                  <% comment_at = calendar_date %>
                   <% p calendar_date%>
 
-                  <% #end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
-                  <% #start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <%# #end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <%# #start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
-                  <% #end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
+                  <%# #end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
+                  <!--事由-->
                   <td>
-
+                    <% reason_status_at&.reason_status %>
                   </td>
                   <!--出勤-->
-                  <% if start_at&.start_worktime&.strftime('%H:%M') != "00:00" %>
-                    <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
+                  <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
 
                   <!--退勤-->
-                  <% if end_at&.finish_worktime&.strftime('%H:%M') != "00:00" %>
-                    <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
+                  <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
 
                   <!--休憩開始-->
-                  <% if start_breaktime_at&.start_breaktime&.strftime('%H:%M') != "00:00" %>
-                    <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
+                  <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
 
                   <!--休憩終了-->
-                  <% if end_breaktime_at&.finish_breaktime&.strftime('%H:%M') != "00:00" %>
-                    <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
+                  <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
 
-                    <td><%# comment %></td>
-
+                  <!--コメント-->
+                  <td><% comment_at&.comment %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>
