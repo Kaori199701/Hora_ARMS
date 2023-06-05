@@ -49,9 +49,12 @@
                   <% end_at = calendar_date %>
                   <% start_breaktime_at = calendar_date %>
                   <% end_breaktime_at = calendar_date %>
+
+                    <!--以下2行不要？-->
                   <% reason_status_at = calendar_date %>
                   <% comment_at = calendar_date %>
-                  <% p calendar_date%>
+
+                  <%# p calendar_date%>
 
                   <%# #end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
                   <%# #start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>

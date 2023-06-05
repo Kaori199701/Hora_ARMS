@@ -11,6 +11,19 @@ class Workers::AttendancesController < ApplicationController
     end
 
     @departments = Department.all
+
+    # @attendance = Attendance.find_by(worker: @worker, start_worktime: ..Time.current, stamp_date: Date.current) #今日の打刻データ
+
+    # @attendance_status = []
+
+    # #出退勤情報の表示
+    # if @attendance.finish_worktime.present?    #退勤がある場合→「退勤」と表示
+    #   @attendance_status.push("退勤")
+    # elsif @attendance.start_worktime.present?    #出勤があって退勤がない場合→「出勤」と表示
+    #   @attendance_status.push("出勤")
+    # else #なにもない場合
+
+    # end
   end
 
 

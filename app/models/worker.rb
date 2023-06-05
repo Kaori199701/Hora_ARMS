@@ -14,12 +14,17 @@ class Worker < ApplicationRecord
     self.last_name + self.first_name
   end
 
+  def current_attendance
+    attendances.find_by(start_worktime: ..Time.current, stamp_date: Date.current)
+  end
+
+
   def self.search(search)
     if search
       workers = Worker.all.map{|worker| [worker.full_name, worker.id] }
 
       searched_worker_ids = []
- 
+
       workers.each do |worker|
         if worker[0].include?(search)
           searched_worker_ids << worker[1]

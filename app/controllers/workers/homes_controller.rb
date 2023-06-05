@@ -4,13 +4,6 @@ class Workers::HomesController < ApplicationController
     @worker = current_worker
     @attendances = Attendance.where(worker_id: @worker.id)
 
-    attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
-    day_num = DateTime.now.at_end_of_month.day
-    start_worktimes = attendances.pluck(:start_worktime)
-    finish_worktimes = attendances.pluck(:finish_worktime)
-    start_breaktimes = attendances.pluck(:start_breaktime)
-    finish_breaktimes = attendances.pluck(:finish_breaktime)
-
     @errors = []
 
     # レコードが無い日 -> エラー対象
@@ -29,6 +22,13 @@ class Workers::HomesController < ApplicationController
     error_days.each do |error_day|
       @errors.push(error_day&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。")
     end
+
+    #attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
+    # day_num = DateTime.now.at_end_of_month.day
+    # start_worktimes = attendances.pluck(:start_worktime)
+    # finish_worktimes = attendances.pluck(:finish_worktime)
+    # start_breaktimes = attendances.pluck(:start_breaktime)
+    # finish_breaktimes = attendances.pluck(:finish_breaktime)
 
 
 #     if start_worktimes.select(&:itself).size < day_num || finish_worktimes.select(&:itself).size < day_num || start_breaktimes.select(&:itself).size < day_num || finish_breaktimes.select(&:itself).size < day_num

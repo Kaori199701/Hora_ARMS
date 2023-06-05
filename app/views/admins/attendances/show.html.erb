@@ -45,9 +45,12 @@
                   <% end_at = calendar_date %>
                   <% start_breaktime_at = calendar_date %>
                   <% end_breaktime_at = calendar_date %>
+
+                    <!--以下2行不要？-->
                   <% reason_status_at = calendar_date %>
                   <% comment_at = calendar_date %>
-                  <% p calendar_date%>
+
+                  <%# p calendar_date%>
 
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>

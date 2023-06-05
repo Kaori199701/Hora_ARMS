@@ -48,7 +48,8 @@
                 <%= worker.last_name %><%= worker.first_name %>
               </td>
               <td>
-
+                <!--TODO: N+1問題が発生している-->
+                <%= worker.current_attendance&.status %>
               </td>
               <td>
 
