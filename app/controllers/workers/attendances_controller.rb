@@ -67,7 +67,6 @@ class Workers::AttendancesController < ApplicationController
       i += 1
       day = i
 
-# byebug
       if t["id"][i.to_s].present?
         attendance = Attendance.find(t["id"][i.to_s])
         start_time = t["start_worktime"][i.to_s] || nil
@@ -103,14 +102,13 @@ class Workers::AttendancesController < ApplicationController
     attendance = current_worker.attendances.new
     attendance.stamp_date = Date.current
     attendance.start_worktime = Time.zone.now
-    target_attendance = Attendance.where(stamp_date:Date.current)
+    target_attendance = current_worker.attendances.where(stamp_date:Date.current)
     if (target_attendance.empty? || target_attendance.last.start_worktime.nil?) && attendance.save
       flash[:notice] = "出勤の打刻に成功しました。"
-      redirect_to workers_homes_top_path
     else
       flash[:notice] = "今日は出勤済みです。"
-      redirect_to workers_homes_top_path
     end
+    redirect_to workers_homes_top_path
   end
 
 

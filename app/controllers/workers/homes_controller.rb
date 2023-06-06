@@ -20,7 +20,12 @@ class Workers::HomesController < ApplicationController
     error_days = work_days - velified_attendances.pluck(:stamp_date)
 
     error_days.each do |error_day|
-      @errors.push(error_day&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。")
+
+    attendance = current_worker.attendances.find_by(stamp_date: error_day)
+      if attendance.start_worktime.nil? || attendance.finish_worktime.nil? || attendance.start_breaktime.nil? || attendance.finish_breaktime.nil?
+        @errors.push(error_day&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。")
+      end
+
     end
 
     #attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
