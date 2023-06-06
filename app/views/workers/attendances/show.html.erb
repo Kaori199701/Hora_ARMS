@@ -54,13 +54,6 @@
                   <% reason_status_at = calendar_date %>
                   <% comment_at = calendar_date %>
 
-                  <%# p calendar_date%>
-
-                  <%# #end_at = @attendances.find_by(finish_worktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
-                  <%# #start_breaktime_at = @attendances.find_by(start_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
-
-                  <%# #end_breaktime_at = @attendances.find_by(finish_breaktime: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
-
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>

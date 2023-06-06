@@ -48,11 +48,10 @@
                   <%= worker.last_name %><%= worker.first_name %>
                 </td>
                 <td>
-                  attendance_statusを表示
+                  <%= worker.current_attendance&.status %>
                 </td>
-
                 <td>
-                  <%#= worker.attendances.reason_status %>        <!--当日の事由を表示-->
+                  <%= worker.current_attendance&.reason_status %>
                 </td>
               </tr>
             </tbody>
