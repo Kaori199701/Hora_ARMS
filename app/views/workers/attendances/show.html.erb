@@ -51,7 +51,7 @@
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>
-                      <%= calendar_date&.reason_status %>
+                      <%= calendar_date&.reason_status_i18n %>
                   </td>
                   <!--出勤-->
                   <td><%= calendar_date&.start_worktime&.strftime('%H:%M') %></td>

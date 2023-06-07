@@ -1,3 +1,4 @@
+
 ja:
   enums:
     worker:
@@ -5,19 +6,12 @@ ja:
         tenure: "在職"
         retirement: "退職"
         leave_from_work: "休職"
-
-ja:
-  enums:
-    worker:
       sex:
         male: "男性"
         female: "女性"
-
-ja:
-  enums:
     attendance:
       reason_status:
-        nothing: ""
+        nothing: "　"
         paid_holiday: "有休"
         absenteeism: "欠勤"
         business_trip: "出張"
