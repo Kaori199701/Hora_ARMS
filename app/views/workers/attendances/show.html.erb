@@ -45,36 +45,28 @@
               <% i = 1 %>
               <% @current_month.count.times do %>
                   <% calendar_date = @attendances.where(stamp_date: Date.new(@today.year, @today.mon, i)).last %>
-                  <% start_at = calendar_date %>
-                  <% end_at = calendar_date %>
-                  <% start_breaktime_at = calendar_date %>
-                  <% end_breaktime_at = calendar_date %>
-
-                    <!--以下2行不要？-->
-                  <% reason_status_at = calendar_date %>
-                  <% comment_at = calendar_date %>
 
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>
-                    <% reason_status_at&.reason_status %>
+                      <%= calendar_date&.reason_status %>
                   </td>
                   <!--出勤-->
-                  <td><%= start_at&.start_worktime&.strftime('%H:%M') %></td>
+                  <td><%= calendar_date&.start_worktime&.strftime('%H:%M') %></td>
 
                   <!--退勤-->
-                  <td><%= end_at&.finish_worktime&.strftime('%H:%M') %></td>
+                  <td><%= calendar_date&.finish_worktime&.strftime('%H:%M') %></td>
 
                   <!--休憩開始-->
-                  <td><%= start_breaktime_at&.start_breaktime&.strftime('%H:%M') %></td>
+                  <td><%= calendar_date&.start_breaktime&.strftime('%H:%M') %></td>
 
                   <!--休憩終了-->
-                  <td><%= end_breaktime_at&.finish_breaktime&.strftime('%H:%M') %></td>
+                  <td><%= calendar_date&.finish_breaktime&.strftime('%H:%M') %></td>
 
                   <!--コメント-->
-                  <td><% comment_at&.comment %></td>
+                  <td><%= calendar_date&.comment %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

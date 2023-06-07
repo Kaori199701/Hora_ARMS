@@ -58,6 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 gem 'axlsx_rails'
+gem 'rubyXL'
 
 gem 'prawn'
 gem 'prawn-table'
