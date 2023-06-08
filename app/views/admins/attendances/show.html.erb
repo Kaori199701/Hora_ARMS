@@ -28,12 +28,13 @@
               <tr>
                 <th width="10%">日付</th>
                 <th width="15%">勤務区分</th>
-                <th width="20%">事由</th>
+                <th width="15%">事由</th>
                 <th width="8%">出勤</th>
                 <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
                 <th width="19%">コメント</th>
+                <th width="5%"></th>
               </tr>
             </thead>
 
@@ -73,6 +74,9 @@
 
                   <!--コメント-->
                   <td><% comment_at&.comment %></td>
+
+                  <!--編集ステータス-->
+                  <td><%= calendar_date&.edit_status %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

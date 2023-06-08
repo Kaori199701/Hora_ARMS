@@ -61,6 +61,7 @@ class Admins::AttendancesController < ApplicationController
           comment: t["comment"][i.to_s] || nil,
           stamp_date: params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, i) : Date.new(Date.current.year, Date.current.month, i),
           reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i]
+          #edit_status: Attendance.edit_statuses.keys[t["editn_status"][i.to_s].to_i]
         )
       end
     end

@@ -18,3 +18,7 @@ ja:
         special_holiday: "特休"
         maternity_leave: "産休"
         childcare_leave: "育休"
+      edit_status:
+        no_edit: "　"
+        admin_edited: "管理者編集済"
+        worker_edited: "編集済"
