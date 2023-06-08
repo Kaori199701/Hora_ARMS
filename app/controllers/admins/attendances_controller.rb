@@ -14,6 +14,7 @@ class Admins::AttendancesController < ApplicationController
 
 
   def edit
+    @attendance = Attendance.find(params[:id])
     @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = @worker.working_hour.start_working_hour
@@ -28,9 +29,9 @@ class Admins::AttendancesController < ApplicationController
 
 
   def update
-  @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current #編集月が毎回Date.currentに入る？
     number_of_month = @today.end_of_month.day
-    t = params["worker"]
+    t = params
 
     year =  @today.year
     month = @today.month
@@ -38,8 +39,9 @@ class Admins::AttendancesController < ApplicationController
       i += 1
       day = i
 
-      if t["id"][i.to_s].present? #打刻時間のidがある場合
-        attendance = Attendance.find(t["id"][i.to_s])
+      attendance = Attendance.find_by(worker_id: params["id"], stamp_date: Date.new(year, month, day))
+
+      if attendance&.present? #打刻時間のidがある場合
         start_time = t["start_worktime"][i.to_s]
         finish_time = t["finish_worktime"][i.to_s]
         start_breaktime = t["start_breaktime"][i.to_s]
@@ -50,7 +52,15 @@ class Admins::AttendancesController < ApplicationController
         start_breaktime = start_breaktime.present? ? "#{year}-#{month}-#{day} #{start_breaktime}" : nil
         finish_breaktime = finish_breaktime.present? ? "#{year}-#{month}-#{day} #{finish_breaktime}" : nil
 
-        attendance.update(start_worktime: start_worktime, finish_worktime: finish_worktime, start_breaktime: start_breaktime, finish_breaktime: finish_breaktime, comment: t["comment"][i.to_s], reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i])
+        attendance.attributes = {
+            start_worktime: start_worktime,
+            finish_worktime: finish_worktime,
+            start_breaktime: start_breaktime,
+            finish_breaktime: finish_breaktime,
+            comment: t["comment"][i.to_s],
+            reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i]
+        }
+        attendance.admin_edited!
       else
         Attendance.create(
           worker_id: params[:id],
@@ -61,12 +71,12 @@ class Admins::AttendancesController < ApplicationController
           comment: t["comment"][i.to_s] || nil,
           stamp_date: params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, i) : Date.new(Date.current.year, Date.current.month, i),
           reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i]
-          #edit_status: Attendance.edit_statuses.keys[t["editn_status"][i.to_s].to_i]
+          #編集ステータスをkey[1]にする
         )
       end
     end
       flash[:notice] = "タイムカード編集に成功しました"
-      redirect_to workers_attendance_path(params[:id])
+      redirect_to admins_attendance_path(params[:id])
   end
 
 

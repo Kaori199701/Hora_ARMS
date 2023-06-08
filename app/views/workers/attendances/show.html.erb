@@ -45,7 +45,7 @@
             <tboby>
               <% i = 1 %>
               <% @current_month.count.times do %>
-                  <% calendar_date = @attendances.where(stamp_date: Date.new(@today.year, @today.mon, i)).last %>
+                  <% calendar_date = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
 
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>
