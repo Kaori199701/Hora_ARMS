@@ -54,13 +54,12 @@ class Workers::AttendancesController < ApplicationController
       i += 1
       day = i
 
-      attendance = Attendance.find_by(worker_id: params["id"], stamp_date: Date.new(year, month, day))
-
-      if attendance&.present? #打刻時間のidがある場合
-        start_time = t["start_worktime"][i.to_s]
-        finish_time = t["finish_worktime"][i.to_s]
-        start_breaktime = t["start_breaktime"][i.to_s]
-        finish_breaktime = t["finish_breaktime"][i.to_s]
+      if t["id"][i.to_s].present?
+        attendance = Attendance.find(t["id"][i.to_s])
+        start_time = t["start_worktime"][i.to_s] || nil
+        finish_time = t["finish_worktime"][i.to_s] || nil
+        start_breaktime = t["start_breaktime"][i.to_s] || nil
+        finish_breaktime = t["finish_breaktime"][i.to_s] || nil
 
         start_worktime = start_time.present? ? "#{year}-#{month}-#{day} #{start_time}" : nil
         finish_worktime = finish_time.present? ? "#{year}-#{month}-#{day} #{finish_time}" : nil

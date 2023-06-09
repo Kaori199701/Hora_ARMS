@@ -70,7 +70,9 @@
             <tr>
               <th>勤務状況</th>
               <td>
-                 未
+                <%= f.select "employment_status",
+                    Worker.employment_statuses.map { |k, v| [I18n.t("enums.worker.employment_status.#{k}"), v] },
+                    class:"form-control form-control-sm col-6"  %> ※保存できない
               </td>
             </tr>
             <tr>
