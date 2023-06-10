@@ -114,11 +114,10 @@ class Workers::AttendancesController < ApplicationController
       attendance.finish_worktime = Time.zone.now
       attendance.save
       flash[:notice] = "退勤の打刻に成功しました。"
-      redirect_to workers_homes_top_path
     else
       flash[:notice] = "今日は退勤済みです。"
-      redirect_to workers_homes_top_path
     end
+    redirect_to workers_homes_top_path
   end
 
 
@@ -128,11 +127,10 @@ class Workers::AttendancesController < ApplicationController
       attendance.start_breaktime = Time.zone.now
       attendance.save
       flash[:notice] = "休憩開始の打刻に成功しました。"
-      redirect_to workers_homes_top_path
     else
       flash[:notice] = "今日は休憩開始済みです。"
-      redirect_to workers_homes_top_path
     end
+    redirect_to workers_homes_top_path
   end
 
 
@@ -142,11 +140,10 @@ class Workers::AttendancesController < ApplicationController
       attendance.finish_breaktime = Time.zone.now
       attendance.save
       flash[:notice] = "休憩終了の打刻に成功しました。"
-      redirect_to workers_homes_top_path
     else
       flash[:notice] = "今日は休憩終了済みです。"
-      redirect_to workers_homes_top_path
     end
+    redirect_to workers_homes_top_path
   end
 
 
@@ -160,7 +157,7 @@ class Workers::AttendancesController < ApplicationController
 private
 
   def attendance_params
-    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date)
+    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date, :edit_status)
   end
 
 end

@@ -10,10 +10,9 @@
 
 <h2>Excel出力</h2>
 
- 以下の1行を追記
-%= link_to "Excel出力", admins_excels_path(@excels, format: :xlsx) %>
+<%= link_to "Excel出力", admins_excels_path(@workers, format: :xlsx) %>
 
-<table class="table table-inverse">
+<table>
   <thead>
     <tr>
       <th>Title</th>
@@ -23,17 +22,21 @@
   </thead>
 
   <tbody>
-    % @excels.each do |excel| %>
+    <% @workers.each do |worker| %>
       <tr>
-        <td>%= excel.title %></td>
-        <td>%= excel.body %></td>
-        <td>%= link_to 'Show', excel %></td>
-        <td>%= link_to 'Edit', edit_excel_path(excel) %></td>
-        <td>%= link_to 'Destroy', excel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= worker.last_name %></td>
+        <td><%= worker.first_name %></td>
+        <td><%#= link_to 'Show', excel %></td>
+        <td><%#= link_to 'Edit', edit_excel_path(worker) %></td>
+        <td><%#= link_to 'Destroy', worker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    % end %>
+    <% end %>
   </tbody>
 </table>
+
+<br>
+
+<%#= link_to 'New Excel', new_excel_path %>
       </div>
 
     </div>
