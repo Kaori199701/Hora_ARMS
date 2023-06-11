@@ -6,7 +6,7 @@ class Admins::ExcelsController < ApplicationController
     respond_to do |format|
       format.html
       format.xlsx do
-        response.headers['Content-Disposition'] = "attachment; filename=#{Date.today}.xlsx"
+        response.headers['Content-Disposition'] = "attachment; filename=#{Date.today}勤怠情報.xlsx"
       end
     end
   end

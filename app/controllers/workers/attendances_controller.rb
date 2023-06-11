@@ -109,7 +109,7 @@ class Workers::AttendancesController < ApplicationController
 
 
   def finish
-    attendance = current_worker.attendances.where(finish_worktime:nil).last
+    attendance = current_worker.attendances.where(finish_worktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
       attendance.finish_worktime = Time.zone.now
       attendance.save
@@ -122,7 +122,7 @@ class Workers::AttendancesController < ApplicationController
 
 
   def start_breaktime
-    attendance = current_worker.attendances.where(start_breaktime:nil).last
+    attendance = current_worker.attendances.where(start_breaktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
       attendance.start_breaktime = Time.zone.now
       attendance.save
@@ -135,7 +135,7 @@ class Workers::AttendancesController < ApplicationController
 
 
   def finish_breaktime
-    attendance = current_worker.attendances.where(finish_breaktime:nil).last
+    attendance = current_worker.attendances.where(finish_breaktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
       attendance.finish_breaktime = Time.zone.now
       attendance.save

@@ -52,10 +52,17 @@
                   <td>
                       <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
                   </td>
-                  <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+                  <% if "#{@today.year}-#{@today.month}-#{i}".to_date < Date.current %>
+                    <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
+                    <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
+                    <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
+                    <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+                  <% else %>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                  <% end %>
                   <td><%= f.text_field "comment[#{i}]", value: time_record&.comment %></td>
                 </tr>
 
