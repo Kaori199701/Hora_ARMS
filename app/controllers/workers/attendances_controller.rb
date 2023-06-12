@@ -55,6 +55,11 @@ class Workers::AttendancesController < ApplicationController
       day = i
 
       if t["id"][i.to_s].present?
+        updated_flag = t["updated"][i.to_s] || nil
+        # 更新されたものだけ検知(1じゃなければ次へ)
+        if updated_flag != "1" then
+          next
+        end
         attendance = Attendance.find(t["id"][i.to_s])
         start_time = t["start_worktime"][i.to_s] || nil
         finish_time = t["finish_worktime"][i.to_s] || nil
@@ -157,7 +162,7 @@ class Workers::AttendancesController < ApplicationController
 private
 
   def attendance_params
-    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date, :edit_status)
+    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date, :edit_status, :updated)
   end
 
 end

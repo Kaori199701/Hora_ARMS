@@ -26,5 +26,7 @@ module Hora
 
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.eager_load_paths += Dir["#{config.root}/lib/**/"]
+
+    config.paths.add 'app/assets/pdfs', eager_load: true
   end
 end

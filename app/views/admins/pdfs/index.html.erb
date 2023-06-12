@@ -11,7 +11,7 @@
 <h2>PDF出力</h2>
 
  以下の1行を追記
-%= link_to "PDF出力", admins_pdfs_path(@pdfs, format: :xlsx) %>
+<%= link_to "PDF出力", admins_pdfs_path(@pdfs, format: :pdf) %>
 
 <table class="table table-inverse">
   <thead>
@@ -23,15 +23,15 @@
   </thead>
 
   <tbody>
-    % @pdfs.each do |pdf| %>
+    <% @pdfs.each do |pdf| %>
       <tr>
-        <td>%= excel.title %></td>
-        <td>%= excel.body %></td>
-        <td>%= link_to 'Show', excel %></td>
-        <td>%= link_to 'Edit', edit_excel_path(excel) %></td>
-        <td>%= link_to 'Destroy', excel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= excel.title %></td>
+        <td><%= excel.body %></td>
+        <td><%#= link_to 'Show', excel %></td>
+        <td><%#= link_to 'Edit', edit_excel_path(excel) %></td>
+        <td><%#= link_to 'Destroy', excel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    % end %>
+    <% end %>
   </tbody>
 </table>
 
