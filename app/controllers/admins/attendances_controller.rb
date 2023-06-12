@@ -42,6 +42,11 @@ class Admins::AttendancesController < ApplicationController
       attendance = Attendance.find_by(worker_id: params["id"], stamp_date: Date.new(year, month, day))
 
       if attendance&.present? #打刻時間のidがある場合
+        updated_flag = t["updated"][i.to_s] || nil
+        # 更新されたものだけ検知(1じゃなければ次へ)
+        if updated_flag != "1" then
+          next
+        end
         start_time = t["start_worktime"][i.to_s]
         finish_time = t["finish_worktime"][i.to_s]
         start_breaktime = t["start_breaktime"][i.to_s]
