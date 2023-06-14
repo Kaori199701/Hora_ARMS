@@ -3,6 +3,7 @@ class Admins::ExcelsController < ApplicationController
     # workbook = RubyXL::Workbook.new
     # workbook.write("path/to/desired/Excel/file.xlsx")
     @workers = Worker.all
+    @attendances = Attendance.all
     respond_to do |format|
       format.html
       format.xlsx do

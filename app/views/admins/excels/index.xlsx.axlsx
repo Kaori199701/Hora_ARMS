@@ -1,8 +1,8 @@
 wb = xlsx_package.workbook
 
-@workers.each do |worker|
-  wb.add_worksheet(name: worker.full_name) do |sheet|
+@attendances.each do |attendance|
+  wb.add_worksheet(name: attendance.worker.full_name) do |sheet|
     sheet.add_row [ "workerID", "苗字", "名前" ]
-    sheet.add_row [ worker.id, worker.last_name, worker.first_name ]
+    sheet.add_row [ attendance.worker.id, attendance.worker.last_name, attendance.worker.first_name ]
   end
 end

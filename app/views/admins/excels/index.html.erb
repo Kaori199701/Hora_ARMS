@@ -22,10 +22,11 @@
   </thead>
 
   <tbody>
-    <% @workers.each do |worker| %>
+    <% @attendances.each do |attendance| %>
       <tr>
-        <td><%= worker.last_name %></td>
-        <td><%= worker.first_name %></td>
+        <td><%= attendance.stamp_date %></td>
+        <td><%= attendance.worker.last_name %></td>
+        <td><%= attendance.worker.first_name %></td>
         <td><%#= link_to 'Show', excel %></td>
         <td><%#= link_to 'Edit', edit_excel_path(worker) %></td>
         <td><%#= link_to 'Destroy', worker, method: :delete, data: { confirm: 'Are you sure?' } %></td>

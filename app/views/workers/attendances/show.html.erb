@@ -44,15 +44,21 @@
 
             <tboby>
               <% i = 1 %>
+              <% calendar_dates = Array.new(31) %>
+              <% @attendances.to_a.each do |data|%>
+                <% calendar_dates[(data.stamp_date.day).to_i-1] = data %>
+              <% end %>
               <% @current_month.count.times do %>
-                  <% calendar_date = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
-
+                <% calendar_date = calendar_dates[i-1] %>
+                  <%# calendar_date = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
                 <tr>
                   <td><%= @today.mon %>月<%= i %>日</td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>
-                      <%= calendar_date&.reason_status_i18n %>
+                      <% if calendar_date.present? %>
+                        <%= I18n.t("enums.attendance.reason_status.#{calendar_date&.reason_status}") %>
+                      <% end %>
                   </td>
                   <!--出勤-->
                   <td><%= calendar_date&.start_worktime&.strftime('%H:%M') %></td>
@@ -70,7 +76,11 @@
                   <td><%= calendar_date&.comment %></td>
 
                   <!--編集ステータス-->
-                  <td style="font-size:10px"><%= calendar_date&.edit_status_i18n %></td>
+                  <td style="font-size:10px">
+                    <% if calendar_date.present? %>
+                      <%= I18n.t("enums.attendance.edit_status.#{calendar_date&.edit_status}") %>
+                    <% end %>
+                  </td>
                 </tr>
                 <% i += 1 %>
               <% end %>

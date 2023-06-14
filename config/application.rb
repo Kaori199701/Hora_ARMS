@@ -15,6 +15,7 @@ module Hora
     config.i18n.load_path += Dir[Rails.root.join('config/locales/*.yml').to_s]
 
     config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
 
     # Configuration for the application, engines, and railties goes here.
     #
