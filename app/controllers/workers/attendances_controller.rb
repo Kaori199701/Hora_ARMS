@@ -53,11 +53,13 @@ class Workers::AttendancesController < ApplicationController
     year =  @today.year
     month = @today.month
 
+
     number_of_month.times do |i|
       i += 1
       day = i.to_s
+      fomart_date = "#{year}-#{month}-#{day}"
 
-      # 勤務開始日時と終了日時が入っていない場合は次の日へ進む
+      # すべて空であれば次の日に進む
       if t["start_worktime"][day].blank? &&
         t["finish_worktime"][day].blank? &&
         t['start_breaktime'][day].blank? &&
@@ -67,37 +69,16 @@ class Workers::AttendancesController < ApplicationController
         next
       end
 
-      start_worktime = nil
-      finish_worktime = nil
-      start_breaktime = nil
-      finish_breaktime = nil
-
-      # 勤務開始日時と終了日時休憩時間をそれぞれ取得する。
+      # 勤務開始/終了時間/休憩時間をそれぞれ取得して、なければnilにする。
       # 2023-06-01 10:10.000
-      if t['start_worktime'][day].present?
-        start_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['start_worktime'][day]} JST")
-      end
-      if t['finish_worktime'][day].present?
-        finish_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['finish_worktime'][day]} JST")
-      end
-      if t['start_breaktime'][day].present?
-        start_breaktime = DateTime.parse("#{year}-#{month}-#{day} #{t['start_breaktime'][day]} JST")
-      end
-      if t['finish_breaktime'][day].present?
-        finish_breaktime = DateTime.parse("#{year}-#{month}-#{day} #{t['finish_breaktime'][day]} JST")
-      end
+      start_worktime = t['start_worktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['start_worktime'][day]} JST") : nil
+      finish_worktime = t['finish_worktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['finish_worktime'][day]} JST") : nil
+      start_breaktime = t['start_breaktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['start_breaktime'][day]} JST") : nil
+      finish_breaktime = t['finish_breaktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['finish_breaktime'][day]} JST") : nil
 
       # 既にレコードが存在していて編集するのか新規に追加するのか
-      if t["id"][day].present?
-        updated_flag = t["updated"][day] || nil
-        # 更新されたものだけ検知(1じゃなければ次へ)
-        if updated_flag != "1" then
-          next
-        end
-        attendance = Attendance.find(t["id"][i.to_s])
-      else
-        attendance = Attendance.new()
-      end
+      attendance = Attendance.find_or_initialize_by(id: t["id"][i.to_s])
+      next unless t["updated"][day].to_i == 1
 
       # フォームから送られてきたデータを取得
       attendance.attributes = {
@@ -107,7 +88,7 @@ class Workers::AttendancesController < ApplicationController
           start_breaktime: start_breaktime,
           finish_breaktime: finish_breaktime,
           comment: t["comment"][i.to_s],
-          reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i], #ここおかしい？
+          reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i],
           stamp_date: Date.new(year, month, i),
           edit_status: Attendance.edit_statuses["worker_edited"]
       }
@@ -184,5 +165,9 @@ private
   def attendance_params
     params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date, :edit_status, :updated)
   end
+
+  # def update_attendance_params
+  #   t = params["worker"]
+  # end
 
 end
