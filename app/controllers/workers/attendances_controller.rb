@@ -21,7 +21,7 @@ class Workers::AttendancesController < ApplicationController
     @finish_working_hour = current_worker.working_hour.finish_working_hour
 
     @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
-    @attendances = @attendances.where(stamp_date: @today.beginning_of_month...@today.end_of_month)
+    @attendances = @attendances.where(stamp_date: @today.beginning_of_month..@today.end_of_month)
 
     #　当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
@@ -58,16 +58,28 @@ class Workers::AttendancesController < ApplicationController
       day = i.to_s
 
       # 勤務開始日時と終了日時が入っていない場合は次の日へ進む
-      if t["start_worktime"][day].blank? || t["finish_worktime"][day].blank?
+      if t["start_worktime"][day].blank? &&
+        t["finish_worktime"][day].blank? &&
+        t['start_breaktime'][day].blank? &&
+        t['finish_breaktime'][day].blank? &&
+        t["comment"][i.to_s].blank? &&
+        (t["reason_status"][i.to_s].to_i == 0 )
         next
       end
 
+      start_worktime = nil
+      finish_worktime = nil
+      start_breaktime = nil
+      finish_breaktime = nil
+
       # 勤務開始日時と終了日時休憩時間をそれぞれ取得する。
       # 2023-06-01 10:10.000
-      # 2023-6-1 10:10.000
-      # 2023-06-01 10.10.000Z
-      start_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['start_worktime'][day]} JST")
-      finish_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['finish_worktime'][day]} JST")
+      if t['start_worktime'][day].present?
+        start_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['start_worktime'][day]} JST")
+      end
+      if t['finish_worktime'][day].present?
+        finish_worktime = DateTime.parse("#{year}-#{month}-#{day} #{t['finish_worktime'][day]} JST")
+      end
       if t['start_breaktime'][day].present?
         start_breaktime = DateTime.parse("#{year}-#{month}-#{day} #{t['start_breaktime'][day]} JST")
       end
@@ -95,7 +107,7 @@ class Workers::AttendancesController < ApplicationController
           start_breaktime: start_breaktime,
           finish_breaktime: finish_breaktime,
           comment: t["comment"][i.to_s],
-          reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i],
+          reason_status: Attendance.reason_statuses.keys[t["reason_status"][i.to_s].to_i], #ここおかしい？
           stamp_date: Date.new(year, month, i),
           edit_status: Attendance.edit_statuses["worker_edited"]
       }

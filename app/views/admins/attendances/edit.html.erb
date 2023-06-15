@@ -6,22 +6,26 @@
       <%= render 'admins/adminside', admin: @admin %>
     </div>
 
-    <div class="col-lg-10">
-      <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h2>
+      <div class="col-lg-10">
+        <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード編集中</h2>
 
-      <div class="month_select">
-        <%= form_with(model: @attendance, url: timecard_edit_admins_attendances_path(@worker), method: :post) do |f| %>
-        <div class="action">
-          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
-          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+      <div class="month_select_box">
+        <div class="month_select">
+          <%= form_with(url: timecard_edit_admins_attendances_path(@worker), method: :post) do |f| %>
+          <div class="action">
+            <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
+            <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+          </div>
+          <% end %>
         </div>
-        <% end %>
       </div>
 
-      <%= form_with url: admins_attendance_path(@worker), method: :patch, id: "attendances" do |f| %>
+      <%= form_with model: @worker, url: admins_attendance_path(@worker), method: :patch, id: "attendances" do |f| %>
         <div class="new_botton ml-5">
           <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
         </div>
+
+      <%= f.hidden_field :month,value:@today.mon %>
 
       <div class="department_list">
         <table class="table mt-3">
@@ -49,10 +53,17 @@
                 <td>
                     <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
                 </td>
-                <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
-                <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
-                <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
-                <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+                <%# if "#{@today.year}-#{@today.month}-#{i}".to_date < Date.current %>
+                  <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
+                  <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
+                  <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
+                  <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+                <%# else %>
+                  <!--<td>--</td>-->
+                  <!--<td>--</td>-->
+                  <!--<td>--</td>-->
+                  <!--<td>--</td>-->
+                <%# end %>
                 <td><%= f.text_field "comment[#{i}]", value: time_record&.comment %></td>
               </tr>
 
@@ -66,6 +77,7 @@
     </div>
   </div>
 </main>
+
 
 <script type="text/javascript">
   // ブラウザの読み込み完成が終わったら
