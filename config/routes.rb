@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :directors, only: [:index, :create, :edit, :update]
     resources :locations, only: [:index, :create, :edit, :update]
     resources :working_hours, only: [:index, :create, :edit, :update]
-    resources :attendances, only: [:show, :edit, :update] do
+    resources :attendances, only: [:show, :edit, :update, :destroy] do
       collection do
         post '/:id', to: 'attendances#show', as: 'timecard'
         post '/:id/edit', to: 'attendances#edit', as: 'timecard/edit'
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   namespace :workers do
     get 'homes/top'
     resources :workers, only: [:show]
-    resources :attendances, only: [:index, :create, :show, :edit, :update] do
+    resources :attendances, only: [:index, :create, :show, :edit, :update, :destroy] do
       collection do
         post 'start'
         post 'finish'

@@ -39,6 +39,7 @@
                 <th width="10%">休憩終了</th>
                 <th width="19%">コメント</th>
                 <th width="10%"></th>
+                <th width="10%">削除</th>
               </tr>
             </thead>
 
@@ -81,6 +82,9 @@
                       <%= I18n.t("enums.attendance.edit_status.#{calendar_date&.edit_status}") %>
                     <% end %>
                   </td>
+
+                  <!--削除ボタン-->
+                  <td style="font-size:10px"><%= "id削除" %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

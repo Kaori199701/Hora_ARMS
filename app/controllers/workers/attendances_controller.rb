@@ -53,7 +53,6 @@ class Workers::AttendancesController < ApplicationController
     year =  @today.year
     month = @today.month
 
-
     number_of_month.times do |i|
       i += 1
       day = i.to_s
