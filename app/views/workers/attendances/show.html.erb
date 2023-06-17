@@ -84,7 +84,7 @@
                   </td>
 
                   <!--削除ボタン-->
-                  <td style="font-size:10px"><%= "id削除" %></td>
+                  <td><%= link_to '削除', workers_attendance_destroy_path(date: @today.beginning_of_month-1+i), method: :delete, data: { confirm: '打刻をリセットしますか?' } %></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

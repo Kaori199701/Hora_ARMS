@@ -16,6 +16,7 @@ class Workers::AttendancesController < ApplicationController
 
   def show
     @worker = Worker.find(params[:id])
+    # @attendance = Attendance.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
@@ -155,6 +156,14 @@ class Workers::AttendancesController < ApplicationController
   def attendance_status
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
+  end
+
+
+  def destroy
+    attendance = Attendance.find_by(worker_id: current_worker.id, stamp_date: params[:date] )
+    # attendance = Attendance.find(params[:id])
+    attendance.destroy
+    redirect_back(fallback_location: root_path)
   end
 
 

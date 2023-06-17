@@ -30,7 +30,8 @@ Rails.application.routes.draw do
   namespace :workers do
     get 'homes/top'
     resources :workers, only: [:show]
-    resources :attendances, only: [:index, :create, :show, :edit, :update, :destroy] do
+    delete 'attendance_date' => 'attendances#destroy', as: 'attendance_destroy'
+    resources :attendances, only: [:index, :create, :show, :edit, :update] do
       collection do
         post 'start'
         post 'finish'
