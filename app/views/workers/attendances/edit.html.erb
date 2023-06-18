@@ -13,7 +13,8 @@
         <div class="month_select">
           <%= form_with(url: timecard_edit_workers_attendances_path(@worker), method: :post) do |f| %>
           <div class="action">
-            <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {selected: @today.mon}, class: 'form-control' %>月
+            <%= f.select :year, @years, {include_blank: true}, class: 'form-control' %>年
+            <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
             <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
           </div>
           <% end %>
@@ -25,7 +26,12 @@
           <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
         </div>
 
-      <%= f.hidden_field :month,value:@today.mon %>
+      <div class="year_show">
+      <%= @today.year %>年<%= @today.mon %>月
+      </div>
+
+      <%= f.hidden_field :year,value: @today.year %>
+      <%= f.hidden_field :month,value: @today.mon %>
 
       <div class="department_list">
         <table class="table mt-3">

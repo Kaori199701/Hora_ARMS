@@ -15,6 +15,7 @@
         <div class="month_select">
           <%= form_with(url: timecard_workers_attendances_path(@worker), method: :post) do |f| %>
           <div class="action">
+            <%= f.select :year, @years, {include_blank: true}, class: 'form-control' %>年
             <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
             <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
           </div>
@@ -25,7 +26,11 @@
           <%= link_to "編集する", edit_workers_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
         </div>
       </div>
-<%= @japan_weekday %>
+
+      <div class="year_show">
+      <%= @today.year %>年<%= @today.mon %>月
+      </div>
+
       <div class="department_list">
         <table class="table mt-3">
             <thead>
@@ -39,7 +44,7 @@
                 <th width="10%">休憩終了</th>
                 <th width="19%">コメント</th>
                 <th width="10%"></th>
-                <th width="10%">削除</th>
+                <th width="10%"></th>
               </tr>
             </thead>
 
@@ -52,8 +57,16 @@
               <% @current_month.count.times do %>
                 <% calendar_date = calendar_dates[i-1] %>
                   <%# calendar_date = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
+
+              <% case @current_month[i-1][:weekday_jp]
+                when '(土)'
+                  'text-primary'
+                when '(日)'
+                  'text-danger'
+                end
+              %>
                 <tr>
-                  <td><%= @today.mon %>月<%= i %>日<%= @current_month[i-1][:weekday_jp] %></td>
+                  <td><%= i %>日<%= @current_month[i-1][:weekday_jp] %></td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>
