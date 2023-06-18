@@ -44,7 +44,7 @@
                   <% calendar_date = @attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
                 <tr>
-                  <td><%= @today.mon %>月<%= i %>日</td>
+                  <td><%= @today.mon %>月<%= i %>日<%= @current_month[i-1][:weekday_jp] %></td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>

@@ -10,6 +10,10 @@ class Admins::AttendancesController < ApplicationController
     # 当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
     @current_month = current_month.filter { |day| @today.mon == day.mon }
+
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
   end
 
 
@@ -25,6 +29,10 @@ class Admins::AttendancesController < ApplicationController
     # 当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
     @current_month = current_month.filter { |day| @today.mon == day.mon }
+
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
   end
 
 
@@ -92,6 +100,11 @@ private
 
   def attendance_params
     params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date)
+  end
+
+  def convert_to_japanese_weekday(wday)
+    weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
+    weekdays[wday]
   end
 
 end
