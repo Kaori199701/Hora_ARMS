@@ -5,7 +5,8 @@ class Admins::AttendancesController < ApplicationController
     @start_working_hour = @worker.working_hour.start_working_hour
     @finish_working_hour = @worker.working_hour.finish_working_hour
 
-    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+    @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
+    @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
 
     # 当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
@@ -23,7 +24,8 @@ class Admins::AttendancesController < ApplicationController
     @start_working_hour = @worker.working_hour.start_working_hour
     @finish_working_hour = @worker.working_hour.finish_working_hour
 
-    @today = params[:month].present? ? Date.new(Date.current.year, params[:month].to_i, 1) : Date.current
+    @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
+    @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
 
     # 当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
@@ -37,7 +39,7 @@ class Admins::AttendancesController < ApplicationController
 
   def update
     # 選択された月をとってくる
-    @today = Date.new(Date.current.year, params[:worker][:month].to_i, 1)
+    @today = Date.new(params[:worker][:year].to_i, params[:worker][:month].to_i, 1)
     number_of_month = @today.end_of_month.day
     t = params["worker"]
 

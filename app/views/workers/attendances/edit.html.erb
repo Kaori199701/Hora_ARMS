@@ -44,7 +44,7 @@
                 <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th width="19%">コメント</th>
+                <th width="15%">コメント</th>
               </tr>
             </thead>
 
@@ -54,22 +54,15 @@
                   <% time_record = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
 
                 <tr>
-                  <td><%= @today.mon %>月<%= i %>日<%= @current_month[i-1][:weekday_jp] %><%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
+                  <td><%= i %>日<%= @current_month[i-1][:weekday_jp] %><%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <td>
                       <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
                   </td>
-                  <%# if "#{@today.year}-#{@today.month}-#{i}".to_date < Date.current %>
                     <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
                     <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
                     <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
                     <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
-                  <%# else %>
-                    <!--<td>--</td>-->
-                    <!--<td>--</td>-->
-                    <!--<td>--</td>-->
-                    <!--<td>--</td>-->
-                  <%# end %>
                   <td><%= f.text_field "comment[#{i}]", value: time_record&.comment %></td>
                 </tr>
 

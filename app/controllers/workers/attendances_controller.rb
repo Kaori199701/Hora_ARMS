@@ -21,7 +21,6 @@ class Workers::AttendancesController < ApplicationController
     @finish_working_hour = current_worker.working_hour.finish_working_hour
 
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
-
     @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
     @attendances = @attendances.where(stamp_date: @today.beginning_of_month..@today.end_of_month)
 
@@ -42,7 +41,6 @@ class Workers::AttendancesController < ApplicationController
     @finish_working_hour = current_worker.working_hour.finish_working_hour
 
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
-
     @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
 
     #　当月の日付を取得
