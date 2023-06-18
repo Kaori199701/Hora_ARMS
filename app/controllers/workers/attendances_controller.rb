@@ -16,7 +16,6 @@ class Workers::AttendancesController < ApplicationController
 
   def show
     @worker = Worker.find(params[:id])
-    # @attendance = Attendance.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
@@ -27,12 +26,15 @@ class Workers::AttendancesController < ApplicationController
     #　当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
     @current_month = current_month.filter { |day| @today.mon == day.mon }
+
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
   end
 
 
   def edit
-    @attendance = Attendance.find(params[:id])
-    @worker = @attendance.worker
+    @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = current_worker.working_hour.start_working_hour
     @finish_working_hour = current_worker.working_hour.finish_working_hour
@@ -42,6 +44,10 @@ class Workers::AttendancesController < ApplicationController
     #　当月の日付を取得
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
     @current_month = current_month.filter { |day| @today.mon == day.mon }
+
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
   end
 
 
@@ -161,7 +167,6 @@ class Workers::AttendancesController < ApplicationController
 
   def destroy
     attendance = Attendance.find_by(worker_id: current_worker.id, stamp_date: params[:date] )
-    # attendance = Attendance.find(params[:id])
     attendance.destroy
     redirect_back(fallback_location: root_path)
   end
@@ -172,6 +177,11 @@ private
 
   def attendance_params
     params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date, :edit_status, :updated)
+  end
+
+  def convert_to_japanese_weekday(wday)
+    weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
+    weekdays[wday]
   end
 
   # def update_attendance_params

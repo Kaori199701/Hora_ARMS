@@ -48,7 +48,7 @@
                   <% time_record = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
 
                 <tr>
-                  <td><%= @today.mon %>月<%= i %>日<%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
+                  <td><%= @today.mon %>月<%= i %>日<%= @current_month[i-1][:weekday_jp] %><%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <td>
                       <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
