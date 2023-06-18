@@ -18,7 +18,6 @@ class Admins::AttendancesController < ApplicationController
 
 
   def edit
-    @attendance = Attendance.find(params[:id])
     @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
     @start_working_hour = @worker.working_hour.start_working_hour
@@ -90,6 +89,13 @@ class Admins::AttendancesController < ApplicationController
     redirect_to admins_attendance_path(params[:id])
   end
 
+
+  def destroy
+    @worker = Worker.find(params[:id])
+    attendance = Attendance.find_by(worker_id: @worker.id, stamp_date: params[:date] )
+    attendance.destroy
+    redirect_back(fallback_location: root_path)
+  end
 
 
 private

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :directors, only: [:index, :create, :edit, :update]
     resources :locations, only: [:index, :create, :edit, :update]
     resources :working_hours, only: [:index, :create, :edit, :update]
+    #delete 'attendance_date' => 'attendances#destroy', as: 'attendance_destroy'
     resources :attendances, only: [:show, :edit, :update, :destroy] do
       collection do
         post '/:id', to: 'attendances#show', as: 'timecard'
