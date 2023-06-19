@@ -22,50 +22,13 @@ class Workers::HomesController < ApplicationController
     error_days.each do |error_day|
 
     attendance = current_worker.attendances.find_by(stamp_date: error_day)
-      if attendance&.start_worktime.nil? || attendance.finish_worktime.nil? || attendance.start_breaktime.nil? || attendance.finish_breaktime.nil?
+      if attendance&.reason_status = "paid_holiday" || "absenteeism" || "special_holiday" || "maternity_leave" || "childcare_leave"
+        next
+      else attendance&.start_worktime.nil? || attendance.finish_worktime.nil? || attendance.start_breaktime.nil? || attendance.finish_breaktime.nil?
         @errors.push(error_day&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。")
       end
 
     end
-
-    #attendances = Attendance.where(worker_id: @worker.id).where("stamp_date >= ?", DateTime.now.at_beginning_of_month).where("stamp_date <= ?", DateTime.now.at_end_of_month)
-    # day_num = DateTime.now.at_end_of_month.day
-    # start_worktimes = attendances.pluck(:start_worktime)
-    # finish_worktimes = attendances.pluck(:finish_worktime)
-    # start_breaktimes = attendances.pluck(:start_breaktime)
-    # finish_breaktimes = attendances.pluck(:finish_breaktime)
-
-
-#     if start_worktimes.select(&:itself).size < day_num || finish_worktimes.select(&:itself).size < day_num || start_breaktimes.select(&:itself).size < day_num || finish_breaktimes.select(&:itself).size < day_num
-# byebug
-#             #打刻した日数が、月の日数より少ない場合
-#       @attendances.each do |attendance|
-
-#         error_attendance = false
-
-#         if attendance.start_worktime.nil?
-#           error_attendance = true
-#         end
-
-#         if attendance.finish_worktime.nil?
-#           error_attendance = true
-#         end
-
-#         if attendance.start_breaktime.nil?
-#           error_attendance = true
-#         end
-
-#         if attendance.finish_breaktime.nil?
-#           error_attendance = true
-#         end
-
-#         if error_attendance
-#           @errors.push(attendance.stamp_date&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。") #stamp_dateの月日を表示+"に打刻漏れがあります。(1か月単位？)"
-#         end
-#       end
-#     else
-
-#     end
   end
 
   def create
