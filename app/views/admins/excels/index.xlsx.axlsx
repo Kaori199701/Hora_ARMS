@@ -1,8 +1,10 @@
 wb = xlsx_package.workbook
 
-@attendances.each do |attendance|
-  wb.add_worksheet(name: attendance.worker.full_name) do |sheet|
-    sheet.add_row [ "workerID", "苗字", "名前" ]
-    sheet.add_row [ attendance.worker.id, attendance.worker.last_name, attendance.worker.first_name ]
+@workers.each do |worker|
+  wb.add_worksheet(name: worker.full_name) do |sheet|
+    sheet.add_row ["出勤","退勤","休憩開始","休憩終了"]
+    worker.attendances.each do |attendance|
+      sheet.add_row [attendance.start_worktime, attendance.finish_worktime, attendance.start_breaktime, attendance.finish_breaktime]
+    end
   end
 end
