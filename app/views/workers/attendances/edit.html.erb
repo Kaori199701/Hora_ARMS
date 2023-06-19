@@ -22,12 +22,12 @@
       </div>
 
       <%= form_with model: @worker, url: workers_attendance_path(@worker), method: :patch, id: "attendances" do |f| %>
-        <div class="new_botton ml-5">
-          <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
-        </div>
 
       <div class="year_show">
       <%= @today.year %>年<%= @today.mon %>月
+
+
+        <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
       </div>
 
       <%= f.hidden_field :year,value: @today.year %>

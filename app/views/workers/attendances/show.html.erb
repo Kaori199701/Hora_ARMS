@@ -21,14 +21,12 @@
           </div>
           <% end %>
         </div>
-
-        <div>
-          <%= link_to "編集する", edit_workers_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
-        </div>
       </div>
 
       <div class="year_show">
-      <%= @today.year %>年<%= @today.mon %>月
+        <%= @today.year %>年<%= @today.mon %>月
+
+        <%= link_to "編集する", edit_workers_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
 
       <div class="department_list">
