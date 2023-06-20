@@ -3,10 +3,10 @@ wb = xlsx_package.workbook
 @workers.each do |worker|
   wb.add_worksheet(name: worker.full_name) do |sheet|
 
-    sheet.add_row ["区分(出勤)","区分(退勤)","事由","出勤","退勤","休憩開始","休憩終了"]
+    sheet.add_row ["月","打刻日","区分(出勤)","区分(退勤)","事由","出勤","退勤","休憩開始","休憩終了"]
 
     worker.attendances.each do |attendance|
-      sheet.add_row [worker.working_hour.start_working_hour&.strftime('%H:%M'),worker.working_hour.finish_working_hour&.strftime('%H:%M'), attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M')]
+      sheet.add_row [current.month, attendance.stamp_date, worker.working_hour.start_working_hour&.strftime('%H:%M'),worker.working_hour.finish_working_hour&.strftime('%H:%M'), attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M')]
     end
 
   end

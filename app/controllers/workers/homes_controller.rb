@@ -22,8 +22,10 @@ class Workers::HomesController < ApplicationController
     error_days.each do |error_day|
 
     attendance = current_worker.attendances.find_by(stamp_date: error_day)
-      # if attendance&.reason_status = "paid_holiday" || "absenteeism" || "special_holiday" || "maternity_leave" || "childcare_leave"
-      #   next
+      if attendance&.reason_status == "paid_holiday" || attendance&.reason_status == "absenteeism" || attendance&.reason_status == "special_holiday" || attendance&.reason_status == "maternity_leave" || attendance&.reason_status == "childcare_leave"
+         next
+      end
+
       if attendance&.start_worktime.nil? || attendance.finish_worktime.nil? || attendance.start_breaktime.nil? || attendance.finish_breaktime.nil?
         @errors.push(error_day&.strftime("%Y年%m月%d日")+"に打刻漏れがあります。")
       end

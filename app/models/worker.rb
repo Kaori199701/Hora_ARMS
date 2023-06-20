@@ -18,7 +18,6 @@ class Worker < ApplicationRecord
     attendances.find_by(start_worktime: ..Time.current, stamp_date: Date.current)
   end
 
-
   def self.search(search)
     if search
       workers = Worker.all.map{|worker| [worker.full_name, worker.id] }
