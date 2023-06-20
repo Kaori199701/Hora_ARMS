@@ -21,9 +21,18 @@ class Workers::HomesController < ApplicationController
 
     error_days.each do |error_day|
 
+
     attendance = current_worker.attendances.find_by(stamp_date: error_day)
-      if attendance&.reason_status == "paid_holiday" || attendance&.reason_status == "absenteeism" || attendance&.reason_status == "special_holiday" || attendance&.reason_status == "maternity_leave" || attendance&.reason_status == "childcare_leave"
-         next
+      if attendance&.reason_status == "paid_holiday" ||
+         attendance&.reason_status == "absenteeism" ||
+         attendance&.reason_status == "special_holiday" ||
+         attendance&.reason_status == "maternity_leave" ||
+         attendance&.reason_status == "childcare_leave" ||
+         error_day.wday == 0 ||
+         error_day.wday == 6
+           #土日は省く
+         #@current_month[i-1][:weekday_jp].include?("(土)")
+            next
       end
 
       if attendance&.start_worktime.nil? || attendance.finish_worktime.nil? || attendance.start_breaktime.nil? || attendance.finish_breaktime.nil?
