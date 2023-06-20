@@ -10,6 +10,10 @@ class Worker < ApplicationRecord
   belongs_to :working_hour, optional: true
   has_many :attendances
 
+  enum employment_status: { tenure: 0, retirement: 1, leave_from_work: 2 }
+  enum sex: { male: 0, female: 1}
+
+
   def full_name
     self.last_name + self.first_name
   end
@@ -35,7 +39,10 @@ class Worker < ApplicationRecord
     end
   end
 
-  enum employment_status: { tenure: 0, retirement: 1, leave_from_work: 2 }
-  enum sex: { male: 0, female: 1}
+  # def behind_time  #遅刻の計算
+  #   start_worktime&.strftime('%H:%M') - working_hour.start_working_hour&.strftime('%H:%M')
+  # end
+
+
 
 end

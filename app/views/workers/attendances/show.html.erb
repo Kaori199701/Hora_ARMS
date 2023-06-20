@@ -33,7 +33,8 @@
         <table class="table mt-3">
             <thead>
               <tr>
-                <th width="10%">日付</th>
+                <th width="6%">日付</th>
+                <th width="5%">曜日</th>
                 <th width="15%">勤務区分</th>
                 <th width="10%">事由</th>
                 <th width="8%">出勤</th>
@@ -54,17 +55,17 @@
               <% end %>
               <% @current_month.count.times do %>
                 <% calendar_date = calendar_dates[i-1] %>
-                  <%# calendar_date = @attendances.where(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day).last %>
 
-              <% case @current_month[i-1][:weekday_jp]
-                when '(土)'
-                  'text-primary'
-                when '(日)'
-                  'text-danger'
-                end
-              %>
+                <%# byebug %>
+              <% if @current_month[i-1][:weekday_jp] == "(土)"%>
+                <tr class = "sat">
+              <% elsif @current_month[i-1][:weekday_jp] == "(日)" %>
+                <tr class = "sun">
+              <%else%>
                 <tr>
-                  <td><%= i %>日<%= @current_month[i-1][:weekday_jp] %></td>
+              <%end%>
+                  <td><%= i %>日</td>
+                  <td><%= @current_month[i-1][:weekday_jp] %></td>
                   <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>

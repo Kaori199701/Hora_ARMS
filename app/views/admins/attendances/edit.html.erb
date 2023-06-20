@@ -36,7 +36,8 @@
         <table class="table mt-3">
           <thead>
             <tr>
-              <th width="10%">日付</th>
+              <th width="6%">日付</th>
+              <th width="5%">曜日</th>
               <th width="15%">勤務区分</th>
               <th width="20%">事由</th>
               <th width="8%">出勤</th>
@@ -52,8 +53,15 @@
                 <% i += 1 %>
                 <% time_record = @attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day) %>
 
+            <% if @current_month[i-1][:weekday_jp] == "(土)"%>
+              <tr class = "sat">
+            <% elsif @current_month[i-1][:weekday_jp] == "(日)" %>
+              <tr class = "sun">
+            <%else%>
               <tr>
-                <td><%= i %>日<%= @current_month[i-1][:weekday_jp] %><%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
+            <%end%>
+                <td><%= i %>日<%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
+                <td><%= @current_month[i-1][:weekday_jp] %></td>
                 <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                 <td>
                     <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
