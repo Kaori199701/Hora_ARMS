@@ -30,11 +30,6 @@
         ログアウト
       <% end %>
 
-      <%= form_with local: true, method: :get do |form| %>
-        <%= form.text_field :keyword %>
-        <%= form.submit '検索' %>
-      <% end %>
-
     <% elsif worker_signed_in? %>
       <div class="text-light">
         <!--従業員ヘッダー-->
@@ -49,27 +44,17 @@
         ログアウト
       <% end %>
 
-      <%= form_with local: true, method: :get do |form| %>
-        <%= form.text_field :keyword %>
-        <%= form.submit '検索' %>
-      <% end %>
-
     <% else %>
       <%= link_to '/', class:"nav-link text-light" do %>
         Home
       <% end %>
 
-      <%= link_to '/homes/about', class:"nav-link text-light" do %>
-        About
-      <% end %>
+      <%#= link_to '/homes/about', class:"nav-link text-light" do %>
+        <!--About-->
+      <%# end %>
 
       <%= link_to new_worker_session_path, class:"nav-link text-light" do %>
         ログイン
-      <% end %>
-
-      <%= form_with local: true, method: :get do |form| %>
-        <%= form.text_field :keyword %>
-        <%= form.submit '検索' %>
       <% end %>
 
     <% end %>
