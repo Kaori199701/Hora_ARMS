@@ -12,6 +12,10 @@
       <div class="worker_field">
         <%= form_with model: @worker, url: admins_workers_path do |f| %>
 
+      <div class="new_bottun">
+        <%= f.submit "新規登録", class:"btn btn-sm btn-success" %>
+      </div>
+
         <table class="order-table table mb-5">
           <tbody>
             <tr>
@@ -64,10 +68,6 @@
             <tr>
               <th>初期パスワード(確認)</th>
               <td><%= f.password_field :password_confirmation, :size=>"40" %></td>
-            </tr>
-            <tr>
-              <th></th>
-              <td style="padding-left: 10%;"><%= f.submit "新規登録", class:"btn btn-sm btn-success" %></td>
             </tr>
           </tbody>
         </table>

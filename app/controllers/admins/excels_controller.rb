@@ -1,7 +1,5 @@
 class Admins::ExcelsController < ApplicationController
   def index
-    # workbook = RubyXL::Workbook.new
-    # workbook.write("path/to/desired/Excel/file.xlsx")
     @workers = Worker.all
     @attendances = Attendance.all
 
@@ -10,6 +8,11 @@ class Admins::ExcelsController < ApplicationController
     current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
     @current_month = current_month.filter { |day| @today.mon == day.mon }
 
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
+
+
     respond_to do |format|
       format.html
       format.xlsx do
@@ -17,4 +20,12 @@ class Admins::ExcelsController < ApplicationController
       end
     end
   end
+
+private
+  def convert_to_japanese_weekday(wday)
+    weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
+    weekdays[wday]
+  end
+
 end
+
