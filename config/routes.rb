@@ -17,14 +17,18 @@ Rails.application.routes.draw do
     resources :directors, only: [:index, :create, :edit, :update]
     resources :locations, only: [:index, :create, :edit, :update]
     resources :working_hours, only: [:index, :create, :edit, :update]
-    #delete 'attendance_date' => 'attendances#destroy', as: 'attendance_destroy'
     resources :attendances, only: [:show, :edit, :update, :destroy] do
       collection do
         post '/:id', to: 'attendances#show', as: 'timecard'
         post '/:id/edit', to: 'attendances#edit', as: 'timecard/edit'
       end
     end
-    resources :excels, only: [:index]
+    resources :excels, only: [:index] do
+      collection do
+        post '', to: 'excels#index', as: 'timecard/index'
+      end
+    end
+
     resources :pdfs, only: [:index]
   end
 
