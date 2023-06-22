@@ -27,19 +27,20 @@
       <%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
 
+      <p>勤務区分(<%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %>)</p>
+
       <div class="department_list">
         <table class="table mt-3">
             <thead>
               <tr>
-                <th width="6%">日付</th>
-                <th width="5%">曜日</th>
-                <th width="15%">勤務区分</th>
+                <th width="7%">日付</th>
+                <th width="7%">曜日</th>
                 <th width="10%">事由</th>
                 <th width="8%">出勤</th>
                 <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th width="19%">コメント</th>
+                <th width="20%">コメント</th>
                 <th width="10%"></th>
                 <th width="10%"></th>
               </tr>
@@ -59,7 +60,6 @@
               <%end%>
                   <td><%= i %>日</td>
                   <td><%= @current_month[i-1][:weekday_jp] %></td>
-                  <td><%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %></td>
                   <!--事由-->
                   <td>
                     <%= calendar_date&.reason_status_i18n %>
