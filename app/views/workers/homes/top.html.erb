@@ -7,10 +7,12 @@
       </div>
 
       <div class="col-lg-10">
-        <h2>出退勤</h2>
         <div>
           <%= flash[:notice] %>
         </div>
+
+        <div class="clock1"><%= Time.now.strftime("%Y年%-m月%-d日") %></div>
+        <div class="clock2"><%= Time.now.strftime("%T") %></div>
 
         <div class="engraving_field">
           <%= link_to "出勤", start_workers_attendances_path, class: "btn btn-lg btn-danger w-180px", method: :post %>

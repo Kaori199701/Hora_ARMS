@@ -4,6 +4,7 @@ class Workers::HomesController < ApplicationController
     @worker = current_worker
     @attendances = Attendance.where(worker_id: @worker.id)
 
+
     @errors = []
 
     # レコードが無い日 -> エラー対象
