@@ -27,8 +27,6 @@
       <%= link_to "編集する", edit_admins_attendance_path(@worker.id), class:"btn btn-sm btn-success" %>
       </div>
 
-      <p>勤務区分(<%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %>)</p>
-
       <div class="department_list">
         <table class="table mt-3">
             <thead>
@@ -83,7 +81,7 @@
                   <td style="font-size:10px"><%= calendar_date&.edit_status_i18n %></td>
 
                   <!--削除ボタン-->
-                  <td style="font-size:10px"><%= link_to '削除', admins_attendance_path(@worker.id, date: @today.beginning_of_month-1+i), method: :delete, data: { confirm: '打刻をリセットしますか?' } %></td>
+                  <td><%= link_to '削除', admins_attendance_path(@worker.id, date: @today.beginning_of_month-1+i), method: :delete, data: { confirm: '打刻をリセットしますか?' }, class:"btn btn-sm btn btn-outline-danger"%></td>
                 </tr>
                 <% i += 1 %>
               <% end %>

@@ -29,8 +29,6 @@
       <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
       </div>
 
-      <p>勤務区分(<%= @start_working_hour&.strftime('%H:%M') %>～<%= @finish_working_hour&.strftime('%H:%M') %>)</p>
-
       <%= f.hidden_field :year,value: @today.year %>
       <%= f.hidden_field :month,value: @today.mon %>
 
