@@ -1,4 +1,6 @@
 class Admins::ExcelsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @workers = Worker.all
     @attendances = Attendance.all

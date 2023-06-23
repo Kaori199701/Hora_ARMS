@@ -1,4 +1,7 @@
 class Workers::HomesController < ApplicationController
+before_action :authenticate_worker!
+
+
   def top
     @attendance = Attendance.new
     @worker = current_worker

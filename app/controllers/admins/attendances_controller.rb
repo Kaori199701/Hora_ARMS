@@ -1,4 +1,6 @@
 class Admins::AttendancesController < ApplicationController
+  before_action :authenticate_admin!
+
   def show
     @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)

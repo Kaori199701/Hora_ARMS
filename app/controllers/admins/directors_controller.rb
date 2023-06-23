@@ -1,4 +1,5 @@
 class Admins::DirectorsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @director = Director.new

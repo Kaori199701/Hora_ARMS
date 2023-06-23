@@ -1,4 +1,5 @@
 class Admins::WorkingHoursController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @working_hour = WorkingHour.new

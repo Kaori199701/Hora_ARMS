@@ -1,4 +1,5 @@
 class Admins::LocationsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @location = Location.new

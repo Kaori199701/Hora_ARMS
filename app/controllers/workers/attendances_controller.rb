@@ -1,4 +1,7 @@
 class Workers::AttendancesController < ApplicationController
+  before_action :authenticate_worker!
+
+
   def index
     @worker = current_worker
 

@@ -1,4 +1,6 @@
 class Admins::WorkersController < ApplicationController
+  before_action :authenticate_admin!
+
   def new
     @worker = Worker.new
   end

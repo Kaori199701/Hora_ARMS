@@ -1,4 +1,6 @@
 class Admins::PdfsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     respond_to do |format|
       format.pdf do
