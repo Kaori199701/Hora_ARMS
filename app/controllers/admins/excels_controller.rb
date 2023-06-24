@@ -24,6 +24,11 @@ class Admins::ExcelsController < ApplicationController
   end
 
 private
+
+  def attendance_params
+    params.require(:attendance).permit(:worker_id, :start_worktime, :finish_worktime, :start_breaktime, :finish_breaktime, :comment, :reason_status, :stamp_date)
+  end
+
   def convert_to_japanese_weekday(wday)
     weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
     weekdays[wday]

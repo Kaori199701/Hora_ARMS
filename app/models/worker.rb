@@ -39,10 +39,4 @@ class Worker < ApplicationRecord
     end
   end
 
-  # def behind_time  #遅刻の計算
-  #   start_worktime&.strftime('%H:%M') - working_hour.start_working_hour&.strftime('%H:%M')
-  # end
-
-
-
 end

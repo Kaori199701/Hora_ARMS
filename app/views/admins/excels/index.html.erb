@@ -24,6 +24,12 @@
 
       <%= link_to "Excel出力", admins_excels_path(format: :xlsx, year: @today.year, month: @today.mon) %>
 
+<% @workers.each do |worker| %>
+ <%= worker.working_hour.finish_working_hour %>
+ <% @attendances.each do |attendance| %>
+ <%= behind_time(worker.working_hour.start_working_hour, attendance.start_worktime) %>
+<% end %>
+<% end %>
 
     </div>
   </div>
