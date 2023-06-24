@@ -22,7 +22,7 @@
 
       <%= @today.year %>年<%= @today.mon %>月
 
-<%= link_to "Excel出力", admins_excels_path(@workers, format: :xlsx) %>
+      <%= link_to "Excel出力", admins_excels_path(format: :xlsx, year: @today.year, month: @today.mon) %>
 
 
     </div>

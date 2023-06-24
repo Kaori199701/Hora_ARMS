@@ -15,11 +15,10 @@ class Admins::ExcelsController < ApplicationController
       { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
     end
 
-
     respond_to do |format|
       format.html
       format.xlsx do
-        response.headers['Content-Disposition'] = "attachment; filename=#{Date.today}勤怠情報.xlsx"
+        response.headers['Content-Disposition'] = "attachment; filename=#{@today.year}年#{@today.mon}月勤怠情報.xlsx"
       end
     end
   end
