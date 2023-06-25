@@ -11,8 +11,36 @@
           <%= flash[:notice] %>
         </div>
 
-        <div class="clock1"><%= Time.now.strftime("%Y年%-m月%-d日") %></div>
-        <div class="clock2"><%= Time.now.strftime("%T") %></div>
+        <div class="clock1" id="RealtimeClockArea1"><%= Time.now.strftime("%Y年%-m月%-d日") %></div>
+        <div class="clock2" id="RealtimeClockArea2"><%= Time.now.strftime("%T") %></div>
+
+            <script>// 時間をリアルタイムで動かすコード
+              function set2fig(num) {
+               // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+               var ret;
+               if( num < 10 ) { ret = "0" + num; }
+               else { ret = num; }
+               return ret;
+            }
+            function showClock2() {
+               var nowTime = new Date();
+
+            //日付
+               var nowYear = nowTime.getFullYear();
+               var nowMonth = set2fig( nowTime.getMonth() );
+               var nowDay = set2fig( nowTime.getDate() );
+               var day = nowYear + "年" + nowMonth + "月" + nowDay +"日";
+               document.getElementById("RealtimeClockArea1").innerHTML = day;
+            //時間
+               var nowHour = set2fig( nowTime.getHours() );
+               var nowMin  = set2fig( nowTime.getMinutes() );
+               var nowSec  = set2fig( nowTime.getSeconds() );
+               var msg = nowHour + ":" + nowMin + ":" + nowSec;
+               document.getElementById("RealtimeClockArea2").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+            </script>
+
 
         <div class="engraving_field">
           <%= link_to "出勤", start_workers_attendances_path, class: "btn btn-lg btn-danger w-180px", method: :post %>

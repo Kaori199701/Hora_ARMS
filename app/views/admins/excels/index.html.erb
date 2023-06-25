@@ -24,13 +24,39 @@
 
       <%= link_to "Excel出力", admins_excels_path(format: :xlsx, year: @today.year, month: @today.mon) %>
 
-<% @workers.each do |worker| %>
- <%= worker.working_hour.finish_working_hour %>
- <% @attendances.each do |attendance| %>
- <%= behind_time(worker.working_hour.start_working_hour, attendance.start_worktime) %>
-<% end %>
-<% end %>
 
+
+
+<table class="table table-inverse">
+            <thead>
+              <tr>
+                <th></th>
+                <th>氏名</th>
+                <th>出退勤</th>
+              </tr>
+            </thead>
+
+<% @workers.each do |worker| %>
+    <tboby>
+      <tr>
+        <td>
+ <%= worker.working_hour.finish_working_hour %>
+ </td>
+
+ <% @attendances.each do |attendance| %>
+ <td>
+ <%= behind_time(worker.working_hour.start_working_hour, attendance.start_worktime) %>
+ </td>
+ <td>
+ <%= leave_early(worker.working_hour.finish_working_hour, attendance.finish_worktime) %>
+</td>
+<% end %>
+        </td>
+      </tr>
+    </tbody>
+<% end %>
+          </table>
+          
     </div>
   </div>
 </main>
