@@ -29,5 +29,7 @@ module Hora
     config.eager_load_paths += Dir["#{config.root}/lib/**/"]
 
     config.paths.add 'app/assets/pdfs', eager_load: true
+    # config.eager_load_paths += %W(#{Rails.root}/lib)
+    require 'pdf/practice_pdf/pdfs' # lib直下のファイルを呼び出す
   end
 end

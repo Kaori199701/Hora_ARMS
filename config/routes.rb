@@ -28,8 +28,11 @@ Rails.application.routes.draw do
         post '', to: 'excels#index', as: 'timecard/index'
       end
     end
-
-    resources :pdfs, only: [:index]
+    resources :pdfs, only: [:index] do
+      collection do
+        get 'pdf_show'
+      end
+    end
   end
 
   namespace :workers do
