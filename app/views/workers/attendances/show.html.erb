@@ -40,7 +40,6 @@
                 <th width="8%">退勤</th>
                 <th width="10%">休憩開始</th>
                 <th width="10%">休憩終了</th>
-                <th>遅刻</th>
                 <th width="20%">コメント</th>
                 <th width="10%"></th>
                 <th width="10%"></th>
@@ -83,9 +82,6 @@
 
                   <!--休憩終了-->
                   <td><%= calendar_date&.finish_breaktime&.strftime('%H:%M') %></td>
-
-                  <!--遅刻-->
-                  <td><%= behind_time(@start_working_hour, calendar_date&.start_worktime) %></td>
 
                   <!--コメント-->
                   <td><%= calendar_date&.comment %></td>
