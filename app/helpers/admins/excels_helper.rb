@@ -41,5 +41,23 @@ module Admins::ExcelsHelper
   end
 
   #残業
+  def overtime(finish_working_hour, attendance_finish_worktime)
+    hour1 = finish_working_hour.to_s.match(/\d{2}:\d{2}/)[0].split(":")[0].to_i
+    if attendance_finish_worktime
+      hour2 = attendance_finish_worktime.to_s.match(/\d{2}:\d{2}/)[0].split(":")[0].to_i
+    end
+    minute1 = finish_working_hour.to_s.match(/\d{2}:\d{2}/)[0].split(":")[1].to_i
+    if attendance_finish_worktime
+      minute2 = attendance_finish_worktime.to_s.match(/\d{2}:\d{2}/)[0].split(":")[1].to_i
+    end
+
+    if attendance_finish_worktime
+      if hour1 < hour2 && minute1 >= minute2    #17:30 18:06
+        "#{hour2 - hour1 - 1}:#{60 - (minute1 - minute2)}"
+      elsif hour1 <= hour2 && minute1 < minute2 #17:30 17:50
+        "#{hour2 - hour1}:#{minute2 - minute1}"
+      end
+    end
+  end
 
 end
