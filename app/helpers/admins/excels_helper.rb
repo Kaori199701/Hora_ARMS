@@ -34,8 +34,8 @@ module Admins::ExcelsHelper
     if attendance_finish_worktime
       if hour1 >= hour2 && minute1 > minute2    #17:30 17:05
         "#{hour1 - hour2}:#{minute1 - minute2}"
-      elsif hour2 > hour1 && minute2 <= minute1 #17:30 16:50
-        "#{hour2 - hour1 - 1}:#{minute2 + minute1 }"
+      elsif hour1 > hour2 && minute1 <= minute2 #17:30 16:50
+        "#{hour1 - hour2 - 1}:#{60 - (minute2 - minute1) }"
       end
     end
   end
