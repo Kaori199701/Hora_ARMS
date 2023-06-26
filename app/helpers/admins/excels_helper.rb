@@ -15,7 +15,7 @@ module Admins::ExcelsHelper
       if hour2 >= hour1 && minute2 > minute1    #8:55 8:56
         "#{hour2 - hour1}:#{minute2 - minute1}"
       elsif hour2 > hour1 && minute2 <= minute1 #8:59 9:00
-        "#{hour2 - hour1 - 1}:#{minute2 + minute1 }"
+        "#{hour2 - hour1 - 1}:#{minute2 + minute1}"
       end
     end
   end
@@ -35,7 +35,7 @@ module Admins::ExcelsHelper
       if hour1 >= hour2 && minute1 > minute2    #17:30 17:05
         "#{hour1 - hour2}:#{minute1 - minute2}"
       elsif hour1 > hour2 && minute1 <= minute2 #17:30 16:50
-        "#{hour1 - hour2 - 1}:#{60 - (minute2 - minute1) }"
+        "#{hour1 - hour2 - 1}:#{60 - (minute2 - minute1)}"
       end
     end
   end
