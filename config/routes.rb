@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     resources :pdfs, only: [:index] do
       collection do
+        post '', to: 'pdfs#index', as: 'timecard/index'
         get 'pdf_show'
       end
     end
