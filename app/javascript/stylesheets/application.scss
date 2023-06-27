@@ -135,3 +135,23 @@ footer{
 .sun {
   background-color: #FBF1F5;
 }
+
+.data_output_box {
+  margin-top: 50px;
+}
+
+.data_output {
+  display: flex;
+}
+
+.output_month {
+  margin: 0 40px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.output {
+  margin: 0 40px;
+  font-size: x-large;
+  // font-weight: bold;
+}

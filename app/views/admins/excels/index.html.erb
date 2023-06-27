@@ -20,10 +20,17 @@
         <% end %>
       </div>
 
-      <div>
-        出力対象月<%= @today.year %>年<%= @today.mon %>月
+      <div class="data_output_box">
+        <h5><出力対象月></h5>
 
-        <%= link_to "Excel出力", admins_excels_path(format: :xlsx, year: @today.year, month: @today.mon) %>
+          <div class="data_output">
+            <div class="output_month">
+              <%= @today.year %>年<%= @today.mon %>月
+            </div>
+            <div class="output">
+              <%= link_to "Excel出力", admins_excels_path(format: :xlsx, year: @today.year, month: @today.mon) %>
+            </div>
+          </div>
       </div>
 
     </div>

@@ -20,13 +20,18 @@
         <% end %>
       </div>
 
-      <div>
-        出力対象月<%= @today.year %>年<%= @today.mon %>月
+      <div class="data_output_box">
+        <h5><出力対象月></h5>
 
-
-       以下の1行を追記
-      <%= link_to "PDF出力", pdf_show_admins_pdfs_path(format: "pdf") %>
-
+          <div class="data_output">
+            <div class="output_month">
+              <%= @today.year %>年<%= @today.mon %>月
+            </div>
+            <div class="output">
+              <%= link_to "PDF出力", pdf_show_admins_pdfs_path(format: "pdf") %>
+           </div>
+          </div>
+      </div>
     </div>
 
     </div>
