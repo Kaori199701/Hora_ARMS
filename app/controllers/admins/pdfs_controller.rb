@@ -21,7 +21,9 @@ class Admins::PdfsController < ApplicationController
 
   def pdf_show #pdfを作る
 
-     respond_to do |format|
+
+
+    respond_to do |format|
       format.html
       format.pdf do
         admins_pdf = PracticePdf::Pdfs.new().render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
@@ -30,7 +32,7 @@ class Admins::PdfsController < ApplicationController
           type: 'application/pdf',
           disposition: 'inline' # 外すとアクセス時に自動ダウンロードされるようになる
       end
-     end
+    end
 
   end
 
