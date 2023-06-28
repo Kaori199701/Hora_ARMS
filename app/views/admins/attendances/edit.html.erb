@@ -38,6 +38,7 @@
             <tr>
               <th width="7%">日付</th>
               <th width="7%">曜日</th>
+              <th>勤務区分</th>
               <th width="23%">事由</th>
               <th width="8%">出勤</th>
               <th width="8%">退勤</th>
@@ -59,15 +60,41 @@
             <%else%>
               <tr>
             <%end%>
+              <!--日付-->
                 <td><%= i %>日<%= f.hidden_field "id[#{i}]", value: time_record&.id %><%= f.hidden_field "updated[#{i}]", value: 0, class: "updated-flag" %></td>
+
+              <!--曜日-->
                 <td><%= @current_month[i-1][:weekday_jp] %></td>
+
+              <!--勤務区分-->
+                <% if @current_month[i-1][:weekday_jp] == "(土)"%>
+                  <td>公休</td>
+                <% elsif @current_month[i-1][:weekday_jp] == "(日)" %>
+                  <td>日曜</td>
+                <%else%>
+                  <td>
+                    <%= @start_working_hour.change(month: @today.mon, day: i).strftime('%H:%M') %>-<%= @finish_working_hour.change(month: @today.mon, day: i).strftime('%H:%M') %>
+                  </td>
+                <%end%>
+
+              <!--事由-->
                 <td>
                     <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
                 </td>
-                  <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
-                  <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+
+              <!--出勤-->
+                <td><%= f.time_field "start_worktime[#{i}]", value: time_record&.start_worktime&.strftime('%R') %></td>
+
+              <!--退勤-->
+                <td><%= f.time_field "finish_worktime[#{i}]", value: time_record&.finish_worktime&.strftime('%R') %></td>
+
+              <!--休憩開始-->
+                <td><%= f.time_field "start_breaktime[#{i}]", value: time_record&.start_breaktime&.strftime('%R') %></td>
+
+              <!--休憩終了-->
+                <td><%= f.time_field "finish_breaktime[#{i}]", value: time_record&.finish_breaktime&.strftime('%R') %></td>
+
+              <!--コメント-->
                 <td><%= f.text_field "comment[#{i}]", value: time_record&.comment %></td>
               </tr>
 

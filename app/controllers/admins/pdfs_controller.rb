@@ -20,13 +20,12 @@ class Admins::PdfsController < ApplicationController
   end
 
   def pdf_show #pdfを作る
-
-
+    @worker = Worker.find(1)
 
     respond_to do |format|
       format.html
       format.pdf do
-        admins_pdf = PracticePdf::Pdfs.new().render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
+        admins_pdf = PracticePdf::Pdfs.new(@worker).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
           send_data admins_pdf,
           filename: "ファイル名.pdf",
           type: 'application/pdf',

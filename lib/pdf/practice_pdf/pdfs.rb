@@ -4,6 +4,8 @@ module PracticePdf
       super(page_size: 'A4') # 新規PDF作成
       stroke_axis # 座標を表示
 
+      @worker = worker
+
       font 'app/assets/fonts/SourceHanSans-Regular.ttc'
       header
       contents
@@ -17,7 +19,7 @@ module PracticePdf
       text "2023年6月(データの月)",align: :left, size: 10
       text "所属: 001 営業部",align: :left, size: 10
       text "役職: 001 部長",align: :left, size: 10
-      text "従業員名: 0001 名前",align: :left, size: 10
+      text "従業員名: 0001 #{@worker.last_name}",align: :left, size: 10
     end
 
     def contents

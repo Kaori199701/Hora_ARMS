@@ -33,6 +33,7 @@
               <tr>
                 <th width="7%">日付</th>
                 <th width="7%">曜日</th>
+                <th>勤務区分</th>
                 <th width="10%">事由</th>
                 <th width="8%">出勤</th>
                 <th width="8%">退勤</th>
@@ -56,31 +57,45 @@
               <%else%>
                 <tr>
               <%end%>
+                <!--日付-->
                   <td><%= i %>日</td>
+                  
+                <!--曜日-->
                   <td><%= @current_month[i-1][:weekday_jp] %></td>
-                  <!--事由-->
+
+                <!--勤務区分-->
+                <% if @current_month[i-1][:weekday_jp] == "(土)"%>
+                  <td>公休</td>
+                <% elsif @current_month[i-1][:weekday_jp] == "(日)" %>
+                  <td>日曜</td>
+                <%else%>
                   <td>
-                    <%= calendar_date&.reason_status_i18n %>
+                    <%= @start_working_hour.change(month: @today.mon, day: i).strftime('%H:%M') %>-<%= @finish_working_hour.change(month: @today.mon, day: i).strftime('%H:%M') %>
                   </td>
-                  <!--出勤-->
+                <%end%>
+
+                <!--事由-->
+                  <td><%= calendar_date&.reason_status_i18n %></td>
+
+                <!--出勤-->
                   <td><%= calendar_date&.start_worktime&.strftime('%H:%M') %></td>
 
-                  <!--退勤-->
+                <!--退勤-->
                   <td><%= calendar_date&.finish_worktime&.strftime('%H:%M') %></td>
 
-                  <!--休憩開始-->
+                <!--休憩開始-->
                   <td><%= calendar_date&.start_breaktime&.strftime('%H:%M') %></td>
 
-                  <!--休憩終了-->
+                <!--休憩終了-->
                   <td><%= calendar_date&.finish_breaktime&.strftime('%H:%M') %></td>
 
-                  <!--コメント-->
+                <!--コメント-->
                   <td><% calendar_date&.comment %></td>
 
-                  <!--編集ステータス-->
+                <!--編集ステータス-->
                   <td style="font-size:10px"><%= calendar_date&.edit_status_i18n %></td>
 
-                  <!--削除ボタン-->
+                <!--削除ボタン-->
                   <td><%= link_to '削除', admins_attendance_path(@worker.id, date: @today.beginning_of_month-1+i), method: :delete, data: { confirm: '打刻をリセットしますか?' }, class:"btn btn-sm btn btn-outline-danger"%></td>
                 </tr>
                 <% i += 1 %>
