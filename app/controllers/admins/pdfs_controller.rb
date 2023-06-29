@@ -4,7 +4,12 @@ class Admins::PdfsController < ApplicationController
 
   def index
     @workers = Worker.all
-    @attendances = Attendance.all
+
+    @worker = Worker.find(1)
+    @attendances = Attendance.where(worker: @worker)
+
+
+
 
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
     @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
@@ -21,11 +26,13 @@ class Admins::PdfsController < ApplicationController
 
   def pdf_show #pdfを作る
     @worker = Worker.find(1)
+    @attendances = Attendance.where(worker: @worker)
+    # @attendance = @attendances.find_by(@worker.id)
 
     respond_to do |format|
       format.html
       format.pdf do
-        admins_pdf = PracticePdf::Pdfs.new(@worker).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
+        admins_pdf = PracticePdf::Pdfs.new(@worker,@attendances).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
           send_data admins_pdf,
           filename: "ファイル名.pdf",
           type: 'application/pdf',

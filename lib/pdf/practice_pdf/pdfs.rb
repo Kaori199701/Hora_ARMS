@@ -1,10 +1,11 @@
 module PracticePdf
   class Pdfs < Prawn::Document
-    def initialize
+    def initialize(worker,attendances)
       super(page_size: 'A4') # 新規PDF作成
       stroke_axis # 座標を表示
 
       @worker = worker
+      @attendances = attendances
 
       font 'app/assets/fonts/SourceHanSans-Regular.ttc'
       header
@@ -19,16 +20,19 @@ module PracticePdf
       text "2023年6月(データの月)",align: :left, size: 10
       text "所属: 001 営業部",align: :left, size: 10
       text "役職: 001 部長",align: :left, size: 10
-      text "従業員名: 0001 #{@worker.last_name}",align: :left, size: 10
+      text "従業員名: 0001 #{@worker.full_name}",align: :left, size: 10
     end
 
     def contents
       move_down 20
 
-      rows = [['月日','曜日','事由','出勤','退勤','休憩開始','休憩終了','遅刻','早退','残業'],
-      ["6/1", '木',"有休", "08:40","17:50","12:00","13:00","00:10","00:00","00:20"]
-      ]
-      #テーブルの作成。カラムが４つ。それぞれの幅を指定。
+      rows = [['月日','曜日','事由','出勤','退勤','休憩開始','休憩終了','遅刻','早退','残業']]
+      rows += @attendances.map do |attendance|
+        ['6/1', '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
+          attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:10','00:00','00:20']
+      end
+
+      #テーブルの作成。カラムが10つ。それぞれの幅を指定。
       table(rows, column_widths: [30, 30, 40, 40, 40, 50, 50, 40, 40, 40], position: :center) do |table|
       table.cells.size = 10
       table.row(0).align = :center

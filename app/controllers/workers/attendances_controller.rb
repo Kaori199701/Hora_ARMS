@@ -83,10 +83,10 @@ class Workers::AttendancesController < ApplicationController
 
       # 勤務開始/終了時間/休憩時間をそれぞれ取得して、なければnilにする。
       # 2023-06-01 10:10.000
-      start_worktime = t['start_worktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['start_worktime'][day]} JST") : nil
-      finish_worktime = t['finish_worktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['finish_worktime'][day]} JST") : nil
-      start_breaktime = t['start_breaktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['start_breaktime'][day]} JST") : nil
-      finish_breaktime = t['finish_breaktime'][day].present? ? DateTime.parse("#{fomart_date} #{t['finish_breaktime'][day]} JST") : nil
+      start_worktime = t['start_worktime'][day].present? ? Time.parse("#{fomart_date} #{t['start_worktime'][day]} JST") : nil
+      finish_worktime = t['finish_worktime'][day].present? ? Time.parse("#{fomart_date} #{t['finish_worktime'][day]} JST") : nil
+      start_breaktime = t['start_breaktime'][day].present? ? Time.parse("#{fomart_date} #{t['start_breaktime'][day]} JST") : nil
+      finish_breaktime = t['finish_breaktime'][day].present? ? Time.parse("#{fomart_date} #{t['finish_breaktime'][day]} JST") : nil
 
       # 既にレコードが存在していて編集するのか新規に追加するのか
       attendance = Attendance.find_or_initialize_by(id: t["id"][i.to_s])
@@ -115,7 +115,7 @@ class Workers::AttendancesController < ApplicationController
   def start
     attendance = current_worker.attendances.new
     attendance.stamp_date = Date.current
-    attendance.start_worktime = Time.zone.now
+    attendance.start_worktime = Time.now.strftime("%H:%M:%S")
     target_attendance = current_worker.attendances.where(stamp_date:Date.current)
     if (target_attendance.empty? || target_attendance.last.start_worktime.nil?) && attendance.save
       flash[:notice] = "出勤の打刻に成功しました。"
@@ -129,7 +129,8 @@ class Workers::AttendancesController < ApplicationController
   def finish
     attendance = current_worker.attendances.where(finish_worktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
-      attendance.finish_worktime = Time.zone.now
+      attendance.finish_worktime = Time.now.strftime("%H:%M:%S")
+
       attendance.save
       flash[:notice] = "退勤の打刻に成功しました。"
     else
@@ -142,7 +143,7 @@ class Workers::AttendancesController < ApplicationController
   def start_breaktime
     attendance = current_worker.attendances.where(start_breaktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
-      attendance.start_breaktime = Time.zone.now
+      attendance.start_breaktime = Time.now.strftime("%H:%M:%S")
       attendance.save
       flash[:notice] = "休憩開始の打刻に成功しました。"
     else
@@ -155,7 +156,7 @@ class Workers::AttendancesController < ApplicationController
   def finish_breaktime
     attendance = current_worker.attendances.where(finish_breaktime:nil).where(stamp_date: Date.current).last
     if attendance.present?
-      attendance.finish_breaktime = Time.zone.now
+      attendance.finish_breaktime = Time.now.strftime("%H:%M:%S")
       attendance.save
       flash[:notice] = "休憩終了の打刻に成功しました。"
     else
