@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   root to: 'homes#top'
   get '/' => 'homes#top'
-  get '/homes/about'
 
   namespace :admins do
     get 'homes/top'
@@ -38,7 +37,11 @@ Rails.application.routes.draw do
 
   namespace :workers do
     get 'homes/top'
-    resources :workers, only: [:show]
+    resources :workers, only: [:show, :update] do
+      member do
+        get 'password'
+      end
+    end
     delete 'attendance_date' => 'attendances#destroy', as: 'attendance_destroy'
     resources :attendances, only: [:index, :create, :show, :edit, :update] do
       collection do
