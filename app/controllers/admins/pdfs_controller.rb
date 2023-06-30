@@ -9,8 +9,6 @@ class Admins::PdfsController < ApplicationController
     @attendances = Attendance.where(worker: @worker)
 
 
-
-
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
     @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
 
@@ -27,12 +25,22 @@ class Admins::PdfsController < ApplicationController
   def pdf_show #pdfを作る
     @worker = Worker.find(1)
     @attendances = Attendance.where(worker: @worker)
-    # @attendance = @attendances.find_by(@worker.id)
+
+    @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
+    @today = params[:month].present? ? Date.new(params[:year].to_i, params[:month].to_i, 1) : Date.current
+
+    current_month = Array.new(35){ |i| @today.beginning_of_month + ( i - @today.beginning_of_month.wday) }
+    @current_month = current_month.filter { |day| @today.mon == day.mon }
+
+    @current_month = @current_month.map do |day|
+      { date: day, weekday_jp: convert_to_japanese_weekday(day.wday) }
+    end
+
 
     respond_to do |format|
       format.html
       format.pdf do
-        admins_pdf = PracticePdf::Pdfs.new(@worker,@attendances).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
+        admins_pdf = PracticePdf::Pdfs.new(@worker,@attendances,@current_month,@today).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
           send_data admins_pdf,
           filename: "ファイル名.pdf",
           type: 'application/pdf',

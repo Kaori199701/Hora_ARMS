@@ -33,50 +33,23 @@
           </div>
       </div>
 
-      <table>
+      <table class="worker_output">
         <thead>
           <tr>
-            <th>id</th>
-            <th>名前</th>
-            <th>PDF出力</th>
+            <th width="20%">従業員</th>
+            <th width="20%"></th>
           </tr>
         </thead>
 
-      <% @workers.each do |worker| %>
-      <% @attendances.each do |attendance| %>
+        <% @workers.each do |worker| %>
         <tbody>
           <tr>
-            <td><%= worker.id %></td>
             <td><%= worker.full_name %></td>
-            <td><%= attendance.start_worktime %></td>
+            <td><%= "PDF出力" %></td>
           </tr>
         </tbody>
-      <% end %>
-      <% end %>
-
+        <% end %>
       </table>
-
-
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>出勤</th>
-          </tr>
-        </thead>
-
-      <% @attendances.each do |attendance| %>
-        <tbody>
-          <tr>
-            <td><%= attendance.id %></td>
-            <td><%= attendance.start_worktime %></td>
-          </tr>
-        </tbody>
-      <% end %>
-
-      </table>
-
-
 
     </div>
 

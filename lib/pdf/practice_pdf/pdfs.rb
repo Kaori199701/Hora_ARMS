@@ -1,11 +1,13 @@
 module PracticePdf
   class Pdfs < Prawn::Document
-    def initialize(worker,attendances)
+    def initialize(worker,attendances,current_month,today)
       super(page_size: 'A4') # 新規PDF作成
       stroke_axis # 座標を表示
 
       @worker = worker
       @attendances = attendances
+      @current_month = current_month
+      @today = today
 
       font 'app/assets/fonts/SourceHanSans-Regular.ttc'
       header
@@ -26,11 +28,27 @@ module PracticePdf
     def contents
       move_down 20
 
-      rows = [['月日','曜日','事由','出勤','退勤','休憩開始','休憩終了','遅刻','早退','残業']]
-      rows += @attendances.map do |attendance|
-        ['6/1', '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
-          attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:10','00:00','00:20']
-      end
+      rows = []
+      rows[0] = ['月日','曜日','事由','出勤','退勤','休憩開始','休憩終了','遅刻','早退','残業']
+
+      i = 1
+      @current_month.count.times do
+
+        # @attendances.map do |attendance|
+
+          if @worker.attendances.exists?(stamp_date: Time.new(@today.year, @today.mon, i))
+            attendance = @worker.attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day)
+      rows[i] = [attendance.stamp_date, '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
+          attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:00','00:00','00:20']
+
+          else
+      rows[i] = [Time.new(@today.year, @today.mon, i), '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
+          attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:00','00:00','00:20']
+          end
+        # end
+
+      i += 1
+    end
 
       #テーブルの作成。カラムが10つ。それぞれの幅を指定。
       table(rows, column_widths: [30, 30, 40, 40, 40, 50, 50, 40, 40, 40], position: :center) do |table|
