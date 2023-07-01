@@ -45,7 +45,7 @@
         <tbody>
           <tr>
             <td><%= worker.full_name %></td>
-            <td><%= link_to "PDF出力", pdf_show_admins_pdfs_path(id: worker.id, format: "pdf") %></td>
+            <td><%= link_to "PDF出力", pdf_show_admins_pdfs_path(id: worker.id, format: "pdf", month: @today.mon, year: @today.year) %></td>
           </tr>
         </tbody>
         <% end %>
