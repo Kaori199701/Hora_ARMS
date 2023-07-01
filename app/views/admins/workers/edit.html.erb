@@ -51,10 +51,11 @@
             <tr>
               <th>性別</th>
               <td>
-                <%= f.label :sex, '男性' %>
                 <%= f.radio_button :sex, :male %>
-                <%= f.label :sex, '女性' %>
+                <%= f.label :sex, '男性' %>
+
                 <%= f.radio_button :sex, :female %>
+                <%= f.label :sex, '女性' %>
               </td>
             </tr>
             <tr>
@@ -70,9 +71,17 @@
             <tr>
               <th>勤務状況</th>
               <td>
-                <%= f.select "employment_status",
-                    Worker.employment_statuses.map { |k, v| [I18n.t("enums.worker.employment_status.#{k}"), v] },
-                    class:"form-control form-control-sm col-6"  %> ※保存できない
+                <%#= f.select "employment_status",
+                    Worker.employment_statuses.map { |k, _| [I18n.t("enums.worker.employment_status.#{k}"), k] },
+                    class:"form-control form-control-sm col-6"  %>
+                <%= f.radio_button :employment_status, :tenure %>
+                <%= f.label :employment_status, '在職' %>
+
+                <%= f.radio_button :employment_status, :retirement %>
+                <%= f.label :employment_status, '退職' %>
+
+                <%= f.radio_button :employment_status, :leave_from_work %>
+                <%= f.label :employment_status, '休職' %>
               </td>
             </tr>
             <tr>

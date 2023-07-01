@@ -38,7 +38,8 @@
               </tr>
             </thead>
 
-            <% @workers.each do |worker| %>
+          <% @workers.each do |worker| %>
+            <% if worker.employment_status == "tenure" %>
             <tboby>
               <tr>
                 <td>
@@ -56,6 +57,7 @@
               </tr>
             </tbody>
             <% end %>
+          <% end %>
           </table>
         </div>
       </div>

@@ -13,6 +13,9 @@ class Worker < ApplicationRecord
   enum employment_status: { tenure: 0, retirement: 1, leave_from_work: 2 }
   enum sex: { male: 0, female: 1}
 
+  def active_for_authentication?
+    super && employment_status != 'retirement'
+  end
 
   def full_name
     self.last_name + self.first_name
