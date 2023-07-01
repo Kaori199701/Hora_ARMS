@@ -11,9 +11,9 @@ wb = xlsx_package.workbook
 
     if worker.attendances.exists?(stamp_date: Time.new(@today.year, @today.mon, i))
       attendance = worker.attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day)
-      sheet.add_row [attendance.stamp_date, "曜日", worker.working_hour.start_working_hour&.strftime('%H:%M'),worker.working_hour.finish_working_hour&.strftime('%H:%M'), attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M'),behind_time(worker.working_hour.start_working_hour, attendance.start_worktime),leave_early(worker.working_hour.finish_working_hour, attendance.finish_worktime),overtime(worker.working_hour.finish_working_hour, attendance.finish_worktime)]
+      sheet.add_row [attendance.stamp_date, @current_month[i-1][:weekday_jp], worker.working_hour.start_working_hour&.strftime('%H:%M'),worker.working_hour.finish_working_hour&.strftime('%H:%M'), attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M'),behind_time(worker.working_hour.start_working_hour, attendance.start_worktime),leave_early(worker.working_hour.finish_working_hour, attendance.finish_worktime),overtime(worker.working_hour.finish_working_hour, attendance.finish_worktime)]
     else
-      sheet.add_row [Time.new(@today.year, @today.mon, i), "なし", worker.working_hour.start_working_hour&.strftime('%H:%M'), worker.working_hour.finish_working_hour&.strftime('%H:%M'), "", "", "", "", "", "","",""]
+      sheet.add_row [Time.new(@today.year, @today.mon, i), @current_month[i-1][:weekday_jp], worker.working_hour.start_working_hour&.strftime('%H:%M'), worker.working_hour.finish_working_hour&.strftime('%H:%M'), "", "", "", "", "", "","",""]
     end
 
      i += 1

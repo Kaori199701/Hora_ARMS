@@ -15,14 +15,14 @@ module PracticePdf
     end
 
     def header
-      text '6月勤務個人表', size: 20, align: :center
+      text "#{@today.mon}月勤務個人表", size: 20, align: :center
 
       text "作成日: #{Date.today}",align: :right, size: 10
 
-      text "2023年6月(データの月)",align: :left, size: 10
-      text "所属: 001 営業部",align: :left, size: 10
-      text "役職: 001 部長",align: :left, size: 10
-      text "従業員名: 0001 #{@worker.full_name}",align: :left, size: 10
+      text "#{@today.year}年#{@today.mon}月",align: :left, size: 10
+      text "所属: #{@worker.department.department_code} #{@worker.department.department_name}",align: :left, size: 10
+      text "役職: #{@worker.director.director_code} #{@worker.director.director_name}",align: :left, size: 10
+      text "従業員名: #{@worker.employee_number} #{@worker.full_name}",align: :left, size: 10
     end
 
     def contents
@@ -38,12 +38,12 @@ module PracticePdf
 
           if @worker.attendances.exists?(stamp_date: Time.new(@today.year, @today.mon, i))
             attendance = @worker.attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day)
-      rows[i] = [attendance.stamp_date, '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
+      rows[i] = [attendance.stamp_date&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
           attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:00','00:00','00:20']
 
           else
-      rows[i] = [Time.new(@today.year, @today.mon, i), '木','有休', attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
-          attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,'00:00','00:00','00:20']
+
+          rows[i] = [Time.new(@today.year, @today.mon, i)&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],'', '','','','','','','']
           end
         # end
 
@@ -51,7 +51,7 @@ module PracticePdf
     end
 
       #テーブルの作成。カラムが10つ。それぞれの幅を指定。
-      table(rows, column_widths: [30, 30, 40, 40, 40, 50, 50, 40, 40, 40], position: :center) do |table|
+      table(rows, column_widths: [40, 30, 40, 40, 40, 50, 50, 40, 40, 40], position: :center) do |table|
       table.cells.size = 10
       table.row(0).align = :center
       end

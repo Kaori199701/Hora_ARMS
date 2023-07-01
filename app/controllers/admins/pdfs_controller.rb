@@ -42,7 +42,7 @@ class Admins::PdfsController < ApplicationController
       format.pdf do
         admins_pdf = PracticePdf::Pdfs.new(@worker,@attendances,@current_month,@today).render  #lib/pdf/practice_pdf/pdfs.rbを呼び出す
           send_data admins_pdf,
-          filename: "ファイル名.pdf",
+          filename: "#{@today.mon}月勤務個人表 #{@worker.full_name}.pdf",
           type: 'application/pdf',
           disposition: 'inline' # 外すとアクセス時に自動ダウンロードされるようになる
       end
@@ -57,7 +57,7 @@ class Admins::PdfsController < ApplicationController
   end
 
   def convert_to_japanese_weekday(wday)
-    weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
+    weekdays = %w[日 月 火 水 木 金 土]
     weekdays[wday]
   end
 end

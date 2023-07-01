@@ -30,7 +30,7 @@ private
   end
 
   def convert_to_japanese_weekday(wday)
-    weekdays = %w[(日) (月) (火) (水) (木) (金) (土)]
+    weekdays = %w[日 月 火 水 木 金 土]
     weekdays[wday]
   end
 
