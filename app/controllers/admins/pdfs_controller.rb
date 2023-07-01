@@ -5,8 +5,8 @@ class Admins::PdfsController < ApplicationController
   def index
     @workers = Worker.all
 
-    @worker = Worker.find(1)
-    @attendances = Attendance.where(worker: @worker)
+    # @worker = Worker.find(params[:id])
+    # @attendances = Attendance.where(worker: @worker)
 
 
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse
@@ -23,7 +23,7 @@ class Admins::PdfsController < ApplicationController
   end
 
   def pdf_show #pdfを作る
-    @worker = Worker.find(1)
+    @worker = Worker.find(params[:id])
     @attendances = Attendance.where(worker: @worker)
 
     @years = (Date.current.year - 5..Date.current.year + 1).to_a.reverse

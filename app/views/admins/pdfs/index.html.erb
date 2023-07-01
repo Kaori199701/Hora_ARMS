@@ -28,7 +28,7 @@
               <%= @today.year %>年<%= @today.mon %>月
             </div>
             <div class="output">
-              <%= link_to "PDF出力", pdf_show_admins_pdfs_path(format: "pdf") %>
+              <%#= link_to "PDF出力", pdf_show_admins_pdfs_path(format: "pdf") %>
            </div>
           </div>
       </div>
@@ -45,7 +45,7 @@
         <tbody>
           <tr>
             <td><%= worker.full_name %></td>
-            <td><%= "PDF出力" %></td>
+            <td><%= link_to "PDF出力", pdf_show_admins_pdfs_path(id: worker.id, format: "pdf") %></td>
           </tr>
         </tbody>
         <% end %>
