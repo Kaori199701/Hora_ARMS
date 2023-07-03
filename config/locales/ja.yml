@@ -23,23 +23,33 @@ ja:
         admin_edited: "管理者編集済"
         worker_edited: "編集済"
   activerecord:
+    attributes:
+      worker:
+        email: "メールアドレス"
+        last_name: "姓"
+        first_name: "名"
+        last_name_kana: "姓カナ"
+        first_name_kana: "名カナ"
+        employee_number: "社員番号"
+        password: "パスワード"
+        password_confirmation: "パスワードとパスワード確認"
     errors:
       models:
         worker:
           attributes:
             email:
-              blank: "メールアドレスを入力してください"
+              blank: "を入力してください"
             last_name:
-              blank: "姓を入力してください"
+              blank: "を入力してください"
             first_name:
-              blank: "名を入力してください"
+              blank: "を入力してください"
             last_name_kana:
-              blank: "姓カナを入力してください"
+              blank: "を入力してください"
             first_name_kana:
-              blank: "名カナを入力してください"
+              blank: "を入力してください"
             employee_number:
-              blank: "社員番号を入力してください"
+              blank: "を入力してください"
             password:
-              blank: "パスワードを入力してください"
+              blank: "を入力してください"
             password_confirmation:
-              confirmation: "パスワードとパスワード確認が一致しません"
+              confirmation: "が一致しません"

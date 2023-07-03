@@ -52,6 +52,10 @@ module PracticePdf
           end
 
       i += 1
+
+      # if i == 16
+      # byebug
+      # end
     end
 
       #テーブルの作成。カラムが11つ。それぞれの幅を指定。

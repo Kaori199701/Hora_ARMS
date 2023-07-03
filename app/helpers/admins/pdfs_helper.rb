@@ -13,9 +13,15 @@ module Admins::PdfsHelper
 
     if attendance_start_worktime
       if hour2 >= hour1 && minute2 > minute1    #8:55 8:56
-        "#{hour2 - hour1}:#{minute2 - minute1}"
+         hour3 = hour2 - hour1
+         minute3 = minute2 - minute1
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       elsif hour2 > hour1 && minute2 <= minute1 #8:59 9:00
-        "#{hour2 - hour1 - 1}:#{minute2 + minute1}"
+         hour3 = hour2 - hour1 - 1
+         minute3 = 60 + (minute2 - minute1)
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       end
     end
   end
@@ -33,9 +39,15 @@ module Admins::PdfsHelper
 
     if attendance_finish_worktime
       if hour1 >= hour2 && minute1 > minute2    #17:30 17:05
-        "#{hour1 - hour2}:#{minute1 - minute2}"
+         hour3 = hour1 - hour2
+         minute3 = minute1 - minute2
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       elsif hour1 > hour2 && minute1 <= minute2 #17:30 16:50
-        "#{hour1 - hour2 - 1}:#{60 - (minute2 - minute1)}"
+         hour3 = hour1 - hour2
+         minute3 = 60 - (minute2 - minute1)
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       end
     end
   end
@@ -53,9 +65,15 @@ module Admins::PdfsHelper
 
     if attendance_finish_worktime
       if hour1 < hour2 && minute1 >= minute2    #17:30 18:06
-        "#{hour2 - hour1 - 1}:#{60 - (minute1 - minute2)}"
+         hour3 = hour2 - hour1 - 1
+         minute3 = 60 - (minute1 - minute2)
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       elsif hour1 <= hour2 && minute1 < minute2 #17:30 17:50
-        "#{hour2 - hour1}:#{minute2 - minute1}"
+         hour3 = hour2 - hour1
+         minute3 = minute2 - minute1
+         formatted_time = "%02d:%02d" % [hour3, minute3]
+        "#{formatted_time}"
       end
     end
   end
