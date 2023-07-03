@@ -13,6 +13,16 @@ class Worker < ApplicationRecord
   enum employment_status: { tenure: 0, retirement: 1, leave_from_work: 2 }
   enum sex: { male: 0, female: 1}
 
+
+#　新規登録の時にエラーが出る用バリデーション
+validates :last_name, presence: true
+validates :first_name, presence: true
+validates :last_name_kana, presence: true
+validates :first_name_kana, presence: true
+validates :employee_number, presence: true
+
+
+
   def active_for_authentication?
     super && employment_status != 'retirement'
   end

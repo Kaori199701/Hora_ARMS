@@ -12,6 +12,13 @@
       <div class="worker_field">
         <%= form_with model: @worker, url: admins_workers_path do |f| %>
 
+
+      <ul class="error_message">
+        <% @worker.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+
       <div class="new_bottun">
         <%= f.submit "新規登録", class:"btn btn-sm btn-success" %>
       </div>
@@ -20,15 +27,15 @@
           <tbody>
             <tr>
               <th>氏名</th>
-              <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %>
+              <td><%= f.text_field :last_name %>　<%= f.text_field :first_name %></td>
             </tr>
             <tr>
               <th>カナ</th>
-              <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %>
+              <td><%= f.text_field :last_name_kana %>　<%= f.text_field :first_name_kana %></td>
             </tr>
             <tr>
               <th>社員番号</th>
-              <td><%= f.text_field :employee_number %>
+              <td><%= f.text_field :employee_number %></td>
             </tr>
             <tr>
               <th>所属</th>
@@ -62,7 +69,7 @@
               <td><%= f.email_field :email, :size=>"40" %></td>
             </tr>
             <tr>
-              <th>初期パスワード</th>
+              <th>初期パスワード ※6文字以上</th>
               <td><%= f.password_field :password, :size=>"40" %></td>
             </tr>
             <tr>

@@ -12,8 +12,10 @@ class Workers::WorkersController < ApplicationController
   def update
     @worker = Worker.find(params[:id])
     if @worker.update(worker_params)
+      flash[:notice] = "パスワードを更新しました。新しいパスワードで再度ログインしてください。"
       redirect_to new_worker_session_path
     else
+      flash[:notice] = "パスワードを更新できませんでした。もう一度入力してください。"
       render 'password'
     end
   end

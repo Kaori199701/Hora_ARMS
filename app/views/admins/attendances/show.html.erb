@@ -9,17 +9,22 @@
     <div class="col-lg-10">
       <h2><%= @worker.last_name %><%= @worker.first_name %>　タイムカード</h2>
 
+    <div class="succses_message">
       <%= flash[:notice] %>
+    </div>
 
+    <div class="month_select_box">
       <div class="month_select">
         <%= form_with(url: timecard_admins_attendances_path(@worker), method: :post) do |f| %>
         <div class="action">
-          <%= f.select :year, @years, {include_blank: true}, class: 'form-control' %>年
-          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
-          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+          <div class="select_tag_title"><%= "<月選択>" %></div>
+          <div class="select_tag"><%= f.select :year, @years, class: 'form-control' %> 年</div>
+          <div class="select_tag"><%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], class: 'form-control' %> 月</div>
+          <div class="select_tag"><%= f.submit '選択', class: "btn btn-sm btn-primary" %></div>
         </div>
         <% end %>
       </div>
+    </div>
 
       <div class="year_show">
       <%= @today.year %>年<%= @today.mon %>月
@@ -90,7 +95,7 @@
                   <td><%= calendar_date&.finish_breaktime&.strftime('%H:%M') %></td>
 
                 <!--コメント-->
-                  <td><% calendar_date&.comment %></td>
+                  <td><%= calendar_date&.comment %></td>
 
                 <!--編集ステータス-->
                   <td style="font-size:10px"><%= calendar_date&.edit_status_i18n %></td>

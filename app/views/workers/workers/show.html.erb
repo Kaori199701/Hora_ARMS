@@ -10,7 +10,7 @@
         <h2><%= current_worker.last_name %><%= current_worker.first_name %>　従業員情報</h2>
 
         <div class="worker_edit_link">
-          <%= link_to "パスワード初期化", password_workers_worker_path(@worker.id), class:"btn btn-sm btn-success" %>
+          <%= link_to "パスワード変更", password_workers_worker_path(@worker.id), class:"btn btn-sm btn-success" %>
         </div>
 
         <table class="order-table table mb-5">

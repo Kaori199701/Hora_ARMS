@@ -6,25 +6,27 @@
       <div class="login-box" >
       <h2>従業員ログイン</h2>
 
+    <div class="login_contents">
+      <div class="succses_message">
+        <%= flash[:notice] %>
+      </div>
+
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <table>
+        <table class="login_table">
           <tr>
-            <th width="10%"><%= f.label :社員番号 %></th>
+            <th width="8%"><%= f.label :社員番号 %></th>
             <td width="40%"><%= f.text_field :employee_number, autofocus: true %></td>
           </tr>
           <tr>
             <th><%= f.label :パスワード %></th>
             <td><%= f.password_field :password, autocomplete: "current-password" %></td>
           </tr>
-          <tr>
-            <th></th>
-            <td><%= f.submit "ログイン" %></td>
-          </tr>
         </table>
 
+        <div class="login_bottun"><%= f.submit "ログイン" %></div>
       <% end %>
+    </div>
 
-      <%= render "workers/shared/links" %>
       </div>
     </div>
 

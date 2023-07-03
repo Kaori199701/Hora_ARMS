@@ -13,9 +13,10 @@
         <div class="month_select">
           <%= form_with(url: timecard_edit_admins_attendances_path(@worker), method: :post) do |f| %>
           <div class="action">
-            <%= f.select :year, @years, {include_blank: true}, class: 'form-control' %>年
-            <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
-            <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+            <div class="select_tag_title"><%= "<月選択>" %></div>
+            <div class="select_tag"><%= f.select :year, @years, class: 'form-control' %> 年</div>
+            <div class="select_tag"><%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], class: 'form-control' %> 月</div>
+            <div class="select_tag"><%= f.submit '選択', class: "btn btn-sm btn-primary" %></div>
           </div>
           <% end %>
         </div>
@@ -79,7 +80,7 @@
 
               <!--事由-->
                 <td>
-                    <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-6"  %>
+                    <%= f.select "reason_status[#{i}]", Attendance.reason_statuses.map { |k, v| [I18n.t("enums.attendance.reason_status.#{k}"), v] }, {prompt: false, selected: (Attendance.reason_statuses[time_record&.reason_status] if time_record&.reason_status) }, class:"form-control form-control-sm col-10"  %>
                 </td>
 
               <!--出勤-->

@@ -11,7 +11,7 @@ ja:
         female: "女性"
     attendance:
       reason_status:
-        nothing: "　"
+        nothing: "　　"
         paid_holiday: "有休"
         absenteeism: "欠勤"
         business_trip: "出張"
@@ -22,3 +22,24 @@ ja:
         no_edit: "　"
         admin_edited: "管理者編集済"
         worker_edited: "編集済"
+  activerecord:
+    errors:
+      models:
+        worker:
+          attributes:
+            email:
+              blank: "メールアドレスを入力してください"
+            last_name:
+              blank: "姓を入力してください"
+            first_name:
+              blank: "名を入力してください"
+            last_name_kana:
+              blank: "姓カナを入力してください"
+            first_name_kana:
+              blank: "名カナを入力してください"
+            employee_number:
+              blank: "社員番号を入力してください"
+            password:
+              blank: "パスワードを入力してください"
+            password_confirmation:
+              confirmation: "パスワードとパスワード確認が一致しません"

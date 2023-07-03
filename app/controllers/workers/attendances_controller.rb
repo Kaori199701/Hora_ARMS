@@ -107,7 +107,7 @@ class Workers::AttendancesController < ApplicationController
       # 保存
       attendance.save!
     end
-    flash[:notice] = "タイムカード編集に成功しました"
+    flash[:notice] = "タイムカードを更新しました"
     redirect_to workers_attendance_path(params[:id])
   end
 

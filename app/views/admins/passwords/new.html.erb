@@ -1,16 +1,28 @@
-<h2>Forgot your password?</h2>
+<main>
+  <div class="container">
+    <div class="row">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "admins/shared/error_messages", resource: resource %>
+    <div class="col-lg-10">
+      <div class="login-box" >
 
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <h2>管理者パスワードをお忘れですか?</h2>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "admins/shared/error_messages", resource: resource %>
+
+        <div class="password_mail_box">
+          <%= f.label :メールアドレス %>    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="login_bottun">
+          <%= f.submit "パスワードのリセット手順を受け取る" %>
+        </div>
+      <% end %>
+
+    管理者のログインは<%= link_to "こちら", new_admin_session_path %>
+
+    </div>
+
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "パスワードのリセット手順を受け取る" %>
-  </div>
-<% end %>
-
-<%= render "admins/shared/links" %>
+</main>

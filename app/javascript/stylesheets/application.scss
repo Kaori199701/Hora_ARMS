@@ -30,6 +30,24 @@ footer{
   margin-left: 20%;
 }
 
+.login_contents{
+  margin: 30px 20px;
+}
+
+.login_table td {
+  padding-top: 10px; /* セルの上側の余白を追加する */
+  padding-bottom: 10px; /* セルの下側の余白を追加する */
+}
+
+.login_bottun{
+  margin: 20px 230px;
+  text-align: right;
+}
+
+.password_mail_box{
+  margin: 20px;
+}
+
 .engraving_field{
   display: flex;
   justify-content: space-evenly;
@@ -73,6 +91,14 @@ footer{
   margin: 30px 20px;
 }
 
+.error_message{
+  color: red;
+}
+
+.succses_message{
+  margin: 10px 15px;
+}
+
 .worker_show_field{
   margin: 0 30px 20px;
 }
@@ -99,8 +125,13 @@ footer{
   justify-content: flex-end;
 }
 
-.form-control{
+.select_tag_title{
   margin-right: 20px;
+}
+
+.select_tag{
+  margin-right: 10px;
+  font-size: large;
 }
 
 .search-box{

@@ -7,8 +7,13 @@ class Admins::WorkersController < ApplicationController
 
   def create
     @worker = Worker.new(worker_params)
-    @worker.save
-    redirect_to admins_homes_top_path
+    if @worker.save
+      flash[:notice] = "従業員情報を追加しました"
+      redirect_to admins_homes_top_path
+    else
+      # 保存失敗時の処理
+      render 'new'
+    end
   end
 
 
