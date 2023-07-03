@@ -8,8 +8,12 @@ class Admins::LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-    @location.save
-    redirect_to admins_locations_path
+    if @location.save
+      redirect_to admins_locations_path
+    else
+      flash[:notice] = "勤務地情報追加に失敗しました"
+      redirect_to admins_locations_path
+    end
   end
 
   def edit

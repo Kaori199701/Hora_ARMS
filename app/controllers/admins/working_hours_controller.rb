@@ -8,8 +8,12 @@ class Admins::WorkingHoursController < ApplicationController
 
   def create
     @working_hour = WorkingHour.new(working_hour_params)
-    @working_hour.save
-    redirect_to admins_working_hours_path
+    if @working_hour.save
+      redirect_to admins_working_hours_path
+    else
+      flash[:notice] = "勤務区分情報追加に失敗しました"
+      redirect_to admins_working_hours_path
+    end
   end
 
   def edit

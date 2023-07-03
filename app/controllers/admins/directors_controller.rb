@@ -8,8 +8,12 @@ class Admins::DirectorsController < ApplicationController
 
   def create
     @director = Director.new(director_params)
-    @director.save
-    redirect_to admins_directors_path
+    if @director.save
+      redirect_to admins_directors_path
+    else
+      flash[:notice] = "役職情報追加に失敗しました"
+      redirect_to admins_directors_path
+    end
   end
 
   def edit

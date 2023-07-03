@@ -8,8 +8,12 @@ class Admins::DepartmentsController < ApplicationController
 
   def create
     @department = Department.new(department_params)
-    @department.save
-    redirect_to admins_departments_path
+    if @department.save
+      redirect_to admins_departments_path
+    else
+      flash[:notice] = "所属情報追加に失敗しました"
+      redirect_to admins_departments_path
+    end
   end
 
   def edit
