@@ -8,17 +8,20 @@
 
     <div class="col-lg-10">
 
-<h2>Excel出力</h2>
+    <h2>Excel出力</h2>
 
+    <div class="month_select_box">
       <div class="month_select">
         <%= form_with(url: timecard_index_admins_excels_path, method: :post) do |f| %>
         <div class="action">
-          <%= f.select :year, @years, {include_blank: true}, class: 'form-control' %>年
-          <%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], {include_blank: true}, class: 'form-control' %>月
-          <%= f.submit '選択', class: "btn btn-sm btn-primary" %>
+          <div class="select_tag_title"><%= "<月選択>" %></div>
+          <div class="select_tag"><%= f.select :year, @years, class: 'form-control' %> 年</div>
+          <div class="select_tag"><%= f.select :month, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], class: 'form-control' %> 月</div>
+          <div class="select_tag"><%= f.submit '選択', class: "btn btn-sm btn-primary" %></div>
         </div>
         <% end %>
       </div>
+    </div>
 
       <div class="data_output_box">
         <h5><出力対象月></h5>
