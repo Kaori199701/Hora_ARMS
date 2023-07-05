@@ -9,6 +9,10 @@
     <div class="col-lg-10">
       <h2>勤務地編集</h2>
 
+      <div class="error_message">
+        <%= flash[:notice] %>
+      </div>
+
       <div class="element_edit_field">
         <%= form_with model: @location, url: admins_location_path(@location), method: :patch do |f| %>
           <table>

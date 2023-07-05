@@ -23,10 +23,10 @@ class Admins::DirectorsController < ApplicationController
   def update
     @director = Director.find(params[:id])
     if @director.update(director_params)
-       flash[:notice] = "You have created director successfully."
        redirect_to admins_directors_path
     else
-      render 'directors/edit'
+      flash[:notice] = "役職情報の保存に失敗しました"
+      render 'edit'
     end
   end
 

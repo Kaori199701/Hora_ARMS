@@ -9,6 +9,10 @@
     <div class="col-lg-10">
       <h2><%= @worker.last_name %> <%= @worker.first_name %>　従業員情報詳細</h2>
 
+      <div  class="succses_message">
+        <%= flash[:notice] %>
+      </div>
+
       <div class="worker_show_field">
         <div class="worker_edit_link">
           <%= link_to "編集する", edit_admins_worker_path(@worker.id), class:"btn btn-sm btn-success" %>

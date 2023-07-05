@@ -23,10 +23,10 @@ class Admins::LocationsController < ApplicationController
   def update
     @location = Location.find(params[:id])
     if @location.update(location_params)
-       flash[:notice] = "You have created location successfully."
        redirect_to admins_locations_path
     else
-      render 'locations/edit'
+      flash[:notice] = "勤務地情報の保存に失敗しました"
+      render 'edit'
     end
   end
 

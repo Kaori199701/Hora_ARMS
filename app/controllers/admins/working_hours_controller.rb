@@ -23,10 +23,10 @@ class Admins::WorkingHoursController < ApplicationController
   def update
     @working_hour = WorkingHour.find(params[:id])
     if @working_hour.update(working_hour_params)
-       flash[:notice] = "You have created working_hour successfully."
        redirect_to admins_working_hours_path
     else
-      render 'working_hours/edit'
+      flash[:notice] = "勤務区分情報の保存に失敗しました"
+      render 'edit'
     end
   end
 

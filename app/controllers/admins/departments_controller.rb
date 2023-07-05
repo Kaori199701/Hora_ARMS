@@ -23,10 +23,10 @@ class Admins::DepartmentsController < ApplicationController
   def update
     @department = Department.find(params[:id])
     if @department.update(department_params)
-       flash[:notice] = "You have created department successfully."
        redirect_to admins_departments_path
     else
-      render 'departments/edit'
+      flash[:notice] = "所属情報の保存に失敗しました"
+      render 'edit'
     end
   end
 
