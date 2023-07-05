@@ -26,7 +26,7 @@ module Hora
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.autoload_paths += Dir["#{config.root}/lib"]
-    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
+    config.eager_load_paths += Dir["#{config.root}/lib/pdf"]
 
     config.paths.add 'app/assets/pdfs', eager_load: true
     # config.eager_load_paths += %W(#{Rails.root}/lib)
