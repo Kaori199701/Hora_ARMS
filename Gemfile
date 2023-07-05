@@ -62,6 +62,7 @@ gem 'rubyXL'
 
 gem 'prawn'
 gem 'prawn-table'
+gem 'matrix'
 
 gem 'simple_calendar', '~> 2.4'
 
