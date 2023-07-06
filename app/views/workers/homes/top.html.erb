@@ -27,9 +27,10 @@
 
             //日付
                var nowYear = nowTime.getFullYear();
-               var nowMonth = set2fig( nowTime.getMonth() );
+               var nowMonth = set2fig( nowTime.getMonth()+1 );
                var nowDay = set2fig( nowTime.getDate() );
                var day = nowYear + "年" + nowMonth + "月" + nowDay +"日";
+
                document.getElementById("RealtimeClockArea1").innerHTML = day;
             //時間
                var nowHour = set2fig( nowTime.getHours() );
