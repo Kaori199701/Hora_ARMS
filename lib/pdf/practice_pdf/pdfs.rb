@@ -47,8 +47,7 @@ module PracticePdf
                  ApplicationController.helpers.overtime(@worker.working_hour.finish_working_hour, attendance.finish_worktime)]
 
           else
-
-          rows[i] = [Time.new(@today.year, @today.mon, i)&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],'', '','','','','','','','']
+              rows[i] = [Time.new(@today.year, @today.mon, i)&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],"#{@worker.working_hour.start_working_hour&.strftime('%H:%M')}",'','','','','','','','']
           end
 
       i += 1
