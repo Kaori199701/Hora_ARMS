@@ -8,12 +8,29 @@ wb = xlsx_package.workbook
      i = 1
       @current_month.count.times do
 
+        start_working_hour = ""
+        if @current_month[i-1][:weekday_jp] == "土"
+          start_working_hour = "公休"
+        elsif @current_month[i-1][:weekday_jp] == "日"
+          start_working_hour = "日曜"
+        else
+          start_working_hour = "#{worker.working_hour.start_working_hour&.strftime('%H:%M')}"
+        end
+
+        finish_working_hour = ""
+        if @current_month[i-1][:weekday_jp] == "土"
+          finish_working_hour = "公休"
+        elsif @current_month[i-1][:weekday_jp] == "日"
+          finish_working_hour = "日曜"
+        else
+          finish_working_hour = "#{worker.working_hour.finish_working_hour&.strftime('%H:%M')}"
+        end
 
     if worker.attendances.exists?(stamp_date: Time.new(@today.year, @today.mon, i))
       attendance = worker.attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day)
-      sheet.add_row [attendance.stamp_date, @current_month[i-1][:weekday_jp], worker.working_hour.start_working_hour&.strftime('%H:%M'),worker.working_hour.finish_working_hour&.strftime('%H:%M'), attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M'),behind_time(worker.working_hour.start_working_hour, attendance.start_worktime),leave_early(worker.working_hour.finish_working_hour, attendance.finish_worktime),overtime(worker.working_hour.finish_working_hour, attendance.finish_worktime)]
+      sheet.add_row [attendance.stamp_date, @current_month[i-1][:weekday_jp], start_working_hour, finish_working_hour, attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M'), attendance.finish_worktime&.strftime('%H:%M'), attendance.start_breaktime&.strftime('%H:%M'), attendance.finish_breaktime&.strftime('%H:%M'),behind_time(worker.working_hour.start_working_hour, attendance.start_worktime),leave_early(worker.working_hour.finish_working_hour, attendance.finish_worktime),overtime(worker.working_hour.finish_working_hour, attendance.finish_worktime)]
     else
-      sheet.add_row [Time.new(@today.year, @today.mon, i), @current_month[i-1][:weekday_jp], worker.working_hour.start_working_hour&.strftime('%H:%M'), worker.working_hour.finish_working_hour&.strftime('%H:%M'), "", "", "", "", "", "","",""]
+      sheet.add_row [Time.new(@today.year, @today.mon, i), @current_month[i-1][:weekday_jp], start_working_hour, finish_working_hour, "", "", "", "", "", "","",""]
     end
 
      i += 1

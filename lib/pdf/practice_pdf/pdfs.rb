@@ -34,12 +34,21 @@ module PracticePdf
 
       i = 1
       @current_month.count.times do
+        working_hour = ""
+        if @current_month[i-1][:weekday_jp] == "土"
+          working_hour = "公休"
+        elsif @current_month[i-1][:weekday_jp] == "日"
+          working_hour = "日曜"
+        else
+          working_hour = "#{@worker.working_hour.start_working_hour&.strftime('%H:%M')}"
+        end
+
 
           if @worker.attendances.exists?(stamp_date: Time.new(@today.year, @today.mon, i))
             attendance = @worker.attendances.find_by(stamp_date: Time.new(@today.year, @today.mon, i).beginning_of_day..Time.new(@today.year, @today.mon, i).end_of_day)
       rows[i] = [attendance.stamp_date&.strftime('%m/%d').to_s,
                  @current_month[i-1][:weekday_jp],
-                 "#{@worker.working_hour.start_working_hour&.strftime('%H:%M')}",
+                 working_hour,
                  attendance.reason_status_i18n, attendance.start_worktime&.strftime('%H:%M').to_s,attendance.finish_worktime&.strftime('%H:%M').to_s,
                  attendance.start_breaktime&.strftime('%H:%M').to_s,attendance.finish_breaktime&.strftime('%H:%M').to_s,
                  ApplicationController.helpers.behind_time(@worker.working_hour.start_working_hour, attendance.start_worktime),
@@ -47,7 +56,7 @@ module PracticePdf
                  ApplicationController.helpers.overtime(@worker.working_hour.finish_working_hour, attendance.finish_worktime)]
 
           else
-              rows[i] = [Time.new(@today.year, @today.mon, i)&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],"#{@worker.working_hour.start_working_hour&.strftime('%H:%M')}",'','','','','','','','']
+              rows[i] = [Time.new(@today.year, @today.mon, i)&.strftime('%m/%d').to_s, @current_month[i-1][:weekday_jp],working_hour,'','','','','','','','']
           end
 
       i += 1
